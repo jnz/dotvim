@@ -12,3 +12,8 @@ Switch to the `~/.vim` directory, and fetch submodules:
     cd ~/.vim
     git submodule init
     git submodule update
+
+Update all submodules
+
+    git submodule foreach git checkout master
+    git submodule foreach git pull
