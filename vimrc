@@ -75,6 +75,7 @@ nmap <silent> <Leader>e :BufExplorer<CR>
 nmap <silent> <Leader>d :NERDTree<CR>
 " NERD Commenter
 let NERDMenuMode = 0
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 " Add a d shortcut for inside/around square brackets,
