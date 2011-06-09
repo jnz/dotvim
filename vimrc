@@ -41,7 +41,11 @@ nnoremap Y y$
 nunmap <C-A>
 " Ctrl-Backspace to delete the last word.
 imap <C-BS> <C-W>
-set clipboard=unnamed
+if has('unnamedplus')
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
 " Ctrl-J und Ctrl-space for omnicomplete (intellisense-like)
 imap <C-j> <C-X><C-O>
 imap <C-space> <C-X><C-O>
@@ -361,7 +365,7 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>
 
 " Remove search highlighting with <enter>
-nnoremap <CR> :noh<CR><CR>
+nnoremap <CR> :noh<CR>
 
 " Abbreviations
 iabbrev teh the
