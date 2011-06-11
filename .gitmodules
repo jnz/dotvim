@@ -54,3 +54,9 @@
 	path = bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
     ignore = dirty
+[submodule "bundle/fuzzy"]
+	path = bundle/fuzzy
+	url = https://github.com/vim-scripts/FuzzyFinder.git
+[submodule "bundle/l9"]
+	path = bundle/l9
+	url = https://github.com/vim-scripts/L9.git

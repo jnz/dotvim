@@ -53,8 +53,6 @@ imap <C-space> <C-X><C-O>
 set completeopt=menu,menuone,longest
 " Limit the number of items to 15 in the completion popup menu
 set pumheight=15
-" F12 goto tag (Visual Studio like)
-map <F12> g]
 " Set leader to ,
 let mapleader = ","
 let g:mapleader = ","
@@ -65,7 +63,7 @@ nmap <silent> <leader>j :LustyJuggler<cr>
 let g:LustyJugglerSuppressRubyWarning=1
 " Lusty Explorer keys
 let g:LustyExplorerSuppressRubyWarning = 1
-nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
+" nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
 " nmap <silent> <Leader>m :LustyBufferExplorer<CR>
 nmap <silent> <Leader>g :LustyBufferGrep<CR>
 nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
@@ -75,6 +73,11 @@ nmap <silent> <Leader>e :BufExplorer<CR>
 nmap <silent> <Leader>d :NERDTree<CR>
 " NERD Commenter
 let NERDMenuMode = 0
+" F12 goto tag (Visual Studio like)
+map <F12> g]
+nmap <silent> <Leader>a g]
+" Fuzzy Tag Finder
+nmap <silent> <Leader>f :FufBufferTag<CR>
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -158,6 +161,8 @@ if has('gui_running')
   " set guioptions+=b
   " set guioptions+=h
   set lazyredraw
+else
+  colorscheme zenburn
 endif
 
 " Common vim stuff
