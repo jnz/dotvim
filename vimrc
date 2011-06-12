@@ -303,6 +303,9 @@ autocmd FileType python   map <F11> :w<CR>:!python % <CR>
 autocmd BufRead *.py      set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py      set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
+" Python calculator to current buffer. e. g.: :Calc acos(-1.0)
+command! -nargs=+ Calc :r! python -c "from math import *; print <args>"
+
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make set noexpandtab
 
