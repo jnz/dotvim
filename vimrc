@@ -164,7 +164,6 @@ set copyindent
 set autoindent
 set tabstop=4
 set shiftwidth=4
-set expandtab
 set scrolloff=5
 set ffs=unix,dos
 set smarttab
@@ -216,6 +215,12 @@ let g:SuperTabDefaultCompletionType = "context"
 " clang_complete options
 let g:clang_complete_auto = 0
 let g:clang_complete_copen = 1
+let g:clang_snippets_engine = "snipmate"
+
+if has('gui_macvim')
+	let g:clang_use_library = 1
+	let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
+endif
 
 if has('win32') " Path to clang.exe on Windows
     " The quotes at the beggining of clang_exec and at the end of clang_user_options are important, don't remove them
@@ -369,4 +374,5 @@ iabbrev dont don't
 
 " text width = 80 characters
 set tw=80
+set expandtab
 
