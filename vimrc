@@ -41,7 +41,11 @@ nnoremap Y y$
 nunmap <C-A>
 " Ctrl-Backspace to delete the last word.
 imap <C-BS> <C-W>
-set clipboard=unnamed
+if has('unnamedplus')
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
 " Ctrl-J und Ctrl-space for omnicomplete (intellisense-like)
 imap <C-j> <C-X><C-O>
 imap <C-space> <C-X><C-O>
@@ -49,8 +53,6 @@ imap <C-space> <C-X><C-O>
 set completeopt=menu,menuone,longest
 " Limit the number of items to 15 in the completion popup menu
 set pumheight=15
-" F12 goto tag (Visual Studio like)
-map <F12> g]
 " Set leader to ,
 let mapleader = ","
 let g:mapleader = ","
@@ -61,7 +63,7 @@ nmap <silent> <leader>j :LustyJuggler<cr>
 let g:LustyJugglerSuppressRubyWarning=1
 " Lusty Explorer keys
 let g:LustyExplorerSuppressRubyWarning = 1
-nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
+" nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
 " nmap <silent> <Leader>m :LustyBufferExplorer<CR>
 nmap <silent> <Leader>g :LustyBufferGrep<CR>
 nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
@@ -71,6 +73,14 @@ nmap <silent> <Leader>e :BufExplorer<CR>
 nmap <silent> <Leader>d :NERDTree<CR>
 " NERD Commenter
 let NERDMenuMode = 0
+" F12 goto tag (Visual Studio like)
+map <F12> g]
+nmap <silent> <Leader>a g]
+" Fuzzy Tag Finder
+nmap <silent> <Leader>f :FufBufferTag<CR>
+" change to current file's path
+map <leader>p :cd %:p:h<CR>
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 " Add a d shortcut for inside/around square brackets,
@@ -153,6 +163,8 @@ if has('gui_running')
   " set guioptions+=b
   " set guioptions+=h
   set lazyredraw
+else
+  colorscheme zenburn
 endif
 
 " Common vim stuff
@@ -296,6 +308,9 @@ autocmd FileType python   map <F11> :w<CR>:!python % <CR>
 autocmd BufRead *.py      set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 autocmd BufRead *.py      set errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 
+" Python calculator to current buffer. e. g.: :Calc acos(-1.0)
+command! -nargs=+ Calc :r! python -c "from math import *; print <args>"
+
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make set noexpandtab
 
@@ -366,7 +381,7 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>
 
 " Remove search highlighting with <enter>
-nnoremap <CR> :noh<CR><CR>
+nnoremap <CR> :noh<CR>
 
 " Abbreviations
 iabbrev teh the

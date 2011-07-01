@@ -17,3 +17,10 @@ Update all submodules
 
     git submodule foreach git checkout master
     git submodule foreach git pull
+
+Add a new submodule
+
+    git submodule add URL bundle/NAME
+    git submodule init
+    git submodule update
+
