@@ -15,6 +15,7 @@
 " NERD Commenter (Use <leader>c<space>, or <leader>cs to toggle commenting)
 " surround plugin
 " repeat plugin (to use the . key with the surround plugin)
+" delimitMate
 
 " Don't be vi-compatible (actually superfluous in a vimrc)
 set nocp
@@ -123,7 +124,8 @@ nnoremap <silent> <leader>w :call <SID>StripTrailingWhitespaces()<CR>
 let loaded_matchparen = 1
 " showmatch is slow too sometimes (and can be annoying)
 set noshowmatch
-set synmaxcol=512 " maximum line length for syntax coloring
+set synmaxcol=255 " maximum line length for syntax coloring
+" set ttyscroll=1
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -384,4 +386,8 @@ iabbrev dont don't
 
 " text width = 80 characters
 set tw=80
+
+" Use CTRL-Q to do what CTRL-V used to do
+nunmap <C-Q>
+noremap <C-Q> <C-V>
 
