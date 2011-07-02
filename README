@@ -29,4 +29,5 @@ Remove a submodule
     edit .gitmodules and remove the module
     edit .git/config and remove the module
     git rm --cached bundle/submodulepath
+    rm -rf bundle/submodulepath
 
