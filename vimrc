@@ -228,12 +228,10 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:clang_complete_auto = 0
 let g:clang_complete_copen = 1
 let g:clang_snippets_engine = "snipmate"
-
 if has('gui_macvim')
 	let g:clang_use_library = 1
 	let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
 endif
-
 if has('win32') " Path to clang.exe on Windows
     " The quotes at the beggining of clang_exec and at the end of clang_user_options are important, don't remove them
     " They basically trick vim into thinking clang executed fine, because the msvc build autocompletes correctly but fails
@@ -241,6 +239,8 @@ if has('win32') " Path to clang.exe on Windows
     " Don't forget to put paths with spaces in quotes other wise vim won't be able to execute the command
     let g:clang_exec = '"C:\jan\cl\llvm\build\bin\clang.exe'
     let g:clang_user_options = '2> NUL || exit 0"'
+	let g:clang_use_library = 1
+	let g:clang_library_path = 'C:\jan\cl\llvm\build\bin'
 endif
 
 " Autochange directory (can be annoying)
