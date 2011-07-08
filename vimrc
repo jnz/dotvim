@@ -80,7 +80,7 @@ nmap <silent> <Leader>a g]
 " Fuzzy Tag Finder
 nmap <silent> <Leader>f :FufBufferTag<CR>
 " change to current file's path
-map <leader>p :cd %:p:h<CR>
+nnoremap <Leader>cd :lcd %:p:h<CR> :pwd<CR>
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
