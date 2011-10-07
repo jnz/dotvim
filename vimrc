@@ -235,6 +235,7 @@ endif
 
 " ctrlp settings
 let g:ctrlp_map = '<leader>p'
+nmap <silent> <Leader>j ::CtrlPCurFile<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 " NERDTree to <leader>d
@@ -243,7 +244,7 @@ nmap <silent> <Leader>d :NERDTree<CR>
 let NERDMenuMode = 0
 " Fuzzy Tag Finder
 nmap <silent> <Leader>f :FufDirWithCurrentBufferDir<CR>
-nmap <silent> <Leader>r :FufFile<CR>
+nmap <silent> <Leader>r :FufFileWithCurrentBufferDir<CR>
 nmap <silent> <Leader>g :FufTag<CR>
 " Tagbar as taglist replacement
 let g:tagbar_left = 1
