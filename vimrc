@@ -14,6 +14,8 @@ call pathogen#helptags()
 " MY VIM SETTINGS
 " ---------------
 
+" >10 years of working with Windows...
+behave mswin
 " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
 " Clipboard settings, unnamedplus is useful for X-Windows
@@ -231,15 +233,18 @@ endif
 " PLUGIN SETTINGS
 " ---------------
 
+" ctrlp settings
+let g:ctrlp_map = '<leader>p'
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 " NERDTree to <leader>d
 nmap <silent> <Leader>d :NERDTree<CR>
-" NERD Commenter
+" NERD Commenter, turns the menu off
 let NERDMenuMode = 0
 " Fuzzy Tag Finder
 nmap <silent> <Leader>f :FufDirWithCurrentBufferDir<CR>
 nmap <silent> <Leader>r :FufFile<CR>
+nmap <silent> <Leader>g :FufTag<CR>
 " Tagbar as taglist replacement
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
