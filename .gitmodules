@@ -14,10 +14,6 @@
 	path = bundle/command-t
 	url = git://git.wincent.com/command-t.git
     ignore = dirty
-[submodule "bundle/lusty"]
-	path = bundle/lusty
-	url = https://github.com/sjbach/lusty.git
-    ignore = dirty
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
