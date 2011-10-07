@@ -151,7 +151,7 @@ vnoremap <S-Space> <C-u>
 nnoremap <CR> :noh<CR>
 " F12 goto tag (Visual Studio like)
 map <F12> g]
-nmap <silent> <Leader>a g]
+" nmap <silent> <Leader>a g]  " currently using fuzzy finder for this
 
 " Strips the trailing whitespace from a file
 function! <SID>StripTrailingWhitespaces()
@@ -234,8 +234,7 @@ endif
 " ---------------
 
 " ctrlp settings
-let g:ctrlp_map = '<leader>p'
-nmap <silent> <Leader>j :CtrlPRoot<CR>
+nmap <silent> <Leader>p :CtrlPRoot<CR>
 nmap <silent> <Leader>r :CtrlPCurFile<CR>
 let g:ctrlp_working_path_mode = 2
 " Buffer Explorer to <leader>e
@@ -245,9 +244,11 @@ nmap <silent> <Leader>d :NERDTree<CR>
 " NERD Commenter, turns the menu off
 let NERDMenuMode = 0
 " Fuzzy Tag Finder
-nmap <silent> <Leader>f :FufDirWithCurrentBufferDir<CR>
-" nmap <silent> <Leader>r :FufFileWithCurrentBufferDir<CR>
-nmap <silent> <Leader>g :FufTag<CR>
+nmap <silent> <Leader>f :FufDir<CR>
+nmap <silent> <Leader>g :FufFile<CR>
+nmap <silent> <Leader>h :FufBufferTag<CR>
+nmap <silent> <Leader>j :FufTag<CR>
+nmap <silent> <Leader>a :FufTagWithCursorWord<CR>
 " Tagbar as taglist replacement
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
