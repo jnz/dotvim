@@ -238,7 +238,7 @@ nmap <silent> <Leader>d :NERDTree<CR>
 " NERD Commenter
 let NERDMenuMode = 0
 " Fuzzy Tag Finder
-nmap <silent> <Leader>f :FufDir<CR>
+nmap <silent> <Leader>f :FufDirWithCurrentBufferDir<CR>
 nmap <silent> <Leader>r :FufFile<CR>
 " Tagbar as taglist replacement
 let g:tagbar_left = 1
