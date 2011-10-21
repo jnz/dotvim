@@ -61,6 +61,14 @@ filetype indent on
 set history=1000
 set undolevels=1000
 set wildignore+=*.swp,*.bak,*.pyc,*.class,*.o,.git,*.aux,*.asv
+if has('unix')
+    " unix-like platform
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+else
+    " probably Windows
+    set wildignore+=.git\*,.hg\*,.svn\*
+endif
+
 " Wrapping
 set nowrap
 " text width = 80 characters
@@ -79,7 +87,9 @@ endif
 " Abbreviations
 iabbrev teh the
 iabbrev dont don't
-
+" Fast to type than Grüße
+iabbrev gruse Grüße
+iabbrev grusen Grüßen
 
 " MY KEYMAPS
 " ----------
@@ -93,9 +103,10 @@ nnoremap Y y$
 vnoremap <C-X> "+x
 " CTRL-C are Copy
 vnoremap <C-C> "+y
-" CTRL-V and SHIFT-Insert are Paste
+" CTRL-V for paste
 map <C-V> "+gP
 cmap <C-V> <C-R>+
+inoremap <C-V> <C-R>+
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q> <C-V>
 " Use CTRL-S for saving, also in Insert mode
@@ -211,11 +222,14 @@ if has('gui_running')
   if has('gui_macvim')
       " DejaVu looks better than Consolas on Mac OS X
       set guifont=DejaVu\ Sans\ Mono:h15
-      set fuopt+=maxhorz   " grow to maximum horizontal width on entering fullscreen mode
+      " special MacVim option:
+      " grow to maximum horizontal width on entering fullscreen mode
+      set fuopt+=maxhorz
   elseif has('gui_gtk2')
-    set guifont=DejaVu\ Sans\ Mono\ 10
+      " for linux
+      set guifont=DejaVu\ Sans\ Mono\ 10
   else
-      " Consolas Font
+      " Consolas Font for Windows
       " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
       set guifont=Consolas:h11
   endif
@@ -234,9 +248,11 @@ endif
 " ---------------
 
 " ctrlp settings
+" Basically the FuzzyFinder coverage mode is comparable
+" to ctrlp, but ctrlp seems to be faster for me (non scientific statement)
 nmap <silent> <Leader>p :CtrlPRoot<CR>
 nmap <silent> <Leader>r :CtrlPCurFile<CR>
-let g:ctrlp_working_path_mode = 2
+let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 " NERDTree to <leader>d
@@ -276,21 +292,6 @@ if has('win32') " Path to clang.exe on Windows
     let g:clang_use_library = 1
     let g:clang_library_path = 'C:\jan\cl\llvm\build\bin'
 endif
-
-" Command-T plugin settings
-" let g:CommandTMaxFiles=2000
-" let g:CommandTMaxDepth=5
-" let g:CommandTMaxHeight=12
-let g:CommandTCursorLeftMap='<Left>'  " default is C-h, which is required for split windows
-let g:CommandTCursorRightMap='<Right>'
-nmap <silent> <Leader>t :CommandT<CR>
-nmap <silent> <Leader>m :CommandTBuffer<CR>
-nmap <silent> <Leader>y :CommandTFlush<CR>
-" Important command-T commands:
-" :CommandTFlush (rescan)
-" Cancel C-c
-" Clear input C-u
-" Select C-j and C-k
 
 
 " FILE SPECIFIC SETTINGS
