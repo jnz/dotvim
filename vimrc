@@ -111,7 +111,7 @@ imap <C-BS> <C-W>
 let mapleader = ","
 let g:mapleader = ","
 " change to current file's path
-map <leader>cd :cd %:p:h<CR>
+map <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Don't use Ex mode, use Q for formatting
 map Q gq
 " Add a d shortcut for inside/around square brackets,
