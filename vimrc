@@ -47,10 +47,12 @@ set scrolloff=5
 set ffs=unix,dos
 set smarttab
 set number
+set showbreak=>
+set autoread " if the file has changed outside, but was not modified in vim: reload
 set hlsearch
 set incsearch
 set wildmenu
-set gdefault    " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
+set gdefault " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast
 set ruler
 set expandtab
@@ -60,7 +62,12 @@ filetype plugin on
 filetype indent on
 set history=1000
 set undolevels=1000
-set wildignore+=*.swp,*.bak,*.pyc,*.class,*.o,.git,*.aux,*.asv
+set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
+set wildignore+=*.aux,*.out,*.toc " latex
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
+set wildignore+=*.DS_Store " OSX bullshit
+set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
+
 if has('unix')
     " unix-like platform
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
@@ -90,6 +97,8 @@ iabbrev dont don't
 " Fast to type than Grüße
 iabbrev gruse Grüße
 iabbrev grusen Grüßen
+iabbrev lets let's
+iabbrev mfg Mit freundlichen Grüßen
 
 " MY KEYMAPS
 " ----------
@@ -125,12 +134,21 @@ let g:mapleader = ","
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Don't use Ex mode, use Q for formatting
 map Q gq
+" Easier to type:
+noremap H ^
+" Fuck you, help key
+noremap  <F1> <nop>
+inoremap <F1> <nop>
+" Fuck you too, manual key.
+nnoremap K <nop>
 " Add a d shortcut for inside/around square brackets,
 " like b for parens and B for curly braces:
 onoremap id i[
 onoremap ad a[
 vnoremap id i[
 vnoremap ad a[
+" pastetoggle
+set pastetoggle=<F8>
 " Sane navigation between wrapped lines
 nmap j gj
 vmap j gj
