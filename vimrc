@@ -315,8 +315,8 @@ set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 " ctrlp settings
 " Basically the FuzzyFinder coverage mode is comparable
 " to ctrlp, but ctrlp seems to be faster for me (non scientific statement)
-nmap <silent> <Leader>p :CtrlPRoot<CR>  " project mode
-nmap <silent> <Leader>r :CtrlPCurWD<CR> " based on current working directory
+nmap <silent> <Leader>p :CtrlPRoot<CR>
+nmap <silent> <Leader>r :CtrlPCurWD<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
 " Buffer Explorer to <leader>e
