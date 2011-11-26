@@ -29,7 +29,7 @@ set completeopt=menu,menuone,longest
 " Limit the number of items to 15 in the completion popup menu
 set pumheight=15
 " Select empty areas with visual block mode
-set virtualedit=block
+set virtualedit+=block
 " Taglist options
 set tags=./tags,tags,./../tags,./../../tags
 " match paren is slow (e. g. in large latex code)
@@ -44,6 +44,7 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 set scrolloff=5
+set sidescrolloff=10
 set ffs=unix,dos
 set smarttab
 set number
@@ -216,9 +217,6 @@ set novisualbell
 set t_vb=
 " set foldmethod=syntax
 set nofoldenable
-" More information in status line
-set statusline=%F%m%r%h%w\ format=%{&ff}\ enc=%{&fenc}\ type=%Y\ bom=%{&bomb}\ hex=\%02.2B\ col=%v
-set laststatus=2
 " Detect whitespaces and tabs at the end of a line
 highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
@@ -261,6 +259,43 @@ if has('gui_running')
   set lazyredraw
 endif
 
+" Status line
+" More information in status line
+"set statusline=%F%m%r%h%w\ format=%{&ff}\ enc=%{&fenc}\ type=%Y\ bom=%{&bomb}\ hex=\%02.2B\ col=%v
+set laststatus=2     " Always display a statusline
+
+"augroup ft_statuslinecolor
+    "au!
+
+    "au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
+    "au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
+"augroup END
+
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+
+set statusline+=\    " Space.
+
+set statusline+=%#redbar#                " Highlight the following as a warning.
+set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+set statusline+=%*                           " Reset highlighting.
+
+set statusline+=%=   " Right align.
+
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+
+" Line and column position and counts.
+set statusline+=\ (line\ %l\/%L,\ col\ %03c)
+" End Status line
 
 " PLUGIN SETTINGS
 " ---------------
@@ -273,8 +308,13 @@ nmap <silent> <Leader>r :CtrlPCurFile<CR>
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
+let g:bufExplorerDefaultHelp=0
 " NERDTree to <leader>d
 nmap <silent> <Leader>d :NERDTree<CR>
+au Filetype nerdtree setlocal nolist
+let NERDTreeHighlightCursorline=1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 " NERD Commenter, turns the menu off
 let NERDMenuMode = 0
 " Fuzzy Tag Finder
@@ -286,11 +326,15 @@ nmap <silent> <Leader>a :FufTagWithCursorWord<CR>
 " Tagbar as taglist replacement
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " SuperTab options
 " Tab in insert mode activates completion.
-let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+let g:SuperTabLongestHighlight = 1
 
 " clang_complete options
 let g:clang_complete_auto = 0
@@ -310,6 +354,11 @@ if has('win32') " Path to clang.exe on Windows
     let g:clang_use_library = 1
     let g:clang_library_path = 'C:\jan\cl\llvm\build\bin'
 endif
+
+" Syntastic options
+let g:syntastic_enable_signs = 1
+let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 
 
 " FILE SPECIFIC SETTINGS
