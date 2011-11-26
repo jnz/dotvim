@@ -15,7 +15,19 @@ call pathogen#helptags()
 " ---------------
 
 " >10 years of working with Windows...
-behave mswin
+behave mswin " this should change the following variables:
+" Just to be sure:
+" behave mswin start
+set mousemodel="popup"
+set selectmode="mouse,key"
+set keymodel="startsel,stopsel"
+" behave mswin stop
+set guioptions+=egmrL
+" Disable autocopy on select
+set guioptions-=a
+set guioptions-=A
+set guioptions-=aA
+
 " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
 " Clipboard settings, unnamedplus is useful for X-Windows
@@ -303,8 +315,9 @@ set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 " ctrlp settings
 " Basically the FuzzyFinder coverage mode is comparable
 " to ctrlp, but ctrlp seems to be faster for me (non scientific statement)
-nmap <silent> <Leader>p :CtrlPRoot<CR>
-nmap <silent> <Leader>r :CtrlPCurFile<CR>
+nmap <silent> <Leader>p :CtrlPRoot<CR>  " project mode
+nmap <silent> <Leader>r :CtrlPCurWD<CR> " based on current working directory
+nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
