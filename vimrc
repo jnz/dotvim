@@ -84,9 +84,15 @@ set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 if has('unix')
     " unix-like platform
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+
+    " edit vimrc on unixoidal systems
+    nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
 else
     " probably Windows
     set wildignore+=.git\*,.hg\*,.svn\*
+
+    " edit vimrc on windows
+    nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
 endif
 
 " Wrapping
@@ -357,15 +363,18 @@ if has('gui_macvim')
     let g:clang_use_library = 1
     let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
 endif
-if has('win32') " Path to clang.exe on Windows
+if has('win32')
+    " For now deactivate the clang library on windows
+    let g:clang_use_library = 0
+
     " The quotes at the beggining of clang_exec and at the end of clang_user_options are important, don't remove them
     " They basically trick vim into thinking clang executed fine, because the msvc build autocompletes correctly but fails
     " to compile.
     " Don't forget to put paths with spaces in quotes other wise vim won't be able to execute the command
-    let g:clang_exec = '"C:\jan\cl\llvm\build\bin\clang.exe'
-    let g:clang_user_options = '2> NUL || exit 0"'
-    let g:clang_use_library = 1
-    let g:clang_library_path = 'C:\jan\cl\llvm\build\bin'
+    "let g:clang_exec = '"C:\jan\cl\llvm\build\bin\clang.exe'
+    "let g:clang_user_options = '2> NUL || exit 0"'
+    "let g:clang_use_library = 1
+    "let g:clang_library_path = 'C:\jan\cl\llvm\build\bin'
 endif
 
 " Syntastic options
