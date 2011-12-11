@@ -296,9 +296,9 @@ set statusline+=%w   " Preview window flag.
 
 set statusline+=\    " Space.
 
-set statusline+=%#redbar#                " Highlight the following as a warning.
-set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-set statusline+=%*                           " Reset highlighting.
+" set statusline+=%#redbar#                    " Highlight the following as a warning.
+" set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+" set statusline+=%*                           " Reset highlighting.
 
 set statusline+=%=   " Right align.
 
@@ -378,6 +378,10 @@ if has('win32')
 endif
 
 " Syntastic options
+" Disable syntastic on Windows at the moment
+if has('win32')
+    let g:loaded_syntastic_plugin = 1
+endif
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
