@@ -235,6 +235,8 @@ set novisualbell
 set t_vb=
 " set foldmethod=syntax
 set nofoldenable
+" 256 Terminal colors
+set t_Co=256
 " Detect whitespaces and tabs at the end of a line
 highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
