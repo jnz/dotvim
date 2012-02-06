@@ -326,14 +326,18 @@ set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 nmap <silent> <Leader>p :CtrlPRoot<CR>
 nmap <silent> <Leader>r :CtrlPCurWD<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
+nmap <silent> <Leader>n :CtrlPBuffer<CR>
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
+let g:ctrlp_mruf_max = 50
+let g:ctrlp_max_files = 1000
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
 " NERDTree to <leader>d
 nmap <silent> <Leader>d :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
-let NERDTreeHighlightCursorline=1
+let NERDChristmasTree = 1
+let NERDTreeHighlightCursorline = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 " NERD Commenter, turns the menu off
