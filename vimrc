@@ -73,6 +73,7 @@ syntax on
 filetype on
 filetype plugin on
 filetype indent on
+set shortmess=atToO
 set history=1000
 set undolevels=1000
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
@@ -103,9 +104,10 @@ set tw=80
 set spelllang=en,de
 " UTF-8 settings
 if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
+  set termencoding=utf-8
+  "if &termencoding == ""
+    "let &termencoding = &encoding
+  "endif
   set encoding=utf-8
   setglobal fileencoding=utf-8 nobomb
   set fileencodings=ucs-bom,utf-8,latin1
@@ -267,11 +269,15 @@ if has('gui_running')
   else
       " Consolas Font for Windows
       " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
-      set guifont=Consolas:h11
+      " set guifont=Consolas:h11
+      set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
   endif
+  " Powerline fancy
+  let g:Powerline_symbols = 'fancy'
+
   " Hide icons
   set go-=T
-  colorscheme diablo3
+  colorscheme smyck
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -283,39 +289,6 @@ endif
 " More information in status line
 "set statusline=%F%m%r%h%w\ format=%{&ff}\ enc=%{&fenc}\ type=%Y\ bom=%{&bomb}\ hex=\%02.2B\ col=%v
 set laststatus=2     " Always display a statusline
-
-"augroup ft_statuslinecolor
-    "au!
-
-    "au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
-    "au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
-"augroup END
-
-set statusline=%f    " Path.
-set statusline+=%m   " Modified flag.
-set statusline+=%r   " Readonly flag.
-set statusline+=%w   " Preview window flag.
-
-set statusline+=\    " Space.
-
-" set statusline+=%#redbar#                    " Highlight the following as a warning.
-" set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-" set statusline+=%*                           " Reset highlighting.
-
-set statusline+=%=   " Right align.
-
-" File format, encoding and type.  Ex: "(unix/utf-8/python)"
-set statusline+=(
-set statusline+=%{&ff}                        " Format (unix/DOS).
-set statusline+=/
-set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
-set statusline+=/
-set statusline+=%{&ft}                        " Type (python).
-set statusline+=)
-
-" Line and column position and counts.
-set statusline+=\ (line\ %l\/%L,\ col\ %03c)
-" End Status line
 
 " PLUGIN SETTINGS
 " ---------------
