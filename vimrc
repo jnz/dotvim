@@ -257,7 +257,7 @@ if has('gui_running')
   " Set font
   if has('gui_macvim')
       " DejaVu looks better than Consolas on Mac OS X
-      set guifont=DejaVu\ Sans\ Mono:h15
+      set guifont=Monaco:h13
       " special MacVim option:
       " grow to maximum horizontal width on entering fullscreen mode
       set fuopt+=maxhorz
@@ -271,7 +271,7 @@ if has('gui_running')
   endif
   " Hide icons
   set go-=T
-  colorscheme diablo3
+  colorscheme smyck
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -328,8 +328,8 @@ nmap <silent> <Leader>r :CtrlPCurWD<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 nmap <silent> <Leader>n :CtrlPBuffer<CR>
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
-let g:ctrlp_mruf_max = 50
-let g:ctrlp_max_files = 1000
+let g:ctrlp_mruf_max = 100
+let g:ctrlp_max_files = 10000
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
@@ -365,10 +365,10 @@ let g:SuperTabLongestHighlight = 1
 let g:clang_complete_auto = 0
 let g:clang_complete_copen = 1
 let g:clang_snippets_engine = "snipmate"
-if has('gui_macvim')
-    let g:clang_use_library = 1
-    let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
-endif
+"if has('gui_macvim')
+    "let g:clang_use_library = 1
+    "let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+"endif
 if has('win32')
     " For now deactivate the clang library on windows
     let g:clang_use_library = 0
