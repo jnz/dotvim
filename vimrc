@@ -303,6 +303,16 @@ nmap <silent> <Leader>n :CtrlPBuffer<CR>
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
 let g:ctrlp_mruf_max = 100
 let g:ctrlp_max_files = 10000
+if has('unix')
+    let g:ctrlp_use_caching = 1
+    let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
+    let g:ctrlp_clear_cache_on_exit = 0
+    let g:ctrlp_mruf_case_sensitive = 1
+else
+    let g:ctrlp_mruf_case_sensitive = 0
+endif
+nmap <silent> <Leader>j :CtrlPTag<CR>
+nmap <silent> <Leader>h :CtrlPBufTag<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
@@ -318,8 +328,8 @@ let NERDMenuMode = 0
 " Fuzzy Tag Finder
 nmap <silent> <Leader>f :FufDir<CR>
 nmap <silent> <Leader>g :FufFile<CR>
-nmap <silent> <Leader>h :FufBufferTag<CR>
-nmap <silent> <Leader>j :FufTag<CR>
+" nmap <silent> <Leader>h :FufBufferTag<CR>
+" nmap <silent> <Leader>j :FufTag<CR>
 nmap <silent> <Leader>a :FufTagWithCursorWord<CR>
 " Tagbar as taglist replacement
 let g:tagbar_left = 1
@@ -364,7 +374,7 @@ endif
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
-
+let g:syntastic_enable_balloons = 1
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
