@@ -247,13 +247,7 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-          \ | wincmd p | diffthis
-endif
+"
 " visual settings for the GUI
 if has('gui_running')
   " Set font
@@ -325,12 +319,6 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 " NERD Commenter, turns the menu off
 let NERDMenuMode = 0
-" Fuzzy Tag Finder
-nmap <silent> <Leader>f :FufDir<CR>
-nmap <silent> <Leader>g :FufFile<CR>
-" nmap <silent> <Leader>h :FufBufferTag<CR>
-" nmap <silent> <Leader>j :FufTag<CR>
-nmap <silent> <Leader>a :FufTagWithCursorWord<CR>
 " Tagbar as taglist replacement
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
@@ -376,6 +364,7 @@ let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 let g:syntastic_enable_balloons = 1
 
+
 " FILE SPECIFIC SETTINGS
 " ----------------------
 
@@ -392,14 +381,8 @@ autocmd BufEnter *.tex    let b:tex_flavor = 'pdflatex'
 " pdflatex -file-line-error --shell-escape -interaction=nonstopmode MYMAINFILE.tex MYMAINFILE
 " (make sure that makeprg is set to "make", approach b) is more suitable for
 " larger latex projects (like a thesis):
-" autocmd BufEnter *.tex    set makeprg=make
-" autocmd BufEnter *.tex    set errorformat=%f:%l:\ %m
 autocmd BufEnter *.tex    set makeprg=make
 autocmd BufEnter *.tex    set errorformat=%f:%l:\ %m
-autocmd BufEnter *.tex    map <F11> :!start sumatrapdf %<.pdf<CR>
-
-" Python calculator to current buffer. e. g.: :Calc acos(-1.0)
-command! -nargs=+ Calc :r! python -c "from math import *; print <args>"
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make set noexpandtab
@@ -410,22 +393,10 @@ autocmd FileType make set noexpandtab
 
 " Backup, swapfile, undo stuff
 " Turn off backup (good idea?)
-" set nobackup
-" set nowb
-" set noswapfile
-let mybackupdir =  $HOME . '/.vim_tmp/'
-let mybackupdirPP =  mybackupdir . '/'   " additional / tells vim to create dir structure in this path
-if !isdirectory(mybackupdir)
-  call mkdir(mybackupdir, "p", 0700)  " this will display an error message on ms windows, but it will only show up once
-endif
-
-execute 'set backupdir^=' . escape(mybackupdirPP, " ")
-execute 'set directory^=' . escape(mybackupdirPP, " ")
-set backup
-set swapfile
+set nobackup
+set nowb
+set noswapfile
 if version >= 703
-  execute 'set undodir^=' . escape(mybackupdirPP, " ")
-  set undofile
   set cm=blowfish
 endif
 

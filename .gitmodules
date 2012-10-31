@@ -8,15 +8,6 @@
     ignore = dirty
 [submodule "bundle/clang_complete"]
 	path = bundle/clang_complete
-	url = https://github.com/Rip-Rip/clang_complete.git
-    ignore = dirty
-[submodule "bundle/nerdcommenter"]
-	path = bundle/nerdcommenter
-	url = https://github.com/scrooloose/nerdcommenter.git
-    ignore = dirty
-[submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
     ignore = dirty
 [submodule "bundle/supertab"]
 	path = bundle/supertab
@@ -42,15 +33,6 @@
 	path = bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
     ignore = dirty
-[submodule "bundle/fuzzy"]
-	path = bundle/fuzzy
-	url = https://github.com/vim-scripts/FuzzyFinder.git
-[submodule "bundle/l9"]
-	path = bundle/l9
-	url = https://github.com/vim-scripts/L9.git
-[submodule "bundle/delimitMate"]
-	path = bundle/delimitMate
-	url = https://github.com/Raimondi/delimitMate.git
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
 	url = git://github.com/garbas/vim-snipmate.git
