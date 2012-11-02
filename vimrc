@@ -263,8 +263,8 @@ if has('gui_running')
   else
       " Consolas Font for Windows
       " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
-      " set guifont=Consolas:h11
-      set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+      set guifont=Consolas:h11
+      " set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
   endif
   " Powerline fancy
   let g:Powerline_symbols = 'fancy'
@@ -294,15 +294,17 @@ nmap <silent> <Leader>p :CtrlPRoot<CR>
 nmap <silent> <Leader>r :CtrlPCurWD<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 nmap <silent> <Leader>n :CtrlPBuffer<CR>
+let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
 let g:ctrlp_mruf_max = 100
 let g:ctrlp_max_files = 10000
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
 if has('unix')
-    let g:ctrlp_use_caching = 1
     let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
-    let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_mruf_case_sensitive = 1
 else
+    let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
 endif
 nmap <silent> <Leader>j :CtrlPTag<CR>
