@@ -293,13 +293,13 @@ set laststatus=2     " Always display a statusline
 nmap <silent> <Leader>p :CtrlPRoot<CR>
 nmap <silent> <Leader>r :CtrlPCurWD<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
-nmap <silent> <Leader>n :CtrlPBuffer<CR>
-let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
+let g:ctrlp_extensions = [ 'tag', 'buffertag' ]
 let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
-let g:ctrlp_mruf_max = 100
+let g:ctrlp_mruf_max = 250
 let g:ctrlp_max_files = 10000
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_height = 20
 if has('unix')
     let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 1
