@@ -187,7 +187,7 @@ map <A-up> :cprev<CR>
 map <A-right> :tabnext<CR>
 map <A-left> :tabprevious<CR>
 " Shortcut to generate tags file on F4
-nnoremap <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <silent!> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " navigation between windows
 map <C-j> <C-W><C-J>
 map <C-k> <C-W><C-K>
@@ -201,24 +201,27 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>
 " Remove search highlighting with <enter>
 nnoremap <CR> :noh<CR>
+" F3 goto tag (Eclipse like)
+map <F3> g<C-]>
 " F12 goto tag (Visual Studio like)
-map <F12> g]
-" nmap <silent> <Leader>a g]  " currently using fuzzy finder for this
+map <F12> g<C-]>
+" use tnext, tprev, tselect for further navigation
 
 " Strips the trailing whitespace from a file
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-" Map StripTrailingWhitespaces to <leader>w:
-nnoremap <silent> <leader>w :call <SID>StripTrailingWhitespaces()<CR>
+" function! <SID>StripTrailingWhitespaces()
+"     " Preparation: save last search, and cursor position.
+"     let _s=@/
+"     let l = line(".")
+"     let c = col(".")
+"     " Do the business:
+"     %s/\s\+$//e
+"     " Clean up: restore previous search history, and cursor position
+"     let @/=_s
+"     call cursor(l, c)
+" endfunction
+" " Map StripTrailingWhitespaces to <leader>w:
+" nnoremap <silent> <leader>w :call <SID>StripTrailingWhitespaces()<CR>
+nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 
 " VISUAL SETTINGS
@@ -331,9 +334,11 @@ nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " SuperTab options
 " Tab in insert mode activates completion.
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-let g:SuperTabLongestHighlight = 1
+" let g:SuperTabDefaultCompletionType = 'context'
+" let g:SuperTabContextDefaultCompletionType = "<c-n>"
+" let g:SuperTabLongestHighlight = 1
+let g:SuperTabMappingForward = '<c-space>'
+let g:SuperTabMappingBackward = '<s-c-space>'
 
 " clang_complete options
 let g:clang_complete_auto = 0
