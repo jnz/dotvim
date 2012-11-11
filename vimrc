@@ -10,7 +10,6 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-
 " MY VIM SETTINGS
 " ---------------
 
@@ -208,21 +207,7 @@ map <F12> g<C-]>
 " use tnext, tprev, tselect for further navigation
 
 " Strips the trailing whitespace from a file
-" function! <SID>StripTrailingWhitespaces()
-"     " Preparation: save last search, and cursor position.
-"     let _s=@/
-"     let l = line(".")
-"     let c = col(".")
-"     " Do the business:
-"     %s/\s\+$//e
-"     " Clean up: restore previous search history, and cursor position
-"     let @/=_s
-"     call cursor(l, c)
-" endfunction
-" " Map StripTrailingWhitespaces to <leader>w:
-" nnoremap <silent> <leader>w :call <SID>StripTrailingWhitespaces()<CR>
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-
 
 " VISUAL SETTINGS
 " ---------------
@@ -270,8 +255,6 @@ if has('gui_running')
       set guifont=Consolas:h11
       " set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
   endif
-  " Powerline fancy
-  let g:Powerline_symbols = 'fancy'
 
   " Hide icons
   set go-=T
@@ -339,11 +322,12 @@ nnoremap <silent> <leader>l :TagbarToggle<CR>
 " let g:SuperTabLongestHighlight = 1
 let g:SuperTabMappingForward = '<c-space>'
 let g:SuperTabMappingBackward = '<s-c-space>'
+set complete-=i  " no include files
 
 " clang_complete options
 let g:clang_complete_auto = 0
 let g:clang_complete_copen = 1
-let g:clang_snippets_engine = "snipmate"
+" let g:clang_snippets_engine = "snipmate"
 "if has('gui_macvim')
     "let g:clang_use_library = 1
     "let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
