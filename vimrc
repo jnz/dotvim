@@ -62,6 +62,7 @@ set smarttab
 set number
 set showbreak=>
 set autoread " if the file has changed outside, but was not modified in vim: reload
+set autowrite " Automatically save before commands like :next and :make
 set hlsearch
 set incsearch
 set wildmenu
@@ -69,6 +70,7 @@ set gdefault " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast
 set ruler
 set expandtab
+set ballooneval
 syntax on
 filetype on
 filetype plugin on
@@ -226,7 +228,6 @@ nnoremap <silent> <leader>w :call <SID>StripTrailingWhitespaces()<CR>
 set fillchars=
 " Console dark background
 set background=dark
-" showmatch is slow too sometimes (and can be annoying)
 set noshowmatch
 set synmaxcol=512 " maximum line length for syntax coloring
 " set cursorline      " this is so slooooooooow
