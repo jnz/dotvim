@@ -72,7 +72,6 @@ set gdefault " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast
 set ruler
 set expandtab
-set ballooneval
 syntax on
 filetype on
 filetype plugin on
@@ -80,7 +79,9 @@ filetype indent on
 set shortmess=atToO
 set history=1000
 set undolevels=1000
-set wildignorecase
+if has('wildignorecase')
+    set wildignorecase
+endif
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
@@ -271,6 +272,7 @@ if has('gui_running')
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
+  set ballooneval
   set lazyredraw
   set showcmd " show partial command in last line of the screen
 endif
@@ -341,9 +343,9 @@ let g:clang_snippets = 1
 let g:clang_close_preview = 1
 let g:clang_snippets_engine = 'clang_complete'
 let g:clang_use_library = 1
-"if has('gui_macvim')
-    "let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
-"endif
+if has('gui_macvim')
+    let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
+endif
 if has('win32')
     " download clang for windows: http://llvm.org/releases/download.html#3.1
     " extract it to C:\Libs\clang\
