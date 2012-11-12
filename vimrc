@@ -55,12 +55,14 @@ set copyindent
 set autoindent
 set tabstop=4
 set shiftwidth=4
+set shiftround
 set scrolloff=5
 set sidescrolloff=10
 set ffs=unix,dos
 set smarttab
 set number
 set showbreak=>
+set showmode
 set autoread " if the file has changed outside, but was not modified in vim: reload
 set autowrite " Automatically save before commands like :next and :make
 set hlsearch
@@ -209,7 +211,8 @@ map <F12> g<C-]>
 " use tnext, tprev, tselect for further navigation
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
 inoremap <C-x><C-t> <C-X><C-]>
-
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
@@ -269,6 +272,7 @@ if has('gui_running')
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
   set lazyredraw
+  set showcmd " show partial command in last line of the screen
 endif
 
 " Status line
