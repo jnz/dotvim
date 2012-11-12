@@ -191,7 +191,7 @@ map <A-up> :cprev<CR>
 map <A-right> :tabnext<CR>
 map <A-left> :tabprevious<CR>
 " Shortcut to generate tags file on F4
-nnoremap <silent!> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " navigation between windows
 map <C-j> <C-W><C-J>
 map <C-k> <C-W><C-K>
