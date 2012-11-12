@@ -217,7 +217,8 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " ---------------
 
 " Fillchar (looks nicer for split windows)
-set fillchars=
+" set fillchars=
+set fillchars=diff:│,vert:│
 " Console dark background
 set background=dark
 set noshowmatch
@@ -262,7 +263,7 @@ if has('gui_running')
 
   " Hide icons
   set go-=T
-  colorscheme smyck
+  colorscheme badwolf
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
