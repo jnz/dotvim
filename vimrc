@@ -7,8 +7,9 @@
 
 " Pathogen init: load all plugins from bundle/ directory
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+call pathogen#infect()
+syntax on
+filetype plugin indent on
 
 " MY VIM SETTINGS
 " ---------------
@@ -77,6 +78,7 @@ filetype indent on
 set shortmess=atToO
 set history=1000
 set undolevels=1000
+set wildignorecase
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
@@ -205,6 +207,8 @@ map <F3> g<C-]>
 " F12 goto tag (Visual Studio like)
 map <F12> g<C-]>
 " use tnext, tprev, tselect for further navigation
+" <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
+inoremap <C-x><C-t> <C-X><C-]>
 
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -317,33 +321,32 @@ nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " SuperTab options
 " Tab in insert mode activates completion.
-" let g:SuperTabDefaultCompletionType = 'context'
-" let g:SuperTabContextDefaultCompletionType = "<c-n>"
-" let g:SuperTabLongestHighlight = 1
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = '<c-n>'
+let g:SuperTabLongestHighlight = 1
 let g:SuperTabMappingForward = '<c-space>'
 let g:SuperTabMappingBackward = '<s-c-space>'
 set complete-=i  " no include files
 
 " clang_complete options
 let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
 let g:clang_complete_copen = 1
-" let g:clang_snippets_engine = "snipmate"
+let g:clang_snippets = 1
+let g:clang_close_preview = 1
+let g:clang_snippets_engine = 'clang_complete'
+let g:clang_use_library = 1
 "if has('gui_macvim')
-    "let g:clang_use_library = 1
     "let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 "endif
 if has('win32')
-    " For now deactivate the clang library on windows
-    let g:clang_use_library = 0
-
-    " The quotes at the beggining of clang_exec and at the end of clang_user_options are important, don't remove them
-    " They basically trick vim into thinking clang executed fine, because the msvc build autocompletes correctly but fails
-    " to compile.
-    " Don't forget to put paths with spaces in quotes other wise vim won't be able to execute the command
-    "let g:clang_exec = '"C:\jan\cl\llvm\build\bin\clang.exe'
-    "let g:clang_user_options = '2> NUL || exit 0"'
-    "let g:clang_use_library = 1
-    "let g:clang_library_path = 'C:\jan\cl\llvm\build\bin'
+    " download clang for windows: http://llvm.org/releases/download.html#3.1
+    " extract it to C:\Libs\clang\
+    " Copy C\libs\clang\bin\clang.dll to C\libs\clang\bin\libclang.dll
+    " Make sure the Vim Python support works (otherwise clang_complete fails)
+    " use the mingw header files
+    let g:clang_library_path = 'C:\Libs\clang\bin'
+    let g:clang_user_options = '-IC:\MinGW\include'
 endif
 
 " Syntastic options
