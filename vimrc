@@ -165,8 +165,6 @@ noremap H ^
 " Fuck you, help key
 noremap  <F1> <nop>
 inoremap <F1> <nop>
-" Fuck you too, manual key.
-nnoremap K <nop>
 " Add a d shortcut for inside/around square brackets,
 " like b for parens and B for curly braces:
 onoremap id i[
@@ -208,6 +206,10 @@ nnoremap <CR> :noh<CR>
 map <F3> g<C-]>
 " F12 goto tag (Visual Studio like)
 map <F12> g<C-]>
+" map manual key to goto tag too
+nnoremap K <C-w>}
+" close the preview buffer
+nnoremap <leader>k :pc
 " use tnext, tprev, tselect for further navigation
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
 inoremap <C-x><C-t> <C-X><C-]>
@@ -358,10 +360,10 @@ endif
 " Disable syntastic on Windows at the moment
 if has('win32')
     let g:loaded_syntastic_plugin = 1
+    let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
 endif
 let g:syntastic_enable_signs = 1
-let g:syntastic_disabled_filetypes = ['html']
-let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
+" let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
 let g:syntastic_enable_balloons = 1
 
 
