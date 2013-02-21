@@ -15,7 +15,7 @@ filetype plugin indent on
 " ---------------
 
 " >10 years of working with Windows...
-behave mswin " this should change the following variables:
+behave mswin
 " Just to be sure:
 " behave mswin start
 set mousemodel="popup"
@@ -269,7 +269,7 @@ if has('gui_running')
 
   " Hide icons
   set go-=T
-  colorscheme badwolf
+  colorscheme mustang
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
