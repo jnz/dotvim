@@ -15,7 +15,7 @@ filetype plugin indent on
 " ---------------
 
 " >10 years of working with Windows...
-behave mswin " this should change the following variables:
+behave mswin
 " Just to be sure:
 " behave mswin start
 set mousemodel="popup"
@@ -42,8 +42,6 @@ set completeopt=menu,menuone,longest
 set pumheight=15
 " Select empty areas with visual block mode
 set virtualedit+=block
-" Taglist options
-set tags=./tags,tags,./../tags,./../../tags
 " match paren is slow (e. g. in large latex code)
 let loaded_matchparen = 1
 " Common vim stuff
@@ -188,8 +186,6 @@ map <A-down> :cnext<CR>
 map <A-up> :cprev<CR>
 map <A-right> :tabnext<CR>
 map <A-left> :tabprevious<CR>
-" Shortcut to generate tags file on F4
-nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " navigation between windows
 map <C-j> <C-W><C-J>
 map <C-k> <C-W><C-K>
@@ -203,6 +199,19 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>
 " Remove search highlighting with <enter>
 nnoremap <CR> :noh<CR>
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
+" Strips the trailing whitespace from a file
+nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+
+" ctags stuff:
+" ------------
+" use :tag, :ts, :tn, :tp for navigation
+" use :CtrlPTag a. CtrlPBufTag for fuzzy search
+" Taglist options
+set tags=./tags,tags,./../tags,./../../tags
+" Shortcut to generate tags file on F4
+nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " F3 goto tag (Eclipse like)
 map <F3> g<C-]>
 " F12 goto tag (Visual Studio like)
@@ -212,14 +221,10 @@ map <F11> <C-W>}
 " map manual key to goto tag too
 nnoremap K <C-w>}
 " close the preview buffer
-nnoremap <leader>k :pc
-" use tnext, tprev, tselect for further navigation
+nnoremap <leader>k :pc<CR>
+" tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
 inoremap <C-x><C-t> <C-X><C-]>
-" Keep the cursor in place while joining lines
-nnoremap J mzJ`z
-" Strips the trailing whitespace from a file
-nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " VISUAL SETTINGS
 " ---------------
@@ -271,7 +276,7 @@ if has('gui_running')
 
   " Hide icons
   set go-=T
-  colorscheme badwolf
+  colorscheme mustang
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -292,16 +297,17 @@ set laststatus=2     " Always display a statusline
 " ctrlp settings
 " Basically the FuzzyFinder coverage mode is comparable
 " to ctrlp, but ctrlp seems to be faster for me (non scientific statement)
-nmap <silent> <Leader>p :CtrlPRoot<CR>
-nmap <silent> <Leader>r :CtrlPCurWD<CR>
+nmap <silent> <Leader>p :CtrlP<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions = [ 'tag', 'buffertag' ]
-let g:ctrlp_working_path_mode = 2 " heuristic: going up the tree to find a project root
+let g:ctrlp_max_depth = 12
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_mruf_max = 250
 let g:ctrlp_max_files = 10000
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_height = 20
+let g:ctrlp_lazy_update = 100 " only update after 100 ms
 if has('unix')
     let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 1
