@@ -356,8 +356,8 @@ if has('win32')
     " Copy C\libs\clang\bin\clang.dll to C\libs\clang\bin\libclang.dll
     " Make sure the Vim Python support works (otherwise clang_complete fails)
     " use the mingw header files
-    let g:clang_library_path = 'C:\Libs\clang\bin'
-    let g:clang_user_options = '-IC:\MinGW\include'
+    let g:clang_library_path = 'D:\Software\clang\bin'
+    let g:clang_user_options = '-ID:\Software\MinGW\include'
 endif
 
 " Syntastic options
