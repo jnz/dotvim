@@ -11,6 +11,24 @@ call pathogen#infect()
 syntax on
 filetype plugin indent on
 
+" Essential
+" ---------
+
+" Leave input mode with jj - much faster than reaching for the esc key and only
+" very rarely a hurdle.
+inoremap jj <Esc>
+" Set <leader> to ,
+let mapleader = ","
+let g:mapleader = ","
+" Easy half-page scrolling with <space>
+nnoremap <Space> <C-d>
+nnoremap <S-Space> <C-u>
+" Support this in visual-mode
+vnoremap <Space> <C-d>
+vnoremap <S-Space> <C-u>
+" Remove search highlighting with <enter>
+nnoremap <CR> :noh<CR>
+
 " MY VIM SETTINGS
 " ---------------
 
@@ -128,9 +146,6 @@ iabbrev mfg Mit freundlichen Grüßen
 " MY KEYMAPS
 " ----------
 
-" Leave input mode with jj - much faster than reaching for the esc key and only
-" very rarely a hurdle.
-inoremap jj <Esc>
 " Use Y to copy until the end of the line. Use yy to copy the whole line.
 nnoremap Y y$
 " CTRL-X and SHIFT-Del are Cut
@@ -152,11 +167,8 @@ noremap <C-Z> u
 inoremap <C-Z> <C-O>u
 " Ctrl-Backspace to delete the last word.
 imap <C-BS> <C-W>
-" Set <leader> to ,
-let mapleader = ","
-let g:mapleader = ","
 " change to current file's path
-map <leader>cd :cd %:p:h<CR>:pwd<CR>
+ map <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Don't use Ex mode, use Q for formatting
 map Q gq
 " Easier to type:
@@ -191,14 +203,6 @@ map <C-j> <C-W><C-J>
 map <C-k> <C-W><C-K>
 map <C-l> <C-W><C-L>
 map <C-h> <C-W><C-H>
-" Easy half-page scrolling with <space>
-nnoremap <Space> <C-d>
-nnoremap <S-Space> <C-u>
-" Support this in visual-mode
-vnoremap <Space> <C-d>
-vnoremap <S-Space> <C-u>
-" Remove search highlighting with <enter>
-nnoremap <CR> :noh<CR>
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
 " Strips the trailing whitespace from a file
@@ -352,7 +356,7 @@ let g:clang_complete_copen = 1
 let g:clang_snippets = 1
 let g:clang_close_preview = 1
 " let g:clang_snippets_engine = 'clang_complete'
-let g:clang_use_library = 1
+" let g:clang_use_library = 1
 if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
