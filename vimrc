@@ -320,8 +320,8 @@ nmap <silent> <Leader>h :CtrlPBufTag<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
-" NERDTree to <leader>d
-nmap <silent> <Leader>d :NERDTree<CR>
+" NERDTree to <leader>f
+nmap <silent> <Leader>f :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
