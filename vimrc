@@ -356,7 +356,7 @@ let g:clang_complete_copen = 1
 let g:clang_snippets = 1
 let g:clang_close_preview = 1
 " let g:clang_snippets_engine = 'clang_complete'
-let g:clang_use_library = 1
+" let g:clang_use_library = 1
 if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
