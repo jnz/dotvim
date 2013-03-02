@@ -349,6 +349,13 @@ let g:SuperTabMappingForward = '<c-space>'
 let g:SuperTabMappingBackward = '<s-c-space>'
 set complete-=i  " no include files
 
+" YouCompleteMe
+if has('win32')
+    let g:ycm_global_ycm_extra_conf = '~/vimfiles/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+else
+    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+endif
+
 " clang_complete options
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
