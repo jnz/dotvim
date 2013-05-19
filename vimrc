@@ -76,7 +76,6 @@ set scrolloff=5
 set sidescrolloff=10
 set ffs=unix,dos
 set smarttab
-set number
 set showbreak=>
 set showmode
 set autoread " if the file has changed outside, but was not modified in vim: reload
@@ -117,6 +116,11 @@ else
     " edit vimrc on windows
     nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
 endif
+
+" Always show line numbers, but only in current window.
+set number
+:au WinEnter * :setlocal number
+:au WinLeave * :setlocal nonumber
 
 " Wrapping
 set nowrap
@@ -280,7 +284,7 @@ if has('gui_running')
 
   " Hide icons
   set go-=T
-  colorscheme mustang
+  colorscheme blueshift
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -306,7 +310,7 @@ nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions = [ 'tag', 'buffertag' ]
 let g:ctrlp_max_depth = 12
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_mruf_max = 250
+let g:ctrlp_mruf_max = 800
 let g:ctrlp_max_files = 10000
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
@@ -319,8 +323,9 @@ else
     let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
 endif
-nmap <silent> <Leader>j :CtrlPTag<CR>
-nmap <silent> <Leader>h :CtrlPBufTag<CR>
+nmap <silent> <Leader>h :CtrlPTag<CR>
+nmap <silent> <Leader>j :CtrlPBufTag<CR>
+nmap <silent> <Leader>r :CtrlPBuffer<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
@@ -340,30 +345,7 @@ let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
-" SuperTab options
-" Tab in insert mode activates completion.
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = '<c-n>'
-let g:SuperTabLongestHighlight = 1
-let g:SuperTabMappingForward = '<c-space>'
-let g:SuperTabMappingBackward = '<s-c-space>'
-set complete-=i  " no include files
-
-" YouCompleteMe
-if has('win32')
-    let g:ycm_global_ycm_extra_conf = '~/vimfiles/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-else
-    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-endif
-
 " clang_complete options
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_complete_copen = 1
-let g:clang_snippets = 1
-let g:clang_close_preview = 1
-" let g:clang_snippets_engine = 'clang_complete'
-" let g:clang_use_library = 1
 if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
