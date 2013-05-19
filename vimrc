@@ -217,12 +217,12 @@ set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
 nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " F3 goto tag (Eclipse like)
-map <F3> g<C-]>
+map <F3> <C-]>
 " F12 goto tag (Visual Studio like)
-map <F12> g<C-]>
-" definition in a preview window
-map <F11> <C-W>}
-" map manual key to goto tag too
+map <F12> <C-]>
+" use :tn and :tp (tag next, tag previous) to navigate between matches
+map <leader>g <C-]>
+" map manual key to tag preview
 nnoremap K <C-w>}
 " close the preview buffer
 nnoremap <leader>k :pc<CR>
