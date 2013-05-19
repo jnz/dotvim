@@ -76,6 +76,7 @@ set scrolloff=5
 set sidescrolloff=10
 set ffs=unix,dos
 set smarttab
+set number
 set showbreak=>
 set showmode
 set autoread " if the file has changed outside, but was not modified in vim: reload
@@ -116,11 +117,6 @@ else
     " edit vimrc on windows
     nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
 endif
-
-" Always show line numbers, but only in current window.
-set number
-:au WinEnter * :setlocal number
-:au WinLeave * :setlocal nonumber
 
 " Wrapping
 set nowrap
