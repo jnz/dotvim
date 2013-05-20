@@ -280,7 +280,7 @@ if has('gui_running')
 
   " Hide icons
   set go-=T
-  colorscheme mustang
+  colorscheme blueshift
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
