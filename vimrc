@@ -217,12 +217,12 @@ set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
 nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " F3 goto tag (Eclipse like)
-map <F3> g<C-]>
+map <F3> <C-]>
 " F12 goto tag (Visual Studio like)
-map <F12> g<C-]>
-" definition in a preview window
-map <F11> <C-W>}
-" map manual key to goto tag too
+map <F12> <C-]>
+" use :tn and :tp (tag next, tag previous) to navigate between matches
+map <leader>g <C-]>
+" map manual key to tag preview
 nnoremap K <C-w>}
 " close the preview buffer
 nnoremap <leader>k :pc<CR>
@@ -306,7 +306,7 @@ nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions = [ 'tag', 'buffertag' ]
 let g:ctrlp_max_depth = 12
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_mruf_max = 250
+let g:ctrlp_mruf_max = 800
 let g:ctrlp_max_files = 10000
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
@@ -319,8 +319,9 @@ else
     let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
 endif
-nmap <silent> <Leader>j :CtrlPTag<CR>
-nmap <silent> <Leader>h :CtrlPBufTag<CR>
+nmap <silent> <Leader>h :CtrlPTag<CR>
+nmap <silent> <Leader>j :CtrlPBufTag<CR>
+nmap <silent> <Leader>r :CtrlPBuffer<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
@@ -340,30 +341,7 @@ let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
-" SuperTab options
-" Tab in insert mode activates completion.
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = '<c-n>'
-let g:SuperTabLongestHighlight = 1
-let g:SuperTabMappingForward = '<c-space>'
-let g:SuperTabMappingBackward = '<s-c-space>'
-set complete-=i  " no include files
-
-" YouCompleteMe
-if has('win32')
-    let g:ycm_global_ycm_extra_conf = '~/vimfiles/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-else
-    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-endif
-
 " clang_complete options
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_complete_copen = 1
-let g:clang_snippets = 1
-let g:clang_close_preview = 1
-" let g:clang_snippets_engine = 'clang_complete'
-" let g:clang_use_library = 1
 if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
