@@ -61,7 +61,7 @@ set pumheight=15
 " Select empty areas with visual block mode
 set virtualedit+=block
 " match paren is slow (e. g. in large latex code)
-let loaded_matchparen = 1
+let loaded_matchparen = 0
 " Common vim stuff
 set linebreak
 set ignorecase
