@@ -61,7 +61,8 @@ set pumheight=15
 " Select empty areas with visual block mode
 set virtualedit+=block
 " match paren is slow (e. g. in large latex code)
-let loaded_matchparen = 0
+" let loaded_matchparen = 1
+" set noshowmatch
 " Common vim stuff
 set linebreak
 set ignorecase
@@ -238,7 +239,6 @@ nnoremap <leader>k :pc<CR>
 set fillchars=diff:│,vert:│
 " Console dark background
 set background=dark
-set noshowmatch
 set synmaxcol=512 " maximum line length for syntax coloring
 " set cursorline      " this is so slooooooooow
 set textwidth=0
