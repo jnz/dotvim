@@ -6,8 +6,7 @@
 " --------
 
 " Pathogen init: load all plugins from bundle/ directory
-filetype off
-call pathogen#infect()
+execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
@@ -343,6 +342,7 @@ let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " clang_complete options
+let g:clang_complete_loaded = 1 "disable by default
 if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
@@ -354,7 +354,6 @@ if has('win32')
     " use the mingw header files
     let g:clang_library_path = "C:\\Libs\\llvm-3.2\\build\\bin\\Release"
     let g:clang_user_options = "-IC:/MinGW/include"
-    let g:clang_use_library = 1
 endif
 
 " Syntastic options

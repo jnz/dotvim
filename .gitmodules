@@ -7,7 +7,7 @@
     ignore = dirty
 [submodule "bundle/clang_complete"]
 	path = bundle/clang_complete
-	url = git://github.com/Rip-Rip/clang_complete.git
+	url = https://github.com/Rip-Rip/clang_complete.git
     ignore = dirty
 [submodule "bundle/tabular"]
 	path = bundle/tabular
