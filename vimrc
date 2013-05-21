@@ -359,8 +359,8 @@ endif
 " Syntastic options
 " Disable syntastic on Windows at the moment
 if has('win32')
-    let g:loaded_syntastic_plugin = 1
-    let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
+    " let g:loaded_syntastic_plugin = 1
+    " let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
 endif
 let g:syntastic_enable_signs = 1
 " let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
