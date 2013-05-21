@@ -228,7 +228,7 @@ nnoremap K <C-w>}
 nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
-inoremap <C-x><C-t> <C-X><C-]>
+" inoremap <C-x><C-t> <C-X><C-]>
 
 " VISUAL SETTINGS
 " ---------------
@@ -280,7 +280,7 @@ if has('gui_running')
 
   " Hide icons
   set go-=T
-  colorscheme mustang
+  colorscheme blueshift
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -303,10 +303,10 @@ set laststatus=2     " Always display a statusline
 " to ctrlp, but ctrlp seems to be faster for me (non scientific statement)
 nmap <silent> <Leader>p :CtrlP<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
-let g:ctrlp_extensions = [ 'tag', 'buffertag' ]
+let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
 let g:ctrlp_max_depth = 12
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_mruf_max = 250
+let g:ctrlp_mruf_max = 400
 let g:ctrlp_max_files = 10000
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
@@ -319,8 +319,10 @@ else
     let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
 endif
-nmap <silent> <Leader>j :CtrlPTag<CR>
-nmap <silent> <Leader>h :CtrlPBufTag<CR>
+nmap <silent> <Leader>h :CtrlPTag<CR>
+nmap <silent> <Leader>j :CtrlPBufTag<CR>
+nmap <silent> <Leader>r :CtrlPBuffer<CR>
+nmap <silent> <Leader>s :CtrlPDir<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
@@ -357,13 +359,6 @@ else
 endif
 
 " clang_complete options
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_complete_copen = 1
-let g:clang_snippets = 1
-let g:clang_close_preview = 1
-" let g:clang_snippets_engine = 'clang_complete'
-" let g:clang_use_library = 1
 if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
@@ -373,8 +368,9 @@ if has('win32')
     " Copy C\libs\clang\bin\clang.dll to C\libs\clang\bin\libclang.dll
     " Make sure the Vim Python support works (otherwise clang_complete fails)
     " use the mingw header files
-    let g:clang_library_path = 'D:\Software\clang\bin'
-    let g:clang_user_options = '-ID:\Software\MinGW\include'
+    let g:clang_library_path = "C:\\Libs\\llvm-3.2\\build\\bin\\Release"
+    let g:clang_user_options = "-IC:/MinGW/include"
+    let g:clang_use_library = 1
 endif
 
 " Syntastic options
