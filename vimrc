@@ -228,7 +228,7 @@ nnoremap K <C-w>}
 nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
-inoremap <C-x><C-t> <C-X><C-]>
+" inoremap <C-x><C-t> <C-X><C-]>
 
 " VISUAL SETTINGS
 " ---------------
@@ -303,7 +303,7 @@ set laststatus=2     " Always display a statusline
 " to ctrlp, but ctrlp seems to be faster for me (non scientific statement)
 nmap <silent> <Leader>p :CtrlP<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
-let g:ctrlp_extensions = [ 'tag', 'buffertag' ]
+let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
 let g:ctrlp_max_depth = 12
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_mruf_max = 800
@@ -322,6 +322,7 @@ endif
 nmap <silent> <Leader>h :CtrlPTag<CR>
 nmap <silent> <Leader>j :CtrlPBufTag<CR>
 nmap <silent> <Leader>r :CtrlPBuffer<CR>
+nmap <silent> <Leader>s :CtrlPDir<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
@@ -351,8 +352,9 @@ if has('win32')
     " Copy C\libs\clang\bin\clang.dll to C\libs\clang\bin\libclang.dll
     " Make sure the Vim Python support works (otherwise clang_complete fails)
     " use the mingw header files
-    let g:clang_library_path = 'D:\Software\clang\bin'
-    let g:clang_user_options = '-ID:\Software\MinGW\include'
+    let g:clang_library_path = "C:\\Libs\\llvm-3.2\\build\\bin\\Release"
+    let g:clang_user_options = "-IC:/MinGW/include"
+    let g:clang_use_library = 1
 endif
 
 " Syntastic options
