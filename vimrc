@@ -43,7 +43,6 @@ set mousemodel=popup " right mouse button pups up a menu
 set selectmode=mouse,key " select text with the mouse or with Shift+cursor keys
 set keymodel=startsel,stopsel "shift starts the sel-mode, any other key stops it
 " </behave mswin>
-set guioptions+=egmrL
 "Vim won't become the owner of the windowing system's global selection:
 set guioptions-=aA
 
