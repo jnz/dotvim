@@ -35,19 +35,18 @@ nnoremap <CR> :noh<CR>
 " MY VIM SETTINGS
 " ---------------
 
-" >10 years of working with Windows...
+" many years of working with Windows:
 behave mswin
 " Just to be sure:
 " <behave mswin>
-set mousemodel=popup " right mouse button pups up a menu
-set selectmode=mouse,key " select text with the mouse or with Shift+cursor keys
-set keymodel=startsel,stopsel "shift starts the sel-mode, any other key stops it
+set mousemodel=popup          " right mouse button pups up a menu
+set selectmode=mouse,key      " select text with the mouse or with Shift+cursor keys
+set keymodel=startsel,stopsel " shift starts the sel-mode, any other key stops it
 " </behave mswin>
 "Vim won't become the owner of the windowing system's global selection:
 set guioptions-=aA
-
 set backspace=indent,eol,start " backspace wrap to previous/next line
-set whichwrap+=<,>,[,] " cursor left/right to move to the previous/next line
+set whichwrap+=<,>,[,]         " cursor left/right to move to the previous/next line
 " Clipboard settings, unnamedplus is useful for X-Windows
 if has('unnamedplus')
     set clipboard=unnamedplus
@@ -65,40 +64,40 @@ set virtualedit=block
 " set noshowmatch
 
 " Common vim stuff
-set linebreak " if on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
-set smartcase " case insensitive searches become sensitive with capitals
-set hidden " edit multiple buffers without saving the modifications made to a buffer
-set autoindent " copy indent from current line when starting a new line
-set tabstop=4 " number of spaces that a <Tab> in the file counts for.
-set shiftwidth=0 " number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
-set shiftround " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands.
-set scrolloff=5 " Minimal number of screen lines to keep above and below the cursor.
+set linebreak        " if on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
+set smartcase        " case insensitive searches become sensitive with capitals
+set hidden           " edit multiple buffers without saving the modifications made to a buffer
+set autoindent       " copy indent from current line when starting a new line
+set tabstop=4        " number of spaces that a <Tab> in the file counts for.
+set shiftwidth=0     " number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
+set shiftround       " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands.
+set scrolloff=5      " Minimal number of screen lines to keep above and below the cursor.
 set sidescrolloff=10 " The minimal number of screen columns to keep to the left and to the right of the cursor
-set ffs=unix,dos " This gives the end-of-line (<EOL>) formats that will be tried when starting to edit a new buffer and when reading a file into an existing buffer
-set smarttab " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'.  'ts' or 'sts' else.  A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
-set number " precede each line with its line number
-set showbreak=>  " String to put at the start of lines that have been wrapped.
-set showmode " If in Insert, Replace or Visual mode put a message on the last line.
-set autoread " if the file has changed outside, but was not modified in vim: reload
-set autowrite " Automatically save before commands like :next and :make
-set hlsearch " When there is a previous search pattern, highlight all its matches.
-set incsearch " While typing a search command, show where the pattern, as it was typed so far, matches.
-set wildmenu " When 'wildmenu' is on, command-line completion operates in an enhanced mode.  On pressing 'wildchar' (usually <Tab>) to invoke completion,
-set wildchar=<Tab> "Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'.
-set gdefault " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
-set ttyfast " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing,
-set ruler " Show the line and column number of the cursor position
-set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>.
-set history=200 " The command-lines that you enter are remembered in a history table
-set undolevels=1000 " Maximum number of changes that can be undone.
-set wildignorecase " When set case is ignored when completing file names and directories.
+set ffs=unix,dos     " This gives the end-of-line (<EOL>) formats that will be tried when starting to edit a new buffer and when reading a file into an existing buffer
+set smarttab         " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'.  'ts' or 'sts' else.  A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
+set number           " precede each line with its line number
+set showbreak=>      " String to put at the start of lines that have been wrapped.
+set showmode         " If in Insert, Replace or Visual mode put a message on the last line.
+set autoread         " if the file has changed outside, but was not modified in vim: reload
+set autowrite        " Automatically save before commands like :next and :make
+set hlsearch         " When there is a previous search pattern, highlight all its matches.
+set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches.
+set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode.  On pressing 'wildchar' (usually <Tab>) to invoke completion,
+set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'.
+set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
+set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing,
+set ruler            " Show the line and column number of the cursor position
+set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>.
+set history=200      " The command-lines that you enter are remembered in a history table
+set undolevels=1000  " Maximum number of changes that can be undone.
+set wildignorecase   " When set case is ignored when completing file names and directories.
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 
-" Align function arguments with 'cino'
+" Align cindent function arguments with 'cino'
 " void my_func(int arg1,  /* turns into this: */ void my_func(int arg1,
 "       int arg2,                                             int arg2,
 "       int arg3);                                            int arg3);
@@ -107,26 +106,24 @@ set cino+=(0
 if has('unix')
     " unix-like platform
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-
     " edit vimrc on unixoidal systems
     nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
 else
     " probably Windows
     set wildignore+=.git\*,.hg\*,.svn\*
-
     " edit vimrc on windows
     nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
 endif
 
-set nowrap " When on, lines longer than the width of the window will wrap and displaying continues on the next line.
-set textwidth=0 " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.
+set nowrap          " When on, lines longer than the width of the window will wrap and displaying continues on the next line.
+set textwidth=0     " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.
 set spelllang=en,de " When the 'spell' option is on spellchecking will be done for these languages.
 " UTF-8 settings
 if has("multi_byte")
-  set termencoding=utf-8 " Encoding used for the terminal. For the Win32 GUI 'termencoding' is not used for typed characters.
-  set encoding=utf-8 " Sets the character encoding used inside Vim.
+  set termencoding=utf-8       " Encoding used for the terminal. For the Win32 GUI 'termencoding' is not used for typed characters.
+  set encoding=utf-8           " Sets the character encoding used inside Vim.
   setglobal fileencoding=utf-8 " Sets the character encoding for files
-  set nobomb " no BOM (Byte Order Mark) is prepended to the file
+  set nobomb                   " no BOM (Byte Order Mark) is prepended to the file
 endif
 " Abbreviations
 iabbrev teh the
