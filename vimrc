@@ -8,7 +8,11 @@
 " Pathogen init: load all plugins from bundle/ directory
 execute pathogen#infect()
 syntax on
-filetype plugin indent on
+if version>600
+    filetype plugin indent on
+else
+    filetype on
+endif
 
 " Essential
 " ---------
@@ -67,7 +71,6 @@ set linebreak
 set ignorecase
 set smartcase
 set hidden
-set copyindent
 set autoindent
 set tabstop=4
 set shiftwidth=4
@@ -89,9 +92,6 @@ set ttyfast
 set ruler
 set expandtab
 syntax on
-filetype on
-filetype plugin on
-filetype indent on
 set shortmess=atToO
 set history=1000
 set undolevels=1000
@@ -257,7 +257,11 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-"
+
+" Change the font size
+command! -bar -nargs=0 Bigger :let &guifont = substitute(&guifont,'\d\+$','\=submatch(0)+1','')
+command! -bar -nargs=0 Smaller :let &guifont = substitute(&guifont,'\d\+$','\=submatch(0)-1','')"
+
 " visual settings for the GUI
 if has('gui_running')
   " Set font
@@ -341,6 +345,13 @@ let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
+" YCM (YouCompleteMe) options
+if has('unix')
+    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+else
+    let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
+endif
+
 " clang_complete options
 let g:clang_complete_loaded = 1 "disable by default
 if has('gui_macvim')
@@ -352,8 +363,8 @@ if has('win32')
     " Copy C\libs\clang\bin\clang.dll to C\libs\clang\bin\libclang.dll
     " Make sure the Vim Python support works (otherwise clang_complete fails)
     " use the mingw header files
-    let g:clang_library_path = "C:\\Libs\\llvm-3.2\\build\\bin\\Release"
-    let g:clang_user_options = "-IC:/MinGW/include"
+    let g:clang_library_path = "C:/Program Files (x86)/LLVM/bin"
+    let g:clang_user_options = "-ID:/Software/MinGW/include"
 endif
 
 " Syntastic options
@@ -389,6 +400,11 @@ autocmd BufEnter *.tex    set errorformat=%f:%l:\ %m
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make set noexpandtab
 
+" Align function arguments with 'cino'
+" void my_func(int arg1,  /* turns into this: */ void my_func(int arg1,
+"       int arg2,                                             int arg2,
+"       int arg3);                                            int arg3);
+set cino+=(0
 
 " BACKUP SETTINGS
 " ---------------
