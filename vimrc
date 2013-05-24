@@ -198,7 +198,7 @@ map <C-h> <C-W><C-H>
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
 " noautocmd is important, otherwise plugins are executed for each opened file.
-map <leader>v :noautocmd vimgrep // **/*<left><left><left><left><left><left><left>
+map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " grep search / findstr search stuff
 if has('win32')
     " /N = print line number
