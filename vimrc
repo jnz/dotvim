@@ -272,7 +272,6 @@ command! -bar -nargs=0 Smaller :let &guifont = substitute(&guifont,'\d\+$','\=su
 if has('gui_running')
   " Set font
   if has('gui_macvim')
-      " DejaVu looks better than Consolas on Mac OS X
       set guifont=Monaco:h13
       " special MacVim option:
       " grow to maximum horizontal width on entering fullscreen mode
