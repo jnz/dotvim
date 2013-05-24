@@ -201,6 +201,8 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " grep search / findstr search stuff
 if has('win32')
+    " Use findstr.exe on Windows (or use GNU win32 grep:
+    " http://gnuwin32.sourceforge.net/packages/grep.htm)
     " /N = print line number
     " /I = case-insensitive
     " /P = ignore files with non-printable characters
@@ -212,11 +214,10 @@ if has('win32')
     " :grep /c:"my teststring" *.cpp *.h
     "
     " Prepare a grep/findstr search command
-    map <Leader>g :grep /c:"" *.*<left><left><left><left><left>
-    map <Leader>s :grep /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+    map <Leader>g :silent grep /c:"" *.*<left><left><left><left><left>
 
-    " Or use GNU win32 grep:
-    " http://gnuwin32.sourceforge.net/packages/grep.htm
+    " Map a special grep for certain languages
+    au FileType c,cpp map <Leader>s :silent grep /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 else
     " n = print line number
     " H = print file name
@@ -228,8 +229,10 @@ else
     " grep -nHir --include=*.cpp --include=*.h "my teststring" .
 
     " Prepare a grep search command
-    map <Leader>g :grep --include=*.*  .<left><left>
-    map <Leader>s :grep --include=*.cpp --include=*.h --include=*.c  .<left><left>
+    map <Leader>g :silent grep --include=*.*  .<left><left>
+
+    " Map a special grep for certain languages
+    au FileType c,cpp map <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c  .<left><left>
 endif
 
 " ctags stuff:
