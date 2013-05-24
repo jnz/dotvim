@@ -126,14 +126,6 @@ if has("multi_byte")
   setglobal fileencoding=utf-8 " Sets the character encoding for files
   set nobomb                   " no BOM (Byte Order Mark) is prepended to the file
 endif
-" Abbreviations
-iabbrev teh the
-iabbrev dont don't
-" Fast to type than Grüße
-iabbrev gruse Grüße
-iabbrev grusen Grüßen
-iabbrev lets let's
-iabbrev mfg Mit freundlichen Grüßen
 
 " MY KEYMAPS
 " ----------
