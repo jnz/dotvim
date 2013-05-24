@@ -65,6 +65,7 @@ set virtualedit=block
 
 " Common vim stuff
 set linebreak        " if on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
+set ignorecase       " If the 'ignorecase' option is on, the case of normal letters is ignored.
 set smartcase        " case insensitive searches become sensitive with capitals
 set hidden           " edit multiple buffers without saving the modifications made to a buffer
 set autoindent       " copy indent from current line when starting a new line
@@ -197,7 +198,7 @@ map <C-h> <C-W><C-H>
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
 " noautocmd is important, otherwise plugins are executed for each opened file.
-map <leader>v :noautocmd vimgrep // **/*.<left><left><left><left><left><left><left>
+map <leader>v :noautocmd vimgrep // **/*<left><left><left><left><left><left><left>
 if has('win32')
     " /N = line number
     " /I = case-insensitive
