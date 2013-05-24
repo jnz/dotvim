@@ -203,11 +203,11 @@ map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><l
 if has('win32')
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
-    " /N = print line number
-    " /I = case-insensitive
-    " /P = ignore files with non-printable characters
     " /S = include sub-directories
-    set grepprg=findstr\ /nips
+    " /P = ignore files with non-printable characters
+    " /I = case-insensitive
+    " /N = print line number
+    set grepprg=findstr\ /spin
     " If you want to search for 'my teststring' in all .cpp and *.h files:
     " findstr /nips /c:"my teststring" *.cpp *.h
     " i.e.:
@@ -229,10 +229,10 @@ else
     " grep -nHir --include=*.cpp --include=*.h "my teststring" .
 
     " Prepare a grep search command
-    map <Leader>g :silent grep --include=*.*  .<left><left>
+    map <Leader>g :silent grep --include=*.* "" .<left><left><left>
 
     " Map a special grep for certain languages
-    au FileType c,cpp map <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c  .<left><left>
+    au FileType c,cpp map <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
 
 " ctags stuff:
