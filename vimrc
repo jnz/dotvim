@@ -199,19 +199,37 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
 " noautocmd is important, otherwise plugins are executed for each opened file.
 map <leader>v :noautocmd vimgrep // **/*<left><left><left><left><left><left><left>
+" grep search / findstr search stuff
 if has('win32')
-    " /N = line number
+    " /N = print line number
     " /I = case-insensitive
     " /P = ignore files with non-printable characters
     " /S = include sub-directories
     set grepprg=findstr\ /nips
-    " If you want to search for 'my teststring' in all .cpp files:
-    " findstr /nips /c:"my teststring" *.cpp
+    " If you want to search for 'my teststring' in all .cpp and *.h files:
+    " findstr /nips /c:"my teststring" *.cpp *.h
     " i.e.:
-    " :grep /c:"my teststring" *.cpp
+    " :grep /c:"my teststring" *.cpp *.h
     "
+    " Prepare a grep/findstr search command
+    map <Leader>g :grep /c:"" *.*<left><left><left><left><left>
+    map <Leader>s :grep /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+
     " Or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm
+else
+    " n = print line number
+    " H = print file name
+    " i = ignore case
+    " r = include sub-directories
+    set grepprg=grep\ -nHir\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
+    " If you want to search for 'my teststring' in all *.cpp and *.h files:
+    " (don't forget the dot at the end!)
+    " grep -nHir --include=*.cpp --include=*.h "my teststring" .
+
+    " Prepare a grep search command
+    map <Leader>g :grep --include=*.*  .<left><left>
+    map <Leader>s :grep --include=*.cpp --include=*.h --include=*.c  .<left><left>
 endif
 
 " ctags stuff:
@@ -227,7 +245,7 @@ map <F3> <C-]>
 " F12 goto tag (Visual Studio like)
 map <F12> <C-]>
 " use :tn and :tp (tag next, tag previous) to navigate between matches
-map <leader>g <C-]>
+map <leader>t <C-]>
 " map manual key to tag preview
 nnoremap K <C-w>}
 " close the preview buffer
@@ -328,7 +346,6 @@ endif
 nmap <silent> <Leader>h :CtrlPTag<CR>
 nmap <silent> <Leader>j :CtrlPBufTag<CR>
 nmap <silent> <Leader>r :CtrlPBuffer<CR>
-nmap <silent> <Leader>s :CtrlPDir<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
