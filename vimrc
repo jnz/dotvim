@@ -195,6 +195,23 @@ map <C-l> <C-W><C-L>
 map <C-h> <C-W><C-H>
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+" Open vimgrep and put the cursor in the right position
+" noautocmd is important, otherwise plugins are executed for each opened file.
+map <leader>v :noautocmd vimgrep // **/*.<left><left><left><left><left><left><left>
+if has('win32')
+    " /N = line number
+    " /I = case-insensitive
+    " /P = ignore files with non-printable characters
+    " /S = include sub-directories
+    set grepprg=findstr\ /nips
+    " If you want to search for 'my teststring' in all .cpp files:
+    " findstr /nips /c:"my teststring" *.cpp
+    " i.e.:
+    " :grep /c:"my teststring" *.cpp
+    "
+    " Or use GNU win32 grep:
+    " http://gnuwin32.sourceforge.net/packages/grep.htm
+endif
 
 " ctags stuff:
 " ------------
