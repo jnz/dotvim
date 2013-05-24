@@ -270,7 +270,7 @@ if has('gui_running')
   endif
 
   " Hide icons
-  set go-=T
+  set guioptions-=T
   colorscheme blueshift
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
