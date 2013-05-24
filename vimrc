@@ -189,9 +189,11 @@ map <C-h> <C-W><C-H>
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
-" noautocmd is important, otherwise plugins are executed for each opened file.
+" noautocmd is important, otherwise autocommands (e.g. from plugins) are
+" executed for each opened file.
 map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
-" grep search / findstr search stuff
+" plattform specific grep search / findstr stuff
+" if in doubt, use vimgrep (<leader>v), but grep and findstr are faster.
 if has('win32')
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
