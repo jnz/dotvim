@@ -70,7 +70,7 @@ set smartcase        " case insensitive searches become sensitive with capitals
 set hidden           " edit multiple buffers without saving the modifications made to a buffer
 set autoindent       " copy indent from current line when starting a new line
 set tabstop=4        " number of spaces that a <Tab> in the file counts for.
-set shiftwidth=0     " number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
+set shiftwidth=4     " number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
 set shiftround       " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands.
 set scrolloff=5      " Minimal number of screen lines to keep above and below the cursor.
 set sidescrolloff=10 " The minimal number of screen columns to keep to the left and to the right of the cursor
