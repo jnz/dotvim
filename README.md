@@ -45,10 +45,10 @@ Note: ^ means Ctrl key
 
  Key                | Description
 --------------------|---------------------------------------------------------
- :q!                | Exit :-)
- Esc, ^C            | Command mode
- i                  | Insert mode
- w                  | Next word
+ :q!              | Exit :-)
+ Esc, ^C          | Command mode
+ i                | Insert mode
+ w                | Next word
  b                  | Previous word
  e                  | End of word
  s                  | Replace character and enter insert mode
@@ -119,12 +119,12 @@ Note: ^ means Ctrl key
  :set ff=unix       | Convert file to unix EOL format
  xp                 | Swap characters
  :X                 | Activate encryption, asking for key
- :setlocal cm=blowfish | Encryption method blowfish (strong) for this file
+ :setlocal cm=blowfish  | Encryption method blowfish (strong) for this file
  :set cm=blowfish   | Encryption method blowfish (strong) as default
  g ^g               | Count the words in the file
  gq                 | Format the selection regions according to textwidth (tw)
  :set tw=50         | Set the textwidth to 50 characters
- :e scp://path/file | Edit file via SSH: scp://user@host/path/file
+ :e scp://path/file   | Edit file via SSH: scp://user@host/path/file
  :e scp://path/     | Open directory via SSH: scp://user@host/path/
  :bufdo cmd         | Execute command on every open buffer
  :tabdo cmd         | Execute command on every tab
@@ -238,7 +238,7 @@ Regular expressions in search and replace
  .                  | Any character
  *                  | (0-n) times the previous character
  ?                  | (0-1) times the previous character
- `\+`               | (1-n) times the previous character
+ \+               | (1-n) times the previous character
  \{n}               | (n) times the previous character
  \{min,max}         | (min-max) times the previous character
  ^                  | Beginning of line
