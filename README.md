@@ -44,7 +44,7 @@ Common commands (Command mode)
 Note: ^ means Ctrl key
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `:q!`                | Exit :-)
  `Esc, ^C`            | Command mode
  `i`                  | Insert mode
@@ -131,13 +131,13 @@ Note: ^ means Ctrl key
  `:bro ol`            | Browse through recently used files
  `:help digraphs`     | Digraphs (special unicode characters)
  `:dig`               | Digraphs overview
- `^K`                 | Digraph mode, followed by 2 characters from :dig table
+ `^K`                 | Digraph mode, followed by 2 characters from `:dig` table
 
 Navigation
 ----------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `hjkl`               | Cursor keys
  `+`                  | Jump to next line
  `-`                  | Jump to previous line
@@ -160,6 +160,7 @@ Navigation
  `15G`                | Goto line 15
  `15gg`               | Goto line 15
  `:15`                | Goto line 15
+ `20|`                | Goto column 20
  `gd`                 | Goto local definition
  `gD`                 | Goto global definition
  `[[`                 | Goto previous {
@@ -173,16 +174,11 @@ Navigation
  `TX`                 | Go back to one character before X
  `^W gf`              | Open file in new tab
 
- Goto column 20:
-``` VimL
-    `20`|
-```
-
 Scrolling
 ---------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+------------------------|---------------------------------------------------------
  `^U`                 | Scroll half a screen up
  `^D`                 | Scroll half a screen down
  `^E`                 | Scroll down one line
@@ -199,7 +195,7 @@ Buffer
 ------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+------------------------|---------------------------------------------------------
  `:ls`                | Show open buffer
  `:1b`                | Open buffer 1
  `:b1`                | Open buffer 1
@@ -212,7 +208,7 @@ Search
 ------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+------------------------|---------------------------------------------------------
  `/pattern`           | Search for pattern
  `/^R"`               | Use clipboard content as pattern
  `/^Ra`               | Search for the content of buffer a
@@ -234,13 +230,16 @@ Regular expressions in search and replace
 -----------------------------------------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `.`                  | Any character
  `*`                  | (0-n) times the previous character
  `?`                  | (0-1) times the previous character
- `\+`               | (1-n) times the previous character
+ `\+`                 | (1-n) times the previous character
  `\{n}`               | (n) times the previous character
  `\{min,max}`         | (min-max) times the previous character
+ `\{-}`               | (0-max) times the previous character (non-greedy)
+ `\{-min,max}`        | (min-max) times the previous character (non-greedy)
+ `\{-n}`              | (n) times (min. 1) of the previous character (non-greedy)
  `^`                  | Beginning of line
  `$`                  | End of line
  `[ ]`                | e.g. [a-f]
@@ -266,7 +265,7 @@ Examples for regular expressions
 --------------------------------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `/jo[ha]n`           | Search john or joan
  `/john\`|joan        | Search john or joan
  `/\<\d\d\d\d\>`      | Search exactly 4 digits
@@ -289,7 +288,7 @@ Split view
 ----------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `^w w`               | Toggle between views
  `^w v`               | Vertical split
  `^w s`               | Horizontal split
@@ -303,7 +302,7 @@ Visual-Mode
 -----------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `v`                  | Start selection
  `V`                  | Select lines
  `gv`                 | Restore last selection
@@ -321,14 +320,18 @@ Browse source code width tags (ctags)
 
 Generate tags (database) file with a shortcut (here F11):
 
-    map <F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+``` VimL
+map <F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+```
 
 Add path for tags database to .vimrc:
 
-    set tags=./tags,tags,./../tags,./../../tags,./../../../tags
+``` VimL
+set tags=./tags,tags,./../tags,./../../tags,./../../../tags
+```
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `:tag main`          | Goto tag "main"
  `:tn`                | Goto next tag
  `:tp`                | Goto previous tag
@@ -338,7 +341,7 @@ Search in files
 ---------------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `:cd`                | Show current directory
  `:cd Verz`           | Change current directoy
  `:vimgrep /{pattern}/[g][j] {file}` | Search for pattern in current directory
@@ -350,14 +353,14 @@ Search in files
  `:cnewer`            | Display newer search results
 
 Option g, j:
-g = Show all matches (recommended)
-j = Don't jump to first match
+* g = Show all matches (recommended)
+* j = Don't jump to first match
 
 Spell check
 -----------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `:set spell!`        | Toggle spell check
  `:set spelllang=de`  | Activate German spell check
  `z=`                 | Correct word
@@ -369,7 +372,7 @@ Folds
 -----
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `:set folding=syntax`| Activate folding with "syntax" method
  `zi`                 | Toggle folds
  `zv`                 | Show current position
@@ -378,8 +381,8 @@ Folds
  `zr`                 | Open fold
  `zR`                 | Open all folds
 
-Macro
------
+VimL
+----
 
 Example: IP address auto-generate
 
@@ -391,7 +394,7 @@ UTF-8 with Vim
 --------------
 
  `Key`                | Description
---------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `:set enc=cp850`     | Use cp850 encoding for the current file (or cp437 for MS-DOS)
  `:set enc=latin1`    | Use latin1 encoding for the current file
  `:set enc=utf-8`     | Use utf-8 encoding for the current file
@@ -401,8 +404,8 @@ UTF-8 with Vim
 
 Example:
 
-A file is latin1 encoded and is loaded in Vim, i.e. :set enc? results in
+A file is latin1 encoded and is loaded in Vim, i.e. `:set enc?` results in
 "latin1" and the file is displayed correctly in Vim. Now we want to convert the
-file to utf-8.  Do :set fenc=utf-8 and write the file :w.  Reload the file with
-the correct encoding: :e ++enc=<utf-8>.
+file to utf-8.  Do `:set fenc=utf-8` and write the file `:w`.  Reload the file with
+the correct encoding: `:e ++enc=<utf-8>`.
 
