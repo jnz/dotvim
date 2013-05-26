@@ -1,5 +1,42 @@
-﻿Jan Zwiener's Vim Commands
-==========================
+Jan Zwiener's Vim config
+========================
+
+Installation from Github
+------------------------
+
+Installation:
+
+    git clone git://github.com/jnz/dotvim.git ~/.vim
+
+Create symlinks:
+
+    ln -s ~/.vim/vimrc ~/.vimrc
+    ln -s ~/.vim/gvimrc ~/.gvimrc
+
+Switch to the `~/.vim` directory, and fetch submodules:
+
+    cd ~/.vim
+    git submodule init
+    git submodule update
+
+Update all submodules
+
+    git submodule foreach git checkout master
+    git submodule foreach git pull
+
+Add a new submodule
+
+    git submodule add URL bundle/NAME
+    git submodule init
+    git submodule update
+
+Remove a submodule
+
+    edit .gitmodules and remove the module
+    edit .git/config and remove the module
+    git rm --cached bundle/submodulepath
+    rm -rf bundle/submodulepath
+
 
 Common commands (Command mode)
 ------------------------------
@@ -195,29 +232,30 @@ Regular expressions in search and replace
  Key                | Description
 --------------------|---------------------------------------------------------
  .                  | Any character
- *                  | Beliebige Anzahl des vorhergehenden Zeichens (0-n)x
- ?                  | Vorhergehender Ausdruck ist optional (0-1)x
- \+                 | Min. einmaliges Auftreten des vorhergehenden Zeichens
- \{n}               | Wie *, aber nur n-maliges Auftreten
- \{min,max}         | Min. - max. Auftreten
- ^                  | Zeilenanfang
- $                  | Zeilenende
- \                  | Behandelt das Zeichen als gewöhnliches Zeichen
- [ ]                | Beliebiges zwischen den Klammern angegebenes Zeichen
- \( \)              | Muster kann mit \1, \2 usw. wieder verwendet werden
- \< \>              | Wortanfang \< und Wortende \>
- \s                 | Whitespace (Leerzeichen und Tabulator)
- \S                 | Non-Whitespace
- \d                 | Ziffer
- \a                 | Buchstabe (Alphabet)
+ *                  | (0-n) times the previous character
+ ?                  | (0-1) times the previous character
+ \+                 | (1-n) times the previous character
+ \{n}               | (n) times the previous character
+ \{min,max}         | (min-max) times the previous character
+ ^                  | Beginning of line
+ $                  | End of line
+ [ ]                | e.g. [a-f]
+ \( \)              | Pattern can be reused with \1, \2 ...
+ \< \>              | Word begin \< and word end \>
+ \s                 | Whitespace
+ \S                 | Non-whitespace
+ \d                 | Number
+ \a                 | Character
  \w                 | Word char
  \W                 | Non-word char
- &                  | Entspricht dem gefundenen Muster (:%s/jan/Zwiener, &/g)
+ &                  | Found pattern for replace (:%s/jan/Zwiener, &/g)
  \&                 | Logical AND
  \|                 | Logical OR
- \@!                | Vorhergehendes Item darf nicht vorkommen: foo\(bar\)\@!
- \r                 | Neue Zeile (Beispiel Kommas in Zeilenumbruch :%s/, /\r/)
- \v                 | Very magic: Alle Zeichen außer 0-9,a-z haben besondere Bedeutung
+ \@!                | Logical NOT. e.g.: foo but not foobar: foo\(bar\)\@!
+ \r                 | New line for replace (comma to new line :%s/, /\r/)
+ \v                 | Very magic: all characters have a special meaning
+ \V                 | Very nomagic: Use the pattern as it is
+ \x                 | Hex character: the same as [0-9a-fA-F]
 
 Examples for regular expressions
 --------------------------------
@@ -227,9 +265,11 @@ Examples for regular expressions
  /jo[ha]n           | Search john or joan
  /john\|joan        | Search john or joan
  /\<\d\d\d\d\>      | Search exactly 4 digits
- :%s/^\(.*\)\n\1$/\1/ | Alle Zeilen löschen, die doppelt vorkommen
+ :%s/^\(.*\)\n\1$/\1/ | Delete duplicated lines
  /.*Bush\&.*Clinton | Search for Bush AND Clinton
  /.*Bush\|.*Clinton | Search for Bush OR Clinton
+ /\v#\x{6}          | CSS Hex-Color: #00ffee (\v very magic, \x = hex)
+ /\v"[^"]+"         | Search for string in ""
 
 Split view
 ----------
@@ -237,121 +277,111 @@ Split view
  Key                | Description
 --------------------|---------------------------------------------------------
  ^w w               | Toggle between views
- ^w v               | Vertikal aufsplitten
- ^w s               | Horizontal aufsplitten
- ^w c               | Split schließen
- ^w jkhl            | Zwischen Fenstern springen
- :only              | Alle Splitscreens schliessen
- ^w r               | Ansicht rotieren
- ^w R               | Ansicht rotieren (zurück)
- ^w +               | Ansicht vergrößern (eine Zeile)
- ^w -               | Ansicht verkleinern (eine Zeile)
- ^w 5-              | Ansicht verkleinern (fünf Zeilen)
- ^w =               | Ansichten gleich aufteilen
- ^w 5_              | Ansicht 5 Zeilen hoch
+ ^w v               | Vertical split
+ ^w s               | Horizontal split
+ ^w c               | Close split
+ ^w jkhl            | Jump between views
+ :only              | Close alll
+ ^w r               | Rotate view
+ ^w R               | Rotate view back
 
 Visual-Mode
 -----------
 
  Key                | Description
 --------------------|---------------------------------------------------------
- v                  | Markieren
- V                  | Zeilenweise markieren
- gv                 | Letzte Selektion herstellen
- ^Q                 | Blockmode
- c                  | Ändern (ändert Layout)
- r                  | Ersetzen
+ v                  | Start selection
+ V                  | Select lines
+ gv                 | Restore last selection
+ ^Q                 | Visual block-mode
+ r                  | Replace
  I                  | Insert
  A                  | Append
- p                  | Text einfügen
- u                  | Alles klein schreiben
- U                  | Alles groß schreiben
- g?                 | Selektion mit ROT13 "verschlüsseln"
+ p                  | Paste
+ u                  | Make lower-case
+ U                  | Make upper-case
+ g?                 | ROT13 "encryption"
 
-Browsen in Quellcode mit Tags (ctags)
--------------------------------------
+Browsen source code width Tags (ctags)
+--------------------------------------
 
-Vim benötigt tags Datei zum Quellcode browsen.
-Taste F11 mit ctags Aufruf belegen:
+Generate tags (database) file with a shortcut (here F11):
 map <F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-In vimrc den tags Pfad angeben:
-set tags=./tags,tags,./../tags,./../../tags,./../../../tags,./../../../../tags - Pfad für Suche nach ctags Datei angeben
+Add path for tags database to .vimrc:
+set tags=./tags,tags,./../tags,./../../tags,./../../../tags,./../../../../tags
 
  Key                | Description
 --------------------|---------------------------------------------------------
- :ts main           | Suche nach "main" in Quellcode
- ^]                 | Gehe zu Definition von aktuellem Objekt unter Cursor
- ^O                 | Springe zurück
- ^I                 | Springe vor
+ :tag main          | Goto tag "main"
+ :tn                | Goto next tag
+ :tp                | Goto previous tag
+ :ts main           | Search for "main"
 
-Suchen in Dateien
------------------
-
- Key                | Description
---------------------|---------------------------------------------------------
- :cd                | Aktuelles Verzeichnis anzeigen
- :cd Verz           | Verzeichnis wechseln
- :vimgrep /{pattern}/[g][j] {file} | Nach pattern in aktuellem Verz. suchen
- :noautocmd vimgrep /{pattern}/[g][j] {file} | Schnell nach pattern in aktuellem Verz. suchen
- :noautocmd vimgrep /{pattern}/j **/*.c | Schnell nach pattern in aktuellem Verz. + Unterverz. suchen
- :clist             | Ergebnisse der Suche von vimgrep anzeigen
- :copen             | Ergebnisse der Suche von vimgrep anzeigen (Scrollen möglich)
- :cclose            | Ergebnisse der Suche von vimgrep schliessen
- :colder            | Zu Ergebnissen von alter Suche wechseln
- :cnewer            | Zu Ergebnissen von neuer Suche wechseln
-
-Optionen g, j:
-g = Alle Treffer anzeigen
-j = nicht zum Treffer springen
-
-Rechtschreibprüfung
--------------------
+Search in files
+---------------
 
  Key                | Description
 --------------------|---------------------------------------------------------
- :set spell!        | Rechtschreibprüfung ein-/ausschalten
- :set spelllang=de  | Deutsches Wörterbuch aktivieren
- z=                 | Verbesserungsvorschlag für aktuelles Wort
- ]s                 | Nächster Rechtschreibfehler
- [s                 | Vorheriger Rechtschreibfehler
- zg                 | Wort in Liste der bekannten Wörter aufnehmen
+ :cd                | Show current directory
+ :cd Verz           | Change current directoy
+ :vimgrep /{pattern}/[g][j] {file} | Search for pattern in current directory
+ :noautocmd vimgrep /{pattern}/[g][j] {file} | Fast search (disable autocmds)
+ :noautocmd vimgrep /{pattern}/j **/*.c | Recursive search
+ :copen             | Display search results
+ :cclose            | Close search results
+ :colder            | Display older search results
+ :cnewer            | Display newer search results
+
+Option g, j:
+g = Show all matches (recommended)
+j = Don't jump to first match
+
+Spell check
+-----------
+
+ Key                | Description
+--------------------|---------------------------------------------------------
+ :set spell!        | Toggle spell check
+ :set spelllang=de  | Activate German spell check
+ z=                 | Correct word
+ ]s                 | Next item
+ [s                 | Previous item
+ zg                 | Add word to dictionary
 
 Faltungen
 ---------
 
  Key                | Description
 --------------------|---------------------------------------------------------
- :set folding=syntax| Faltungen nach Syntax aktivieren
- zi                 | Faltungen ein-/ausschalten
- zv                 | Aktuelle Position anzeigen
- zm                 | Faltungen schliessen
- zM                 | Alle Faltungen schliessen
- zr                 | Faltungen öffnen
- zR                 | Alle Faltungen öffnen
+ :set folding=syntax| Activate folding with "syntax" method
+ zi                 | Toggle folds
+ zv                 | Show current position
+ zm                 | Close fold
+ zM                 | Close all folds
+ zr                 | Open fold
+ zR                 | Open all folds
 
-Makro
+Macro
 -----
 
 :for i in range(1,10) | put ='192.168.0.'.i | endfor
 
-UTF-8 mit Vim
--------------
+UTF-8 with Vim
+--------------
 
  Key                | Description
 --------------------|---------------------------------------------------------
- :set enc=cp850     | Datei als cp850 codiert anzeigen (bsp.: cp437 für DOS)
- :set enc=latin1    | Datei als latin1 codiert anzeigen
- :set enc=utf-8     | Datei als utf-8 codiert anzeigen
- :set fenc=utf-8    | Beim Speichern wird in utf-8 konvertiert/geschrieben
- :set fenc=latin1   | Beim Speichern wird in latin1 konvertiert/geschrieben
- :set bomb          | Schreibt Byte-Order-Mark für die automatische Erkennung beim nächsten Speichern.
- :e ++enc=<encoding>| Datei mit unterschiedlicher Kodierung neu laden.
+ :set enc=cp850     | Use cp850 encoding for the current file (or cp437 for MS-DOS)
+ :set enc=latin1    | Use latin1 encoding for the current file
+ :set enc=utf-8     | Use utf-8 encoding for the current file
+ :set fenc=utf-8    | The next :w will write the file utf-8 encoded
+ :set bomb          | Activates a BOM for the next write
+ :e ++enc=<encoding>| Reload file with another encoding
 
-Beispiel:
-Datei liegt in latin1 vor und wird in Vim geladen. enc sollte auf latin1 stehen.
-Wenn man jetzt fenc=utf-8 aktiviert und die Datei speichert, wird die Datei
-in UTF-8 konvertiert (hierbei sollten keine Verluste auftreten).
-Jetzt muss die Datei mit der neuen Codierung angezeigt werden:
-:e ++enc=<utf-8>
+Example:
+A file is latin1 encoded and is loaded in Vim, i.e. :set enc? results in
+"latin1" and the file is displayed correctly in Vim. Now we want to convert the
+file to utf-8.  Do :set fenc=utf-8 and write the file :w.  Reload the file with
+the correct encoding: :e ++enc=<utf-8>.
 
