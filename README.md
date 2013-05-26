@@ -124,7 +124,7 @@ Note: ^ means Ctrl key
  `g ^g`               | Count the words in the file
  `gq`                 | Format the selection regions according to textwidth (tw)
  `:set tw=50`         | Set the textwidth to 50 characters
- `:e scp://path/file`   | Edit file via SSH: scp://user@host/path/file
+ `:e scp://path/file` | Edit file via SSH: scp://user@host/path/file
  `:e scp://path/`     | Open directory via SSH: scp://user@host/path/
  `:bufdo cmd`         | Execute command on every open buffer
  `:tabdo cmd`         | Execute command on every tab
@@ -160,7 +160,6 @@ Navigation
  `15G`                | Goto line 15
  `15gg`               | Goto line 15
  `:15`                | Goto line 15
- `20|`                | Goto column 20
  `gd`                 | Goto local definition
  `gD`                 | Goto global definition
  `[[`                 | Goto previous {
@@ -178,7 +177,7 @@ Scrolling
 ---------
 
  `Key`                | Description
-------------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `^U`                 | Scroll half a screen up
  `^D`                 | Scroll half a screen down
  `^E`                 | Scroll down one line
@@ -195,7 +194,7 @@ Buffer
 ------
 
  `Key`                | Description
-------------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `:ls`                | Show open buffer
  `:1b`                | Open buffer 1
  `:b1`                | Open buffer 1
@@ -208,7 +207,7 @@ Search
 ------
 
  `Key`                | Description
-------------------------|---------------------------------------------------------
+----------------------|---------------------------------------------------------
  `/pattern`           | Search for pattern
  `/^R"`               | Use clipboard content as pattern
  `/^Ra`               | Search for the content of buffer a
@@ -267,13 +266,15 @@ Examples for regular expressions
  `Key`                | Description
 ----------------------|---------------------------------------------------------
  `/jo[ha]n`           | Search john or joan
- `/john\`|joan        | Search john or joan
  `/\<\d\d\d\d\>`      | Search exactly 4 digits
  `:%s/^\(.*\)\n\1$/\1/` | Delete duplicated lines
  `/.*Bush\&.*Clinton` | Search for Bush AND Clinton
- `/.*Bush\`|.*Clinton | Search for Bush OR Clinton
  `/\v#\x{6}`          | CSS Hex-Color: #00ffee (\v very magic, \x = hex)
  `/\v"[^"]+"`         | Search for string in ""
+
+Search for Bush OR Clinton:
+
+ `/.*Bush\|.*Clinton`
 
 For the Markdown in the table in this file, the commands have to be put into
 backtick characters. To put every key in the tables in backticks, the following
