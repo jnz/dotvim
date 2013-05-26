@@ -306,10 +306,12 @@ Browsen source code width Tags (ctags)
 --------------------------------------
 
 Generate tags (database) file with a shortcut (here F11):
-map <F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+    map <F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 Add path for tags database to .vimrc:
-set tags=./tags,tags,./../tags,./../../tags,./../../../tags,./../../../../tags
+
+    set tags=./tags,tags,./../tags,./../../tags,./../../../tags
 
  Key                | Description
 --------------------|---------------------------------------------------------
@@ -365,7 +367,9 @@ Faltungen
 Macro
 -----
 
-:for i in range(1,10) | put ='192.168.0.'.i | endfor
+Example: IP address auto-generate
+
+    :for i in range(1,10) | put ='192.168.0.'.i | endfor
 
 UTF-8 with Vim
 --------------
@@ -380,6 +384,7 @@ UTF-8 with Vim
  :e ++enc=<encoding>| Reload file with another encoding
 
 Example:
+
 A file is latin1 encoded and is loaded in Vim, i.e. :set enc? results in
 "latin1" and the file is displayed correctly in Vim. Now we want to convert the
 file to utf-8.  Do :set fenc=utf-8 and write the file :w.  Reload the file with
