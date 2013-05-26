@@ -250,12 +250,13 @@ Regular expressions in search and replace
  \W                 | Non-word char
  &                  | Found pattern for replace (:%s/jan/Zwiener, &/g)
  \&                 | Logical AND
- \|                 | Logical OR
  \@!                | Logical NOT. e.g.: foo but not foobar: foo\(bar\)\@!
  \r                 | New line for replace (comma to new line :%s/, /\r/)
  \v                 | Very magic: all characters have a special meaning
  \V                 | Very nomagic: Use the pattern as it is
  \x                 | Hex character: the same as [0-9a-fA-F]
+
+Logical OR is | (pipe character/vertical bar)
 
 Examples for regular expressions
 --------------------------------
@@ -369,7 +370,9 @@ Macro
 
 Example: IP address auto-generate
 
+``` VimL
     :for i in range(1,10) | put ='192.168.0.'.i | endfor
+```
 
 UTF-8 with Vim
 --------------
