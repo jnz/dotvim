@@ -160,7 +160,6 @@ Navigation
  15G                | Goto line 15
  15gg               | Goto line 15
  :15                | Goto line 15
- 20|                | Goto column 20
  gd                 | Goto local definition
  gD                 | Goto global definition
  [[                 | Goto previous {
@@ -173,6 +172,11 @@ Navigation
  tX                 | Goto one character before X
  TX                 | Go back to one character before X
  ^W gf              | Open file in new tab
+
+ Goto column 20:
+``` VimL
+    20|
+```
 
 Scrolling
 ---------
@@ -234,7 +238,7 @@ Regular expressions in search and replace
  .                  | Any character
  *                  | (0-n) times the previous character
  ?                  | (0-1) times the previous character
- \+                 | (1-n) times the previous character
+ `\+`               | (1-n) times the previous character
  \{n}               | (n) times the previous character
  \{min,max}         | (min-max) times the previous character
  ^                  | Beginning of line
