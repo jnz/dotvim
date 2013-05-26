@@ -204,8 +204,8 @@ Buffer
  :enew              | Create and show new buffer (new file)
  :ball              | Show all buffers on the screen
 
-Suche
------
+Search
+------
 
  Key                | Description
 --------------------|---------------------------------------------------------
@@ -302,8 +302,8 @@ Visual-Mode
  U                  | Make upper-case
  g?                 | ROT13 "encryption"
 
-Browsen source code width Tags (ctags)
---------------------------------------
+Browse source code width tags (ctags)
+-------------------------------------
 
 Generate tags (database) file with a shortcut (here F11):
 
@@ -351,8 +351,8 @@ Spell check
  [s                 | Previous item
  zg                 | Add word to dictionary
 
-Faltungen
----------
+Folds
+-----
 
  Key                | Description
 --------------------|---------------------------------------------------------
