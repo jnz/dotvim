@@ -85,24 +85,50 @@ set hlsearch         " When there is a previous search pattern, highlight all it
 set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches.
 set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode.  On pressing 'wildchar' (usually <Tab>) to invoke completion,
 set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'.
+set wildmode=longest,full " Completion mode: complete longest common string, then each full match
 set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing,
 set ruler            " Show the line and column number of the cursor position
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>.
 set history=200      " The command-lines that you enter are remembered in a history table
 set undolevels=1000  " Maximum number of changes that can be undone.
+set showmatch        " When a bracket is inserted, briefly jump to the matching one.
+set matchtime=2      " Tenths of a second to show the matching paren (default: 500 ms)
 set wildignorecase   " When set case is ignored when completing file names and directories.
+set lazyredraw       " the screen will not be redrawn while executing macros,
+set showcmd          " show partial command in last line of the screen (Set this option off if your terminal is slow.)
+set iskeyword-=_     " use _ as a word divider
+set showtabline=2    " always display tabs
+set formatoptions+=n " When formatting text, recognize numbered lists.
+set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 
+" help: :h cinoptions-values
 " Align cindent function arguments with 'cino'
-" void my_func(int arg1,  /* turns into this: */ void my_func(int arg1,
-"       int arg2,                                             int arg2,
-"       int arg3);                                            int arg3);
+" void my_func(int arg1,  >   void my_func(int arg1,
+"       int arg2,         >                int arg2,
+"       int arg3);        >                int arg3);
 set cino+=(0
+" Align C++ scope declarations (public, private, protected):
+"                   g0:
+" ---------------------------
+" {             >   {
+"     public:   >   public:
+"     a = b;    >       a = b;
+"     private:  >   private:
+" }             >   }
+set cino+=g0
+" Adjust (0 for long lines with W4:
+" a_long_line(		        >  a_long_line(
+"             argument,		>     argument,
+"             argument);	>     argument);
+" a_short_line(argument,    >  a_short_line(argument,
+"              argument);	>  	            argument);
+set cino+=W4
 
 if has('unix')
     " unix-like platform
@@ -186,6 +212,14 @@ map <C-j> <C-W><C-J>
 map <C-k> <C-W><C-K>
 map <C-l> <C-W><C-L>
 map <C-h> <C-W><C-H>
+" Use Q for formatting the current paragraph (or visual selection)
+vnoremap Q gq
+nnoremap Q gqap
+" Using '<' and '>' in visual mode to shift code by a tab-width left/right by
+" default exits visual mode. With this mapping we remain in visual mode after
+" such an operation.
+vnoremap < <gv
+vnoremap > >gv
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
@@ -194,7 +228,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " plattform specific grep search / findstr stuff
 " if in doubt, use vimgrep (<leader>v), but grep and findstr are faster.
-if has('win32')
+if has('win32') && executable('findstr')
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
     " /S = include sub-directories
@@ -299,14 +333,18 @@ if has('gui_running')
 
   " Hide icons
   set guioptions-=T
+  " Hide scrollbars
+  set guioptions+=r " Right-hand scrollbar is always present.
+  set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window.
+  set guioptions+=l " Left-hand scrollbar is always present.
+  set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
+
   colorscheme smyck
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
   set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
-  set lazyredraw " the screen will not be redrawn while executing macros,
-  set showcmd    " show partial command in last line of the screen (Set this option off if your terminal is slow.)
 endif
 
 " Status line
@@ -316,6 +354,9 @@ set laststatus=2     " Always display a statusline
 
 " PLUGIN SETTINGS
 " ---------------
+
+" load matchit plugin
+runtime macros/matchit.vim
 
 " ctrlp settings
 nmap <silent> <Leader>p :CtrlP<CR>
@@ -342,8 +383,8 @@ nmap <silent> <Leader>r :CtrlPBuffer<CR>
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
-" NERDTree to <leader>f
-nmap <silent> <Leader>f :NERDTree<CR>
+" NERDTree to <leader>f (use current file as starting point)
+nmap <silent> <Leader>f :NERDTreeFind<CR>
 au Filetype nerdtree setlocal nolist
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
@@ -365,6 +406,12 @@ if has('unix')
 else
     let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
 endif
+nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " UltiSnips
 
