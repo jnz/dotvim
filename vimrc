@@ -299,7 +299,7 @@ if has('gui_running')
 
   " Hide icons
   set guioptions-=T
-  colorscheme blueshift
+  colorscheme smyck
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -365,6 +365,8 @@ if has('unix')
 else
     let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
 endif
+
+" UltiSnips
 
 " clang_complete options
 let g:clang_complete_loaded = 1 "disable by default
