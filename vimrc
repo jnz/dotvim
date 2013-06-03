@@ -97,7 +97,6 @@ set matchtime=2      " Tenths of a second to show the matching paren (default: 5
 set wildignorecase   " When set case is ignored when completing file names and directories.
 set lazyredraw       " the screen will not be redrawn while executing macros,
 set showcmd          " show partial command in last line of the screen (Set this option off if your terminal is slow.)
-set iskeyword-=_     " use _ as a word divider
 set showtabline=2    " always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists.
 set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
@@ -215,11 +214,6 @@ map <C-h> <C-W><C-H>
 " Use Q for formatting the current paragraph (or visual selection)
 vnoremap Q gq
 nnoremap Q gqap
-" Using '<' and '>' in visual mode to shift code by a tab-width left/right by
-" default exits visual mode. With this mapping we remain in visual mode after
-" such an operation.
-vnoremap < <gv
-vnoremap > >gv
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
@@ -228,7 +222,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " plattform specific grep search / findstr stuff
 " if in doubt, use vimgrep (<leader>v), but grep and findstr are faster.
-if has('win32') && executable('findstr')
+if has('win32') && !executable('grep')
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
     " /S = include sub-directories
