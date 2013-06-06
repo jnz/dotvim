@@ -97,7 +97,6 @@ set matchtime=2      " Tenths of a second to show the matching paren (default: 5
 set wildignorecase   " When set case is ignored when completing file names and directories.
 set lazyredraw       " the screen will not be redrawn while executing macros,
 set showcmd          " show partial command in last line of the screen (Set this option off if your terminal is slow.)
-set iskeyword-=_     " use _ as a word divider
 set showtabline=2    " always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists.
 set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
@@ -215,11 +214,6 @@ map <C-h> <C-W><C-H>
 " Use Q for formatting the current paragraph (or visual selection)
 vnoremap Q gq
 nnoremap Q gqap
-" Using '<' and '>' in visual mode to shift code by a tab-width left/right by
-" default exits visual mode. With this mapping we remain in visual mode after
-" such an operation.
-vnoremap < <gv
-vnoremap > >gv
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
@@ -228,7 +222,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " plattform specific grep search / findstr stuff
 " if in doubt, use vimgrep (<leader>v), but grep and findstr are faster.
-if has('win32') && executable('findstr')
+if has('win32') && !executable('grep')
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
     " /S = include sub-directories
@@ -302,16 +296,6 @@ set t_vb=        " disable visual bell
 set nofoldenable " When off, all folds are open.
 " 256 Terminal colors
 set t_Co=256
-" Detect whitespaces and tabs at the end of a line with red highlighting
-" <whitespace detection>
-highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-" </whitespace detection>
 
 " visual settings for the GUI
 if has('gui_running')
@@ -339,13 +323,24 @@ if has('gui_running')
   set guioptions+=l " Left-hand scrollbar is always present.
   set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
 
-  colorscheme smyck
+  colorscheme blueshift
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
   set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 endif
+
+" Detect whitespaces and tabs at the end of a line with red highlighting
+" <whitespace detection>
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+" </whitespace detection>
 
 " Status line
 " More information in status line
@@ -384,7 +379,7 @@ nmap <silent> <Leader>r :CtrlPBuffer<CR>
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
 " NERDTree to <leader>f (use current file as starting point)
-nmap <silent> <Leader>f :NERDTreeFind<CR>
+nmap <silent> <Leader>f :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
