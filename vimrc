@@ -447,11 +447,11 @@ autocmd BufEnter *.tex    let b:tex_flavor = 'pdflatex'
 " pdflatex -file-line-error --shell-escape -interaction=nonstopmode MYMAINFILE.tex MYMAINFILE
 " (make sure that makeprg is set to "make", approach b) is more suitable for
 " larger latex projects (like a thesis):
-autocmd BufEnter *.tex    set makeprg=make
-autocmd BufEnter *.tex    set errorformat=%f:%l:\ %m
+autocmd BufEnter *.tex    setlocal makeprg=make
+autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
-autocmd FileType make set noexpandtab
+autocmd FileType make setlocal noexpandtab
 
 " BACKUP SETTINGS
 " ---------------
