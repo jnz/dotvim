@@ -378,7 +378,7 @@ nmap <silent> <Leader>r :CtrlPBuffer<CR>
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
 " NERDTree to <leader>f (use current file as starting point)
-nmap <silent> <Leader>f :NERDTreeFind<CR>
+nmap <silent> <Leader>f :NERDTreeToggle<CR>
 au Filetype nerdtree setlocal nolist
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
