@@ -1,43 +1,6 @@
 Jan Zwiener's Vim config
 ========================
 
-Installation from Github
-------------------------
-
-Installation:
-
-    git clone git://github.com/jnz/dotvim.git ~/.vim
-
-Create symlinks:
-
-    ln -s ~/.vim/vimrc ~/.vimrc
-    ln -s ~/.vim/gvimrc ~/.gvimrc
-
-Switch to the `~/.vim` directory, and fetch submodules:
-
-    cd ~/.vim
-    git submodule init
-    git submodule update
-
-Update all submodules
-
-    git submodule foreach git checkout master
-    git submodule foreach git pull
-
-Add a new submodule
-
-    git submodule add URL bundle/NAME
-    git submodule init
-    git submodule update
-
-Remove a submodule
-
-    edit .gitmodules and remove the module
-    edit .git/config and remove the module
-    git rm --cached bundle/submodulepath
-    rm -rf bundle/submodulepath
-
-
 Common commands (Command mode)
 ------------------------------
 
@@ -409,4 +372,42 @@ A file is latin1 encoded and is loaded in Vim, i.e. `:set enc?` results in
 "latin1" and the file is displayed correctly in Vim. Now we want to convert the
 file to utf-8.  Do `:set fenc=utf-8` and write the file `:w`.  Reload the file with
 the correct encoding: `:e ++enc=<utf-8>`.
+
+
+Installation from Github
+------------------------
+
+Installation:
+
+    git clone git://github.com/jnz/dotvim.git ~/.vim
+
+Create symlinks:
+
+    ln -s ~/.vim/vimrc ~/.vimrc
+    ln -s ~/.vim/gvimrc ~/.gvimrc
+
+Switch to the `~/.vim` directory, and fetch submodules:
+
+    cd ~/.vim
+    git submodule init
+    git submodule update
+
+Update all submodules
+
+    git submodule foreach git checkout master
+    git submodule foreach git pull
+
+Add a new submodule
+
+    git submodule add URL bundle/NAME
+    git submodule init
+    git submodule update
+
+Remove a submodule
+
+    edit .gitmodules and remove the module
+    edit .git/config and remove the module
+    git rm --cached bundle/submodulepath
+    rm -rf bundle/submodulepath
+
 
