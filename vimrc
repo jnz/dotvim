@@ -396,6 +396,12 @@ let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
+" Airline
+" let g:airline_powerline_fonts = 1
+let g:airline_theme='tomorrow'
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
+
 " YCM (YouCompleteMe) options
 " YCM global config file
 if has('unix')
