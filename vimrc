@@ -333,6 +333,8 @@ if has('gui_running')
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
   set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
+else
+  colorscheme wombat256
 endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
@@ -397,6 +399,12 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
+
+" Airline
+" let g:airline_powerline_fonts = 1
+let g:airline_theme='tomorrow'
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
 
 " YCM (YouCompleteMe) options
 " YCM global config file
