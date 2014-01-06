@@ -94,14 +94,14 @@ set history=200      " The command-lines that you enter are remembered in a hist
 set undolevels=1000  " Maximum number of changes that can be undone.
 set showmatch        " When a bracket is inserted, briefly jump to the matching one.
 set matchtime=2      " Tenths of a second to show the matching paren (default: 500 ms)
-if v:version >= 703 && has('patch72')
+if v:version >= 704 || (v:version >= 703 && has('patch72'))
     set wildignorecase   " When set case is ignored when completing file names and directories.
 endif
 set lazyredraw       " the screen will not be redrawn while executing macros,
 set showcmd          " show partial command in last line of the screen (Set this option off if your terminal is slow.)
 set showtabline=2    " always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists.
-if v:version >= 703 && has('patch541')
+if v:version >= 704 || (v:version >= 703 && has('patch541'))
     set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
 endif
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
