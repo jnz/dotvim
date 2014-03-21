@@ -93,12 +93,16 @@ set history=200      " The command-lines that you enter are remembered in a hist
 set undolevels=1000  " Maximum number of changes that can be undone.
 set showmatch        " When a bracket is inserted, briefly jump to the matching one.
 set matchtime=2      " Tenths of a second to show the matching paren (default: 500 ms)
-set wildignorecase   " When set case is ignored when completing file names and directories.
+if v:version >= 704 || (v:version >= 703 && has('patch72'))
+    set wildignorecase   " When set case is ignored when completing file names and directories.
+endif
 set lazyredraw       " the screen will not be redrawn while executing macros,
 set showcmd          " show partial command in last line of the screen (Set this option off if your terminal is slow.)
 set showtabline=2    " always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists.
-set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
+if v:version >= 704 || (v:version >= 703 && has('patch541'))
+    set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
+endif
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
@@ -330,6 +334,8 @@ if has('gui_running')
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
   set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
+else
+  colorscheme wombat256
 endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
@@ -415,6 +421,12 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
+
+" Airline
+" let g:airline_powerline_fonts = 1
+let g:airline_theme='tomorrow'
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
 
 " YCM (YouCompleteMe) options
 " YCM global config file
