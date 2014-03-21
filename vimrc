@@ -4,7 +4,6 @@
 
 " PATHOGEN
 " --------
-
 " Pathogen init: load all plugins from bundle/ directory
 execute pathogen#infect()
 syntax on
@@ -105,6 +104,7 @@ set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.lst " gcc arm listings
 
 " help: :h cinoptions-values
 " Align cindent function arguments with 'cino'
@@ -264,7 +264,7 @@ endif
 " Taglist options
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
-nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaSl --extra=+q .<CR>
 " F3 goto tag (Eclipse like)
 map <F3> <C-]>
 " F12 goto tag (Visual Studio like)
@@ -278,6 +278,7 @@ nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
 " inoremap <C-x><C-t> <C-X><C-]>
+inoremap <c-space> <c-x><c-u>
 
 " VISUAL SETTINGS
 " ---------------
@@ -311,8 +312,8 @@ if has('gui_running')
   else
       " Consolas Font for Windows
       " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
-      set guifont=Consolas:h11
-      " set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+      " set guifont=Consolas:h11
+      set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
   endif
 
   " Hide icons
@@ -367,11 +368,32 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_lazy_update = 100 " only update after 100 ms
 if has('unix')
     let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive = 1
+    let g:ctrlp_mruf_case_sensitive = 0
 else
     let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
 endif
+
+" From the CtrlP help file: use
+" dir or find to scan for files (faster) but use the wildignore settings
+function! s:wig2cmd()
+" Change wildignore into space or | separated groups
+" e.g. .aux .out .toc .jpg .bmp .gif
+" or   .aux$\|.out$\|.toc$\|.jpg$\|.bmp$\|.gif$
+let pats = ['[*\/]*\([?_.0-9A-Za-z]\+\)\([*\/]*\)\(\\\@<!,\|$\)','\\\@<!,']
+let subs = has('win32') || has('win64') ? ['\1\3', ' '] : ['\1\2\3', '\\|']
+let expr = substitute(&wig, pats[0], subs[0], 'g')
+let expr = substitute(expr, pats[1], subs[1], 'g')
+let expr = substitute(expr, '\\,', ',', 'g')
+
+" Set the user_command option
+let g:ctrlp_user_command = has('win32') || has('win64')
+    \ ? 'dir %s /-n /b /s /a-d | findstr /V /l "'.expr.'"'
+    \ : 'find %s -type f | grep -v "'.expr .'"'
+
+endfunction
+call s:wig2cmd()
+
 nmap <silent> <Leader>h :CtrlPTag<CR>
 nmap <silent> <Leader>j :CtrlPBufTag<CR>
 nmap <silent> <Leader>r :CtrlPBuffer<CR>
@@ -401,6 +423,7 @@ if has('unix')
 else
     let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
 endif
+let g:ycm_collect_identifiers_from_tags_files = 1
 nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Ultisnips
@@ -411,7 +434,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " UltiSnips
 
 " clang_complete options
-let g:clang_complete_loaded = 1 "disable by default
+" let g:clang_complete_loaded = 1 "disable by default
 if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
@@ -421,18 +444,22 @@ if has('win32')
     " Copy C\libs\clang\bin\clang.dll to C\libs\clang\bin\libclang.dll
     " Make sure the Vim Python support works (otherwise clang_complete fails)
     " use the mingw header files
-    let g:clang_library_path = "C:/Program Files (x86)/LLVM/bin"
-    let g:clang_user_options = "-ID:/Software/MinGW/include"
+    let g:clang_library_path = "C:/Software/LLVM34/bin"
+    let g:clang_user_options = "-IC:/MinGW/include"
 endif
+let g:clang_snippets = 1
+let g:clang_snippets_engine = 'clang_complete'
+let g:clang_auto_select = 2
 
 " Syntastic options
 if has('win32')
     " Syntastic is not really useful on many Windows systems, disable it there:
     " let g:loaded_syntastic_plugin = 1
-    " let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
+    let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
+    let g:syntastic_enable_highlighting = 0
 endif
-let g:syntastic_enable_signs = 1
-let g:syntastic_enable_balloons = 1
+let g:syntastic_enable_signs = 0
+let g:syntastic_enable_balloons = 0
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
