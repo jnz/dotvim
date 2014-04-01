@@ -156,6 +156,18 @@ if has("multi_byte")
   set nobomb                   " no BOM (Byte Order Mark) is prepended to the file
 endif
 
+" The following snippet (function change_dir_once and au BufRead * call
+" s:change_dir_once()) is used to change to working directory to the
+" first file opened in a vim session. because this is normally where i expect
+" my working directory. subsequent files won't change the path.
+function! s:change_dir_once()
+    if !exists("s:change_dir_once_latch")
+        cd %:p:h
+        let s:change_dir_once_latch = 1
+    endif
+endfunction
+au BufRead * call s:change_dir_once()
+
 " MY KEYMAPS
 " ----------
 
@@ -439,11 +451,9 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " clang_complete options
 " let g:clang_complete_loaded = 1 "disable by default
