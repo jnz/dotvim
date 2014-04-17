@@ -166,7 +166,7 @@ function! s:change_dir_once()
         let s:change_dir_once_latch = 1
     endif
 endfunction
-au BufRead * call s:change_dir_once()
+autocmd BufRead * call s:change_dir_once()
 
 " MY KEYMAPS
 " ----------
@@ -280,7 +280,7 @@ endif
 " Taglist options
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
-nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaSl --extra=+q .<CR>
+nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " F3 goto tag (Eclipse like)
 map <F3> <C-]>
 " F12 goto tag (Visual Studio like)
