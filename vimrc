@@ -329,7 +329,7 @@ if has('gui_running')
       " Consolas Font for Windows
       " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
       " set guifont=Consolas:h11
-      set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+      set guifont=Consolas:h11
   endif
 
   " Hide icons
@@ -461,17 +461,12 @@ if has('gui_macvim')
     let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
 endif
 if has('win32')
-    " download clang for windows: http://llvm.org/releases/download.html#3.1
-    " extract it to C:\Libs\clang\
-    " Copy C\libs\clang\bin\clang.dll to C\libs\clang\bin\libclang.dll
-    " Make sure the Vim Python support works (otherwise clang_complete fails)
-    " use the mingw header files
     let g:clang_library_path = "C:/Software/LLVM34/bin"
-    let g:clang_user_options = "-IC:/MinGW/include"
+    " use the mingw header files
+    let g:clang_user_options = "-ID:/MinGW/include"
 endif
-let g:clang_snippets = 1
-let g:clang_snippets_engine = 'clang_complete'
-let g:clang_auto_select = 2
+let g:clang_jumpto_declaration_key = "F10"
+let g:clang_jumpto_back_key = "F9"
 
 " Syntastic options
 if has('win32')
