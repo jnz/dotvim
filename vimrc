@@ -347,7 +347,7 @@ if has('gui_running')
 
   set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 else
-  colorscheme wombat256
+  colorscheme wombat
 endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
