@@ -392,26 +392,6 @@ else
     let g:ctrlp_mruf_case_sensitive = 0
 endif
 
-" From the CtrlP help file: use
-" dir or find to scan for files (faster) but use the wildignore settings
-function! s:wig2cmd()
-" Change wildignore into space or | separated groups
-" e.g. .aux .out .toc .jpg .bmp .gif
-" or   .aux$\|.out$\|.toc$\|.jpg$\|.bmp$\|.gif$
-let pats = ['[*\/]*\([?_.0-9A-Za-z]\+\)\([*\/]*\)\(\\\@<!,\|$\)','\\\@<!,']
-let subs = has('win32') || has('win64') ? ['\1\3', ' '] : ['\1\2\3', '\\|']
-let expr = substitute(&wig, pats[0], subs[0], 'g')
-let expr = substitute(expr, pats[1], subs[1], 'g')
-let expr = substitute(expr, '\\,', ',', 'g')
-
-" Set the user_command option
-let g:ctrlp_user_command = has('win32') || has('win64')
-    \ ? 'dir %s /-n /b /s /a-d | findstr /V /l "'.expr.'"'
-    \ : 'find %s -type f | grep -v "'.expr .'"'
-
-endfunction
-call s:wig2cmd()
-
 nmap <silent> <Leader>h :CtrlPTag<CR>
 nmap <silent> <Leader>j :CtrlPBufTag<CR>
 nmap <silent> <Leader>r :CtrlPBuffer<CR>
@@ -443,7 +423,7 @@ let g:airline_right_sep=' '
 " YCM (YouCompleteMe) options
 " YCM global config file
 if has('unix')
-    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
 else
     let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
 endif
