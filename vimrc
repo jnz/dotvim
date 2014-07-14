@@ -446,7 +446,7 @@ let g:airline_right_sep=' '
 " YCM (YouCompleteMe) options
 " YCM global config file
 if has('unix')
-    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
 else
     let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
 endif
