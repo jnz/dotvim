@@ -2,6 +2,8 @@
 " ===================
 " jan@zwiener.org
 
+let g:python_host_prog='/usr/bin/python2'
+
 " PATHOGEN
 " --------
 " Pathogen init: load all plugins from bundle/ directory
@@ -299,11 +301,11 @@ inoremap <c-space> <c-x><c-u>
 " VISUAL SETTINGS
 " ---------------
 
+" 256 Terminal colors
+set t_Co=256
 " Fillchar (looks nicer for split windows)
 set fillchars=
 " set fillchars=diff:│,vert:│
-" Console dark background
-set background=dark
 set synmaxcol=512 " maximum line length for syntax coloring
 " set cursorline      " this is slooooooooow
 " No sound on errors
@@ -311,8 +313,6 @@ set noerrorbells " don't ring the bell (beep or screen flash) for error messages
 set novisualbell " disable visual bell
 set t_vb=        " disable visual bell
 set nofoldenable " When off, all folds are open.
-" 256 Terminal colors
-set t_Co=256
 
 " visual settings for the GUI
 if has('gui_running')
@@ -340,14 +340,14 @@ if has('gui_running')
   set guioptions+=l " Left-hand scrollbar is always present.
   set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
 
-  colorscheme blueshift
+  colorscheme molokai
 
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
   set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 else
-  colorscheme wombat
+  colorscheme blueshift
 endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
@@ -446,7 +446,7 @@ let g:airline_right_sep=' '
 " YCM (YouCompleteMe) options
 " YCM global config file
 if has('unix')
-    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
+    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YCM/cpp/ycm/.ycm_extra_conf.py'
 else
     let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
 endif
@@ -511,7 +511,10 @@ autocmd FileType make setlocal noexpandtab
 set nobackup
 set nowb
 set noswapfile
-if version >= 703
-  set cm=blowfish
+if has('nvim')
+else
+  if version >= 703
+    set cm=blowfish
+  endif
 endif
 
