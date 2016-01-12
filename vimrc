@@ -2,7 +2,7 @@
 " ===================
 " jan@zwiener.org
 
-let g:python_host_prog='/usr/bin/python2'
+let g:python_host_prog='/usr/bin/python2' " for neovim
 
 " PATHOGEN
 " --------
@@ -391,30 +391,10 @@ else
     let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
 endif
-
-" " From the CtrlP help file: use
-" " dir or find to scan for files (faster) but use the wildignore settings
-" function! s:wig2cmd()
-" " Change wildignore into space or | separated groups
-" " e.g. .aux .out .toc .jpg .bmp .gif
-" " or   .aux$\|.out$\|.toc$\|.jpg$\|.bmp$\|.gif$
-" let pats = ['[*\/]*\([?_.0-9A-Za-z]\+\)\([*\/]*\)\(\\\@<!,\|$\)','\\\@<!,']
-" let subs = has('win32') || has('win64') ? ['\1\3', ' '] : ['\1\2\3', '\\|']
-" let expr = substitute(&wig, pats[0], subs[0], 'g')
-" let expr = substitute(expr, pats[1], subs[1], 'g')
-" let expr = substitute(expr, '\\,', ',', 'g')
-"
-" " Set the user_command option
-" let g:ctrlp_user_command = has('win32') || has('win64')
-"     \ ? 'dir %s /-n /b /s /a-d | findstr /V /l "'.expr.'"'
-"     \ : 'find %s -type f | grep -v "'.expr .'"'
-"
-" endfunction
-" call s:wig2cmd()
-
 nmap <silent> <Leader>h :CtrlPTag<CR>
 nmap <silent> <Leader>j :CtrlPBufTag<CR>
 nmap <silent> <Leader>r :CtrlPBuffer<CR>
+
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
@@ -434,12 +414,6 @@ let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
-" Airline
-" let g:airline_powerline_fonts = 1
-let g:airline_theme='tomorrow'
-let g:airline_left_sep=' '
-let g:airline_right_sep=' '
-
 " YCM (YouCompleteMe) options
 " YCM global config file
 if has('unix')
@@ -449,29 +423,6 @@ else
 endif
 let g:ycm_collect_identifiers_from_tags_files = 1
 nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" clang_complete options
-" let g:clang_complete_loaded = 1 "disable by default
-if has('gui_macvim')
-    let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/"
-endif
-if has('win32')
-    let g:clang_library_path = "C:/Software/LLVM34/bin"
-    " use the mingw header files
-    let g:clang_user_options = "-ID:/MinGW/include"
-endif
-let g:clang_jumpto_declaration_key = "F10"
-let g:clang_jumpto_back_key = "F9"
-
-" Syntastic options
-if has('win32')
-    " Syntastic is not really useful on many Windows systems, disable it there:
-    " let g:loaded_syntastic_plugin = 1
-    " let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
-    " let g:syntastic_enable_highlighting = 1
-endif
-"let g:syntastic_enable_signs = 0
-"let g:syntastic_enable_balloons = 0
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
