@@ -413,9 +413,6 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
 nnoremap <silent> <leader>l :TagbarToggle<CR>
-" FileBeagle
-let g:filebeagle_suppress_keymaps = 1
-nmap <silent> <Leader>q :FileBeagle<CR>
 
 " Airline
 " let g:airline_powerline_fonts = 1
