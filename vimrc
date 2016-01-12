@@ -424,6 +424,11 @@ endif
 let g:ycm_collect_identifiers_from_tags_files = 1
 nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" Syntastic
+if has('win32')
+    let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+end
+
 " FILE SPECIFIC SETTINGS
 " ----------------------
 
