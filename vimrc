@@ -467,11 +467,11 @@ let g:clang_jumpto_back_key = "F9"
 if has('win32')
     " Syntastic is not really useful on many Windows systems, disable it there:
     " let g:loaded_syntastic_plugin = 1
-    let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
-    let g:syntastic_enable_highlighting = 0
+    " let g:syntastic_mode_map = { 'mode': 'passive' } " manually check with: :SyntasticCheck
+    " let g:syntastic_enable_highlighting = 1
 endif
-let g:syntastic_enable_signs = 0
-let g:syntastic_enable_balloons = 0
+"let g:syntastic_enable_signs = 0
+"let g:syntastic_enable_balloons = 0
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
