@@ -198,7 +198,7 @@ imap <C-BS> <C-W>
 " change to current file's path
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Dispatch Make
-map <leader>m :Make<CR>
+map <leader>n :Make<CR>
 " Don't use Ex mode
 " Or, use it to format: map Q gq
 map Q <nop>
@@ -376,6 +376,7 @@ runtime macros/matchit.vim
 
 " ctrlp settings
 nmap <silent> <Leader>p :CtrlP<CR>
+nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
 let g:ctrlp_max_depth = 12
 let g:ctrlp_working_path_mode = 'ra'
@@ -448,6 +449,13 @@ autocmd BufEnter *.tex    let b:tex_flavor = 'pdflatex'
 " larger latex projects (like a thesis):
 autocmd BufEnter *.tex    setlocal makeprg=make
 autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
+
+function! SyncTexForward()
+     let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &"
+     exec execstr
+endfunction
+autocmd BufEnter *.tex    nmap <Leader>f :call SyncTexForward()<CR>
+
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make setlocal noexpandtab
