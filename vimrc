@@ -342,15 +342,13 @@ if has('gui_running')
   set guioptions+=l " Left-hand scrollbar is always present.
   set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
 
-  colorscheme molokai
-
   " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
   let &guioptions = substitute(&guioptions, "t", "", "g")
 
   set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
-else
-  colorscheme blueshift
 endif
+
+colorscheme molokai
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
 " <whitespace detection>
@@ -430,6 +428,11 @@ nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
 if has('win32')
     let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 end
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_style_error_symbol = "⚠"
+let g:syntastic_style_warning_symbol = "⚠"
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
@@ -451,10 +454,15 @@ autocmd BufEnter *.tex    setlocal makeprg=make
 autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
 
 function! SyncTexForward()
-     let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &"
-     exec execstr
+    if has('win32')
+        let execstr = "silent !sumatrapdf.exe -reuse-instance %:p:r.pdf\\#src:".line(".")."%:p &"
+        exec execstr
+    else
+        let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &"
+        exec execstr
+    endif
 endfunction
-autocmd BufEnter *.tex    nmap <Leader>f :call SyncTexForward()<CR>
+autocmd BufEnter *.tex    nmap <Leader>b :call SyncTexForward()<CR>
 
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
