@@ -455,8 +455,7 @@ autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
 
 function! SyncTexForward()
     if has('win32')
-        let execstr = "silent !sumatrapdf.exe -reuse-instance %:p:r.pdf\\#src:".line(".")."%:p &"
-        exec execstr
+        echo 'Not implemented'
     else
         let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &"
         exec execstr
