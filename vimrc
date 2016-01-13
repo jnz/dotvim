@@ -197,6 +197,8 @@ inoremap <C-Z> <C-O>u
 imap <C-BS> <C-W>
 " change to current file's path
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
+" Dispatch Make
+map <leader>m :Make<CR>
 " Don't use Ex mode
 " Or, use it to format: map Q gq
 map Q <nop>
@@ -374,7 +376,6 @@ runtime macros/matchit.vim
 
 " ctrlp settings
 nmap <silent> <Leader>p :CtrlP<CR>
-nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
 let g:ctrlp_max_depth = 12
 let g:ctrlp_working_path_mode = 'ra'
