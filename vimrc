@@ -2,7 +2,11 @@
 " ===================
 " jan@zwiener.org
 
-let g:python_host_prog='/usr/bin/python2' " for neovim
+if has('nvim')
+    let g:python_host_prog='/usr/bin/python2' " for neovim
+    " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
 
 " PATHOGEN
 " --------
@@ -198,7 +202,7 @@ imap <C-BS> <C-W>
 " change to current file's path
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Dispatch Make
-map <leader>n :Make<CR>
+map <leader>n :Make!<CR>
 " Don't use Ex mode
 " Or, use it to format: map Q gq
 map Q <nop>
@@ -218,14 +222,14 @@ vmap k gk
 " Remap cursorkeys (good training for hjkl keys)
 " Left/Right: navigate tabs
 " Up/Down: navigate quick-fix window
-map <down> :cnext<CR>
-map <up> :cprev<CR>
-map <right> :tabnext<CR>
-map <left> :tabprevious<CR>
-map <A-down> :cnext<CR>
-map <A-up> :cprev<CR>
+map <down>    :cnext<CR>
+map <up>      :cprev<CR>
+map <right>   :tabnext<CR>
+map <left>    :tabprevious<CR>
+map <A-down>  :cnext<CR>
+map <A-up>    :cprev<CR>
 map <A-right> :tabnext<CR>
-map <A-left> :tabprevious<CR>
+map <A-left>  :tabprevious<CR>
 " navigation between windows
 map <C-j> <C-W><C-J>
 map <C-k> <C-W><C-K>
@@ -239,7 +243,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
 " noautocmd is important, otherwise autocommands (e.g. from plugins) are
 " executed for each opened file.
-map <leader>v :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
+map <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " plattform specific grep search / findstr stuff
 " if in doubt, use vimgrep (<leader>v), but grep and findstr are faster.
 if has('win32') && !executable('grep')
@@ -461,7 +465,7 @@ function! SyncTexForward()
         exec execstr
     endif
 endfunction
-autocmd BufEnter *.tex    nmap <Leader>b :call SyncTexForward()<CR>
+autocmd BufEnter *.tex    nmap <Leader>v :call SyncTexForward()<CR>
 
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
