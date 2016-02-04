@@ -10,6 +10,10 @@ endif
 
 " PATHOGEN
 " --------
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'syntastic')
+call add(g:pathogen_disabled, 'YCM')
+
 " Pathogen init: load all plugins from bundle/ directory
 execute pathogen#infect()
 syntax on
@@ -312,7 +316,7 @@ set t_Co=256
 " Fillchar (looks nicer for split windows)
 set fillchars=
 " set fillchars=diff:│,vert:│
-set synmaxcol=512 " maximum line length for syntax coloring
+set synmaxcol=256 " maximum line length for syntax coloring
 " set cursorline      " this is slooooooooow
 " No sound on errors
 set noerrorbells " don't ring the bell (beep or screen flash) for error messages.
