@@ -22,8 +22,8 @@ endif
 " very rarely a hurdle.
 inoremap jj <Esc>
 " Set <leader> to ,
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = ','
+let g:mapleader = ','
 " Easy half-page scrolling with <space>
 nnoremap <Space> <C-d>
 nnoremap <S-Space> <C-u>
@@ -151,7 +151,7 @@ set nowrap          " When on, lines longer than the width of the window will wr
 set textwidth=0     " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.
 set spelllang=en,de " When the 'spell' option is on spellchecking will be done for these languages.
 " UTF-8 settings
-if has("multi_byte")
+if has('multi_byte')
   set termencoding=utf-8       " Encoding used for the terminal. For the Win32 GUI 'termencoding' is not used for typed characters.
   set encoding=utf-8           " Sets the character encoding used inside Vim.
   setglobal fileencoding=utf-8 " Sets the character encoding for files
@@ -163,7 +163,7 @@ endif
 " first file opened in a vim session. because this is normally where i expect
 " my working directory. subsequent files won't change the path.
 function! s:change_dir_once()
-    if !exists("s:change_dir_once_latch")
+    if !exists('s:change_dir_once_latch')
         cd %:p:h
         let s:change_dir_once_latch = 1
     endif
@@ -308,7 +308,7 @@ set t_Co=256
 " Fillchar (looks nicer for split windows)
 set fillchars=
 " set fillchars=diff:│,vert:│
-set synmaxcol=512 " maximum line length for syntax coloring
+set synmaxcol=256 " maximum line length for syntax coloring
 " set cursorline      " this is slooooooooow
 " No sound on errors
 set noerrorbells " don't ring the bell (beep or screen flash) for error messages.
@@ -318,34 +318,34 @@ set nofoldenable " When off, all folds are open.
 
 " visual settings for the GUI
 if has('gui_running')
-  " Set font
-  if has('gui_macvim')
-      set guifont=Monaco:h13
-      " special MacVim option:
-      " grow to maximum horizontal width on entering fullscreen mode
-      set fuopt+=maxhorz
-  elseif has('gui_gtk2')
-      " for linux
-      set guifont=DejaVu\ Sans\ Mono\ 10
-  else
-      " Consolas Font for Windows
-      " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
-      " set guifont=Consolas:h11
-      set guifont=Consolas:h11
-  endif
+    " Set font
+    if has('gui_macvim')
+        set guifont=Monaco:h13
+        " special MacVim option:
+        " grow to maximum horizontal width on entering fullscreen mode
+        set fuopt+=maxhorz
+    elseif has('gui_gtk2')
+        " for linux
+        set guifont=DejaVu\ Sans\ Mono\ 10
+    else
+        " Consolas Font for Windows
+        " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
+        " set guifont=Consolas:h11
+        set guifont=Consolas:h11
+    endif
 
-  " Hide icons
-  set guioptions-=T
-  " Hide scrollbars
-  set guioptions+=r " Right-hand scrollbar is always present.
-  set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window.
-  set guioptions+=l " Left-hand scrollbar is always present.
-  set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
+    " Hide icons
+    set guioptions-=T
+    " Hide scrollbars
+    set guioptions+=r " Right-hand scrollbar is always present.
+    set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window.
+    set guioptions+=l " Left-hand scrollbar is always present.
+    set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
 
-  " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-  let &guioptions = substitute(&guioptions, "t", "", "g")
+    " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+    let &guioptions = substitute(&guioptions, 't', '', 'g')
 
-  set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
+    set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 endif
 
 colorscheme molokai
@@ -427,12 +427,13 @@ nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " Syntastic
 if has('win32')
     let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+else
+    let g:syntastic_enable_signs = 1
+    let g:syntastic_error_symbol = '✗'
+    let g:syntastic_warning_symbol = '⚠'
+    let g:syntastic_style_error_symbol = '⚠'
+    let g:syntastic_style_warning_symbol = '⚠'
 end
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
-let g:syntastic_style_error_symbol = "⚠"
-let g:syntastic_style_warning_symbol = "⚠"
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
@@ -452,17 +453,17 @@ autocmd BufEnter *.tex    let b:tex_flavor = 'pdflatex'
 " larger latex projects (like a thesis):
 autocmd BufEnter *.tex    setlocal makeprg=make
 autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
+autocmd BufEnter *.tex    setlocal wrap
 
 function! SyncTexForward()
     if has('win32')
         echo 'Not implemented'
     else
-        let execstr = "silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &"
+        let execstr = 'silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
         exec execstr
     endif
 endfunction
 autocmd BufEnter *.tex    nmap <Leader>b :call SyncTexForward()<CR>
-
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make setlocal noexpandtab
@@ -475,10 +476,17 @@ autocmd FileType make setlocal noexpandtab
 set nobackup
 set nowb
 set noswapfile
+set viminfo=
+
 if has('nvim')
+    " no encryption at the moment?
 else
-  if version >= 703
-    set cm=blowfish
-  endif
+    if v:version >= 704 && has('patch399')
+        set cm=blowfish2
+    else
+        if version >= 703
+            set cm=blowfish
+        endif
+    endif
 endif
 
