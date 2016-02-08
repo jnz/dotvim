@@ -420,6 +420,23 @@ let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_usearrows = 0
+" g:vim_gitrepo_path is the path to the git repository
+" required for g:tagbar_type_tex
+let g:vim_gitrepo_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+" tagbar can be used to index latex files with ctags. but we need a
+" configuration file for that: latex.cnf in the vim config directory.
+let g:tagbar_type_tex = {
+            \ 'ctagstype' : 'latex',
+            \ 'kinds'     : [
+                \ 's:sections',
+                \ 'g:graphics:0:0',
+                \ 'l:labels',
+                \ 'r:refs:1:0',
+                \ 'p:pagerefs:1:0'
+            \ ],
+            \ 'sort'    : 0,
+            \ 'deffile' : g:vim_gitrepo_path . '/latex.cnf'
+        \ }
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " YCM (YouCompleteMe) options
@@ -447,10 +464,7 @@ end
 " ----------------------
 
 " LaTex specific
-let tlist_tex_settings='Tex;l:labels;s:sections;t:subsections;u:subsubsections'
 autocmd BufEnter *.tex    compiler tex
-autocmd BufEnter *.tex    let g:tex_flavor='pdflatex'
-autocmd BufEnter *.tex    let b:tex_flavor = 'pdflatex'
 " Two possible ways for latex compilation with errors in Vim:
 " a) The following binding: (which is fine for single file latex documents)
 " autocmd BufEnter *.tex    set makeprg=pdflatex\ -synctex=1\ -file-line-error\ --shell-escape\ -interaction=nonstopmode\ %
