@@ -453,16 +453,18 @@ autocmd BufEnter *.tex    let g:tex_flavor='pdflatex'
 autocmd BufEnter *.tex    let b:tex_flavor = 'pdflatex'
 " Two possible ways for latex compilation with errors in Vim:
 " a) The following binding: (which is fine for single file latex documents)
-" autocmd BufEnter *.tex    set makeprg=pdflatex\ -file-line-error\ --shell-escape\ -interaction=nonstopmode\ %
+" autocmd BufEnter *.tex    set makeprg=pdflatex\ -synctex=1\ -file-line-error\ --shell-escape\ -interaction=nonstopmode\ %
 " b) A batch file (under windows) with the name "make.bat" and the following content:
 " @echo off
-" pdflatex -file-line-error --shell-escape -interaction=nonstopmode MYMAINFILE.tex MYMAINFILE
+" pdflatex -synctex=1 -file-line-error --shell-escape -interaction=nonstopmode MYMAINFILE.tex MYMAINFILE
 " (make sure that makeprg is set to "make", approach b) is more suitable for
 " larger latex projects (like a thesis):
 autocmd BufEnter *.tex    setlocal makeprg=make
 autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
 autocmd BufEnter *.tex    setlocal wrap
 
+" if synctex=1 is set, we can directly jump to the PDF position we are
+" currently editing.
 function! SyncTexForward()
     if has('win32')
         echo 'Not implemented'
