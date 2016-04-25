@@ -3,7 +3,7 @@
 	url = http://github.com/tpope/vim-fugitive.git
 [submodule "bundle/bufexplorer"]
 	path = bundle/bufexplorer
-	url = git://github.com/vim-scripts/bufexplorer.zip.git
+	url = http://github.com/vim-scripts/bufexplorer.zip.git
     ignore = dirty
 [submodule "bundle/tabular"]
 	path = bundle/tabular
@@ -11,7 +11,7 @@
     ignore = dirty
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
-	url = git://github.com/majutsushi/tagbar
+	url = http://github.com/majutsushi/tagbar
     ignore = dirty
 [submodule "bundle/vim-repeat"]
 	path = bundle/vim-repeat

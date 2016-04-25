@@ -279,7 +279,7 @@ Visual-Mode
  `U`                  | Make upper-case
  `g?`                 | ROT13 "encryption"
 
-Browse source code width tags (ctags)
+Browse source code with tags (ctags)
 -------------------------------------
 
 Generate tags (database) file with a shortcut (here F11):
