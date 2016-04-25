@@ -1,10 +1,6 @@
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
-[submodule "bundle/bufexplorer"]
-	path = bundle/bufexplorer
-	url = http://github.com/vim-scripts/bufexplorer.zip.git
-    ignore = dirty
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
