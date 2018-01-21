@@ -326,15 +326,17 @@ set nofoldenable " When off, all folds are open.
 
 " visual settings for the GUI
 if has('gui_running')
+    colorscheme blueshift
+
     " Set font
     if has('gui_macvim')
         set guifont=Monaco:h13
         " special MacVim option:
         " grow to maximum horizontal width on entering fullscreen mode
         set fuopt+=maxhorz
-    elseif has('gui_gtk2')
+    elseif has('gui_gtk3')
         " for linux
-        set guifont=DejaVu\ Sans\ Mono\ 10
+        set guifont=DejaVu\ Sans\ Mono\ 11
     else
         " Consolas Font for Windows
         " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
@@ -354,9 +356,10 @@ if has('gui_running')
     let &guioptions = substitute(&guioptions, 't', '', 'g')
 
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
+else
+    colorscheme molokai
+    set background=dark
 endif
-
-colorscheme molokai
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
 " <whitespace detection>
