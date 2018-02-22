@@ -442,26 +442,8 @@ let g:tagbar_type_tex = {
         \ }
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
-" YCM (YouCompleteMe) options
-" YCM global config file
-if has('unix')
-    let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YCM/cpp/ycm/.ycm_extra_conf.py'
-else
-    let g:ycm_global_ycm_extra_conf = $HOME.'\vimfiles\bundle\YouCompleteMe\cpp\ycm\.ycm_extra_conf.py'
-endif
-let g:ycm_collect_identifiers_from_tags_files = 1
-nnoremap <leader>y :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" Syntastic
-if has('win32')
-    let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-else
-    let g:syntastic_enable_signs = 1
-    let g:syntastic_error_symbol = '✗'
-    let g:syntastic_warning_symbol = '⚠'
-    let g:syntastic_style_error_symbol = '⚠'
-    let g:syntastic_style_warning_symbol = '⚠'
-end
+" AsyncRun
+:command Make AsyncRun make
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
