@@ -25,7 +25,6 @@
 " <leader>b           :vimgrep
 " <leader>h           :CtrlPTag
 " <leader>j           :CtrlPBufTag
-" <leader>r           :CtrlPBuffer
 " <leader>v           Sync Tex
 
 if has('nvim')
@@ -406,7 +405,6 @@ else
 endif
 nmap <silent> <Leader>h :CtrlPTag<CR>
 nmap <silent> <Leader>j :CtrlPBufTag<CR>
-nmap <silent> <Leader>r :CtrlPBuffer<CR>
 
 " Buffer Explorer to <leader>e
 nmap <silent> <Leader>e :BufExplorer<CR>
