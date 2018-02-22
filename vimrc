@@ -69,7 +69,7 @@ nnoremap <CR> :noh<CR>
 " MY VIM SETTINGS
 " ---------------
 
-" Mouse settings
+" Mouse settings:
 set mousemodel=popup           " right mouse button pops up a menu
 set selectmode=mouse,key       " select text with the mouse or with Shift+cursor keys
 set keymodel=startsel,stopsel  " shift starts the sel-mode, any other key stops it
@@ -164,6 +164,7 @@ set cino+=g0
 "              argument);	>  	            argument);
 set cino+=W4
 
+" Press F2 to open the vimrc config:
 if has('unix')
     " unix-like platform
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
@@ -325,8 +326,9 @@ set novisualbell " disable visual bell
 set t_vb=        " disable visual bell
 set nofoldenable " When off, all folds are open.
 
-" visual settings for the GUI
+" visual settings
 if has('gui_running')
+    " GUI settings:
     colorscheme blueshift
 
     " Set font
@@ -358,6 +360,7 @@ if has('gui_running')
 
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 else
+    " console settings:
     colorscheme molokai
     set background=dark
 endif
@@ -396,6 +399,7 @@ let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_lazy_update = 100 " only update after 100 ms
+" Set directory for ctrlp cache:
 if has('unix')
     let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
