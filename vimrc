@@ -35,9 +35,9 @@ endif
 
 " PATHOGEN
 " --------
-let g:pathogen_disabled = []
-call add(g:pathogen_disabled, 'syntastic')
-call add(g:pathogen_disabled, 'YCM')
+" Example to disable specific plugins (here syntastic):
+" let g:pathogen_disabled = []
+" call add(g:pathogen_disabled, 'syntastic')
 
 " Pathogen init. Load all plugins from bundle/ directory:
 execute pathogen#infect()
