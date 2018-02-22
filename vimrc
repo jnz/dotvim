@@ -11,6 +11,23 @@
 " K to preview function, <leader>k to close preview
 " Tab to complete
 
+" Special <leader> commands:
+" --------------------------
+" <leader>p           :CtrlP
+" <leader>m           :CtrlPMRUFiles
+" <leader>e           :BufExplorer
+" <leader>f           :NERDTree
+" <leader>l           :TagbarToggle
+" <leader>n           :Make
+" <leader>w           Remove trailing whitespaces
+" <leader>g           :grep
+" <leader>s           :grep for *.h, *.c, *.cpp files
+" <leader>b           :vimgrep
+" <leader>h           :CtrlPTag
+" <leader>j           :CtrlPBufTag
+" <leader>r           :CtrlPBuffer
+" <leader>v           Sync Tex
+
 if has('nvim')
     let g:python_host_prog='/usr/bin/python2' " for neovim
     " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -235,7 +252,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " executed for each opened file.
 map <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " plattform specific grep search / findstr stuff
-" if in doubt, use vimgrep (<leader>v), but grep and findstr are faster.
+" if in doubt, use vimgrep (<leader>b), but grep and findstr are faster.
 if has('win32') && !executable('grep')
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
