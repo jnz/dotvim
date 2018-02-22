@@ -23,7 +23,7 @@ let g:pathogen_disabled = []
 call add(g:pathogen_disabled, 'syntastic')
 call add(g:pathogen_disabled, 'YCM')
 
-" Pathogen init: load all plugins from bundle/ directory
+" Pathogen init. Load all plugins from bundle/ directory:
 execute pathogen#infect()
 syntax on
 if version>600
@@ -36,33 +36,29 @@ endif
 " ---------
 
 " Leave input mode with jj - much faster than reaching for the esc key and only
-" very rarely a hurdle.
+" very rarely a hurdle:
 inoremap jj <Esc>
 " Set <leader> to ,
 let mapleader = ','
 let g:mapleader = ','
-" Easy half-page scrolling with <space>
+" Easy half-page scrolling with <space>:
 nnoremap <Space> <C-d>
 nnoremap <S-Space> <C-u>
-" Support this in visual-mode
+" Support this in visual-mode:
 vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>
-" Remove search highlighting with <enter>
+" Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
 
 " MY VIM SETTINGS
 " ---------------
 
-" many years of working with Windows:
-behave mswin
-" Just to be sure:
-" <behave mswin>
-set mousemodel=popup          " right mouse button pups up a menu
-set selectmode=mouse,key      " select text with the mouse or with Shift+cursor keys
-set keymodel=startsel,stopsel " shift starts the sel-mode, any other key stops it
-" </behave mswin>
-"Vim won't become the owner of the windowing system's global selection:
-set guioptions-=aA
+" Mouse settings
+set mousemodel=popup           " right mouse button pops up a menu
+set selectmode=mouse,key       " select text with the mouse or with Shift+cursor keys
+set keymodel=startsel,stopsel  " shift starts the sel-mode, any other key stops it
+set mouse=a                    " enable the mouse
+set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection:
 set backspace=indent,eol,start " backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " cursor left/right to move to the previous/next line
 " Clipboard settings, unnamedplus is useful for X-Windows
@@ -71,13 +67,13 @@ if has('unnamedplus')
 else
     set clipboard=unnamed
 endif
-" Complete options (disable preview window)
+" Complete options (disable preview window):
 set completeopt=menu,menuone,longest
-" Limit the number of items to 15 in the completion popup menu
+" Limit the number of items to 15 in the completion popup menu:
 set pumheight=15
-" Select empty areas with visual block mode
+" Select empty areas with visual block mode:
 set virtualedit=block
-" match paren is slow (e. g. in large latex code)
+" match paren is slow (e. g. in large latex code):
 " let loaded_matchparen = 1
 " set noshowmatch
 
@@ -190,34 +186,15 @@ autocmd BufRead * call s:change_dir_once()
 " MY KEYMAPS
 " ----------
 
-" Use Y to copy until the end of the line. Use yy to copy the whole line.
+" Use Y to copy until the end of the line. Use yy to copy the whole line:
 nnoremap Y y$
-" CTRL-X and SHIFT-Del are Cut
-vnoremap <C-X> "+x
-" CTRL-C are Copy
-vnoremap <C-C> "+y
-" CTRL-V for paste
-map <C-V> "+gP
-cmap <C-V> <C-R>+
-inoremap <C-V> <C-R>+
-" Use CTRL-Q to do what CTRL-V used to do
-noremap <C-Q> <C-V>
-" Use CTRL-S for saving, also in Insert mode
-noremap <C-S>   :update<CR>
-vnoremap <C-S>  <C-C>:update<CR>
-inoremap <C-S>  <C-O>:update<CR>
-" CTRL-Z is Undo; not in cmdline though
-noremap <C-Z> u
-" CTRL-Z is Undo; not in cmdline though
-inoremap <C-Z> <C-O>u
-" Ctrl-Backspace to delete the last word.
+" Ctrl-Backspace to delete the last word:
 imap <C-BS> <C-W>
-" change to current file's path
+" change to current file's path:
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
-" Make shortcut
+" :Make shortcut:
 map <leader>n :Make<CR>
-" Don't use Ex mode
-" Or, use it to format: map Q gq
+" Don't use Ex mode:
 map Q <nop>
 " Add a "d" shortcut for inside/around square brackets,
 " like b for parens and B for curly braces:
@@ -225,9 +202,9 @@ onoremap id i[
 onoremap ad a[
 vnoremap id i[
 vnoremap ad a[
-" pastetoggle
+" pastetoggle:
 set pastetoggle=<F8>
-" Sane navigation between wrapped lines
+" Sane navigation between wrapped lines:
 nmap j gj
 vmap j gj
 nmap k gk
@@ -243,12 +220,12 @@ map <A-down>  :cnext<CR>
 map <A-up>    :cprev<CR>
 map <A-right> :tabnext<CR>
 map <A-left>  :tabprevious<CR>
-" navigation between windows
+" navigation between windows:
 map <C-j> <C-W><C-J>
 map <C-k> <C-W><C-K>
 map <C-l> <C-W><C-L>
 map <C-h> <C-W><C-H>
-" Use Q for formatting the current paragraph (or visual selection)
+" Use Q for formatting the current paragraph (or visual selection):
 vnoremap Q gq
 nnoremap Q gqap
 " Strips the trailing whitespace from a file
@@ -388,10 +365,10 @@ set laststatus=2     " Always display a statusline
 " PLUGIN SETTINGS
 " ---------------
 
-" load matchit plugin
+" load matchit plugin:
 runtime macros/matchit.vim
 
-" ctrlp settings
+" ctrlp settings:
 nmap <silent> <Leader>p :CtrlP<CR>
 nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
@@ -463,7 +440,7 @@ augroup END
 " FILE SPECIFIC SETTINGS
 " ----------------------
 
-" LaTex specific
+" LaTex specific:
 autocmd BufEnter *.tex    compiler tex
 " Two possible ways for latex compilation with errors in Vim:
 " a) The following binding: (which is fine for single file latex documents)
