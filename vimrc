@@ -2,6 +2,15 @@
 " ===================
 " jan@zwiener.org
 
+" Tag based code navigation
+" -------------------------
+"
+" F4 to generate tags in current directory (should be in source root)
+" F3/F12/<leader>t to goto tag under cursor
+" Ctrl-o / Ctrl-i navigate backward/forward
+" K to preview function, <leader>k to close preview
+" Tab to complete
+
 if has('nvim')
     let g:python_host_prog='/usr/bin/python2' " for neovim
     " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -293,7 +302,7 @@ endif
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
 nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-" F3 goto tag (Eclipse like)
+" F3 goto tag (Eclipse like), use <C-o> to jump back
 map <F3> <C-]>
 " F12 goto tag (Visual Studio like)
 map <F12> <C-]>
@@ -306,7 +315,6 @@ nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
 " inoremap <C-x><C-t> <C-X><C-]>
-inoremap <c-space> <c-x><c-u>
 
 " VISUAL SETTINGS
 " ---------------

@@ -35,3 +35,6 @@
 [submodule "bundle/AsyncRun"]
 	path = bundle/AsyncRun
 	url = https://github.com/skywind3000/asyncrun.vim.git
+[submodule "bundle/VimCompletesMe"]
+	path = bundle/VimCompletesMe
+	url = https://github.com/ajh17/VimCompletesMe.git
