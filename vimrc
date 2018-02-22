@@ -205,8 +205,8 @@ inoremap <C-Z> <C-O>u
 imap <C-BS> <C-W>
 " change to current file's path
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
-" Dispatch Make
-map <leader>n :Make!<CR>
+" Make shortcut
+map <leader>n :Make<CR>
 " Don't use Ex mode
 " Or, use it to format: map Q gq
 map Q <nop>
@@ -292,7 +292,7 @@ endif
 " Taglist options
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
-nnoremap <silent> <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " F3 goto tag (Eclipse like)
 map <F3> <C-]>
 " F12 goto tag (Visual Studio like)
@@ -443,7 +443,14 @@ let g:tagbar_type_tex = {
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " AsyncRun
-:command Make AsyncRun make
+" :Make command
+:command! -bang -nargs=* -complete=file Make AsyncRun -save=2 -program=make @ <args>
+" Use F9 to toggle quickfix window rapidly:
+:noremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
+" automate opening quickfix window when AsyncRun starts
+augroup vimrc
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
+augroup END
 
 " FILE SPECIFIC SETTINGS
 " ----------------------
