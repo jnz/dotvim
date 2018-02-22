@@ -377,9 +377,17 @@ the correct encoding: `:e ++enc=<utf-8>`.
 Installation from Github
 ------------------------
 
-Installation:
+Installation on Linux:
 
     git clone git://github.com/jnz/dotvim.git ~/.vim
+
+Installation on Windows:
+
+    git clone git://github.com/jnz/dotvim.git ~/vimfiles
+
+If you have a Linux-like command line on Windows, add the following:
+
+    ln -s ~/vimfiles/ ~/.vim
 
 Create symlinks:
 
