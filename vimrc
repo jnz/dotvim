@@ -79,9 +79,9 @@ set backspace=indent,eol,start " backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " cursor left/right to move to the previous/next line
 " Clipboard settings, unnamedplus is useful for X-Windows
 if has('unnamedplus')
-    set clipboard=unnamedplus
+    set clipboard^=unnamedplus
 else
-    set clipboard=unnamed
+    set clipboard^=unnamed
 endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
