@@ -210,6 +210,8 @@ augroup END
 nnoremap Y y$
 " Ctrl-Backspace to delete the last word (for gVim, terminals can't do <C-BS>):
 inoremap <C-BS> <C-W>
+" Paste text into command line with <C-v>
+cnoremap <C-V> <C-R>+
 " change to current file's path:
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " :Make shortcut:
@@ -472,6 +474,7 @@ function! SyncTexForward()
     else
         let execstr = 'silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
         exec execstr
+        redraw!  " otherwise the terminal window is messed up
     endif
 endfunction
 augroup LatexGroup
