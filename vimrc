@@ -26,12 +26,13 @@
 " <leader>h           :CtrlPTag
 " <leader>j           :CtrlPBufTag
 " <leader>v           Sync Tex
-
-if has('nvim')
-    let g:python_host_prog='/usr/bin/python' " for neovim
-    " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-endif
+"
+" Limitations of the terminal:
+"
+" If <C-s> is freezing your terminal, press <C-q> to unfreeze it.
+" Add a new line with 'stty -ixon' to your .bashrc
+" <S-Space> won't work.
+" <C-BS> won't work.
 
 " PATHOGEN
 " --------
@@ -47,6 +48,15 @@ if version>600
 else
     filetype on
 endif
+
+" NEOVIM
+" ------
+if has('nvim')
+    let g:python_host_prog='/usr/bin/python' " for neovim
+    " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
+
 
 " Essential
 " ---------
