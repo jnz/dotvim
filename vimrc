@@ -268,40 +268,36 @@ nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><le
 " plattform specific grep search / findstr stuff
 " if in doubt, use vimgrep (<leader>b), but grep and findstr are faster.
 if has('win32') && !executable('grep')
+    " prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
+    set grepprg=findstr\ /spin
+
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
     " /S = include sub-directories
     " /P = ignore files with non-printable characters
     " /I = case-insensitive
     " /N = print line number
-    set grepprg=findstr\ /spin
-    " If you want to search for 'my teststring' in all .cpp and *.h files:
-    " findstr /nips /c:"my teststring" *.cpp *.h
-    " i.e.:
-    " :grep /c:"my teststring" *.cpp *.h
     "
     " Prepare a grep/findstr search command
-    nnoremap <Leader>g :silent grep /c:"" *.*<left><left><left><left><left>
+    nnoremap <Leader>g :AsyncRun findstr /spin /c:"" *.*<left><left><left><left><left>
 
-    " Map a special grep for certain languages
-    au FileType c,cpp nnoremap <Leader>s :silent grep /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+    " Map a special grep for C/C++
+    nnoremap <Leader>s :AsyncRun findstr /spin /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 else
+    " prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
+    set grepprg=grep\ -nHir\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
+
     " grep parameter:
     " n = print line number
     " H = print file name
     " i = ignore case
     " r = include sub-directories
-    set grepprg=grep\ -nHir\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
-    " If you want to search for 'my teststring' in all *.cpp and *.h files:
-    " (don't forget the dot at the end!)
-    " grep -nHir --include=*.cpp --include=*.h "my teststring" .
 
     " Prepare a grep search command
-    " nnoremap <Leader>g :silent grep --include=*.* "" .<left><left><left>
-    nnoremap <Leader>g :AsyncRun grep -nHir --exclude=tags --include=*.* "" .<left><left><left>
+    nnoremap <Leader>g :AsyncRun grep -nHir --exclude-dir=".git" --exclude=tags --include=*.* "" .<left><left><left>
 
-    " Map a special grep for certain languages
-    au FileType c,cpp nnoremap <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
+    " Map a special grep for C/C++
+    nnoremap <Leader>s :AsyncRun grep -nHir --exclude-dir=".git" --exclude=tags --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
 
 " VISUAL SETTINGS
