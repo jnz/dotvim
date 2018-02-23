@@ -59,10 +59,10 @@ let mapleader = ','
 let g:mapleader = ','
 " Easy half-page scrolling with <space>:
 nnoremap <Space> <C-d>
-nnoremap <S-Space> <C-u>
+nnoremap <S-Space> <C-u>  " won't work in most terminals
 " Support this in visual-mode:
 vnoremap <Space> <C-d>
-vnoremap <S-Space> <C-u>
+vnoremap <S-Space> <C-u>  " won't work in most terminals
 " Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
 
@@ -205,14 +205,14 @@ autocmd BufRead * call s:change_dir_once()
 
 " Use Y to copy until the end of the line. Use yy to copy the whole line:
 nnoremap Y y$
-" Ctrl-Backspace to delete the last word:
-imap <C-BS> <C-W>
+" Ctrl-Backspace to delete the last word (for gVim, terminals can't do <C-BS>):
+inoremap <C-BS> <C-W>
 " change to current file's path:
-map <leader>cd :cd %:p:h<CR>:pwd<CR>
+noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " :Make shortcut:
-map <leader>n :Make<CR>
+noremap <leader>n :Make<CR>
 " Don't use Ex mode:
-map Q <nop>
+noremap Q <nop>
 " Add a "d" shortcut for inside/around square brackets,
 " like b for parens and B for curly braces:
 onoremap id i[
@@ -222,35 +222,34 @@ vnoremap ad a[
 " pastetoggle:
 set pastetoggle=<F8>
 " Sane navigation between wrapped lines:
-nmap j gj
-vmap j gj
-nmap k gk
-vmap k gk
+nnoremap j gj
+vnoremap j gj
+nnoremap k gk
+vnoremap k gk
 " Remap cursorkeys (good training for hjkl keys)
 " Left/Right: navigate tabs
 " Up/Down: navigate quick-fix window
-map <down>    :cnext<CR>
-map <up>      :cprev<CR>
-map <right>   :tabnext<CR>
-map <left>    :tabprevious<CR>
-map <A-down>  :cnext<CR>
-map <A-up>    :cprev<CR>
-map <A-right> :tabnext<CR>
-map <A-left>  :tabprevious<CR>
+nnoremap <down>    :cnext<CR>
+nnoremap <up>      :cprev<CR>
+nnoremap <right>   :tabnext<CR>
+nnoremap <left>    :tabprevious<CR>
+nnoremap <A-down>  :cnext<CR>
+nnoremap <A-up>    :cprev<CR>
+nnoremap <A-right> :tabnext<CR>
+nnoremap <A-left>  :tabprevious<CR>
 " navigation between windows:
-map <C-j> <C-W><C-J>
-map <C-k> <C-W><C-K>
-map <C-l> <C-W><C-L>
-map <C-h> <C-W><C-H>
-" Use Q for formatting the current paragraph (or visual selection):
+noremap <C-j> <C-W><C-J>
+noremap <C-k> <C-W><C-K>
+noremap <C-l> <C-W><C-L>
+noremap <C-h> <C-W><C-H>
+" Use Q for formatting the current visual selection:
 vnoremap Q gq
-nnoremap Q gqap
 " Strips the trailing whitespace from a file
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Open vimgrep and put the cursor in the right position
 " noautocmd is important, otherwise autocommands (e.g. from plugins) are
 " executed for each opened file.
-map <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
+nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " plattform specific grep search / findstr stuff
 " if in doubt, use vimgrep (<leader>b), but grep and findstr are faster.
 if has('win32') && !executable('grep')
@@ -267,10 +266,10 @@ if has('win32') && !executable('grep')
     " :grep /c:"my teststring" *.cpp *.h
     "
     " Prepare a grep/findstr search command
-    map <Leader>g :silent grep /c:"" *.*<left><left><left><left><left>
+    nnoremap <Leader>g :silent grep /c:"" *.*<left><left><left><left><left>
 
     " Map a special grep for certain languages
-    au FileType c,cpp map <Leader>s :silent grep /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+    au FileType c,cpp nnoremap <Leader>s :silent grep /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 else
     " n = print line number
     " H = print file name
@@ -282,10 +281,10 @@ else
     " grep -nHir --include=*.cpp --include=*.h "my teststring" .
 
     " Prepare a grep search command
-    map <Leader>g :silent grep --include=*.* "" .<left><left><left>
+    nnoremap <Leader>g :silent grep --include=*.* "" .<left><left><left>
 
     " Map a special grep for certain languages
-    au FileType c,cpp map <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
+    au FileType c,cpp nnoremap <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
 
 " ctags stuff:
@@ -297,11 +296,11 @@ set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
 nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " F3 goto tag (Eclipse like), use <C-o> to jump back
-map <F3> <C-]>
+noremap <F3> <C-]>
 " F12 goto tag (Visual Studio like)
-map <F12> <C-]>
+noremap <F12> <C-]>
 " use :tn and :tp (tag next, tag previous) to navigate between matches
-map <leader>t <C-]>
+noremap <leader>t <C-]>
 " map manual key to tag preview
 nnoremap K <C-w>}
 " close the preview buffer
@@ -313,8 +312,6 @@ nnoremap <leader>k :pc<CR>
 " VISUAL SETTINGS
 " ---------------
 
-" 256 Terminal colors
-set t_Co=256
 " Fillchar (looks nicer for split windows)
 set fillchars=
 " set fillchars=diff:│,vert:│
@@ -347,9 +344,8 @@ if has('gui_running')
         set guifont=Consolas:h11
     endif
 
-    " Hide icons
-    set guioptions-=T
-    " Hide scrollbars
+    set guioptions-=T " hide icons
+    " Hide scrollbars:
     set guioptions+=r " Right-hand scrollbar is always present.
     set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window.
     set guioptions+=l " Left-hand scrollbar is always present.
@@ -388,8 +384,8 @@ set laststatus=2     " Always display a statusline
 runtime macros/matchit.vim
 
 " ctrlp settings:
-nmap <silent> <Leader>p :CtrlP<CR>
-nmap <silent> <Leader>m :CtrlPMRUFiles<CR>
+nnoremap <silent> <Leader>p :CtrlP<CR>
+nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
 let g:ctrlp_max_depth = 12
 let g:ctrlp_working_path_mode = 'ra'
@@ -407,14 +403,14 @@ else
     let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
     let g:ctrlp_mruf_case_sensitive = 0
 endif
-nmap <silent> <Leader>h :CtrlPTag<CR>
-nmap <silent> <Leader>j :CtrlPBufTag<CR>
+nnoremap <silent> <Leader>h :CtrlPTag<CR>
+nnoremap <silent> <Leader>j :CtrlPBufTag<CR>
 
 " Buffer Explorer to <leader>e
-nmap <silent> <Leader>e :BufExplorer<CR>
+nnoremap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp=0
 " NERDTree to <leader>f (use current file as starting point)
-nmap <silent> <Leader>f :NERDTree<CR>
+nnoremap <silent> <Leader>f :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
@@ -483,7 +479,7 @@ function! SyncTexForward()
         exec execstr
     endif
 endfunction
-autocmd BufEnter *.tex    nmap <Leader>v :call SyncTexForward()<CR>
+autocmd BufEnter *.tex    nnoremap <Leader>v :call SyncTexForward()<CR>
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make setlocal noexpandtab
