@@ -297,7 +297,8 @@ else
     " grep -nHir --include=*.cpp --include=*.h "my teststring" .
 
     " Prepare a grep search command
-    nnoremap <Leader>g :silent grep --include=*.* "" .<left><left><left>
+    " nnoremap <Leader>g :silent grep --include=*.* "" .<left><left><left>
+    nnoremap <Leader>g :AsyncRun grep -nHir --exclude=tags --include=*.* "" .<left><left><left>
 
     " Map a special grep for certain languages
     au FileType c,cpp nnoremap <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
@@ -484,7 +485,8 @@ function! SyncTexForward()
     else
         let execstr = 'silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
         exec execstr
-        redraw!  " otherwise the terminal window is messed up
+        " otherwise the terminal window is messed up:
+        redraw!
     endif
 endfunction
 augroup LatexGroup
