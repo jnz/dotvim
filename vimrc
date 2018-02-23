@@ -214,7 +214,7 @@ inoremap <C-BS> <C-W>
 cnoremap <C-V> <C-R>+
 " change to current file's path:
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-" :Make shortcut:
+" :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
 " Don't use Ex mode:
 noremap Q <nop>
@@ -224,7 +224,7 @@ onoremap id i[
 onoremap ad a[
 vnoremap id i[
 vnoremap ad a[
-" pastetoggle:
+" toggles the 'paste' option:
 set pastetoggle=<F8>
 " Sane navigation between wrapped lines:
 nnoremap j gj
