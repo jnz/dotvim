@@ -1,7 +1,7 @@
 " Jan Zwiener's vimrc
 " ===================
 " jan@zwiener.org
-
+"
 " Tag based code navigation
 " -------------------------
 "
@@ -10,7 +10,7 @@
 " Ctrl-o / Ctrl-i navigate backward/forward
 " K to preview function, <leader>k to close preview
 " Tab to complete
-
+"
 " Special <leader> commands:
 " --------------------------
 " <leader>p           :CtrlP
@@ -28,7 +28,7 @@
 " <leader>v           Sync Tex
 
 if has('nvim')
-    let g:python_host_prog='/usr/bin/python2' " for neovim
+    let g:python_host_prog='/usr/bin/python' " for neovim
     " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
@@ -198,7 +198,10 @@ function! s:change_dir_once()
         let s:change_dir_once_latch = 1
     endif
 endfunction
-autocmd BufRead * call s:change_dir_once()
+augroup ChangeDirOnceGroup
+    autocmd!
+    autocmd BufRead * call s:change_dir_once()
+augroup END
 
 " MY KEYMAPS
 " ----------
@@ -244,9 +247,9 @@ noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
 " Use Q for formatting the current visual selection:
 vnoremap Q gq
-" Strips the trailing whitespace from a file
+" Strips the trailing whitespace from a file:
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-" Open vimgrep and put the cursor in the right position
+" Open vimgrep and put the cursor in the right position to type.
 " noautocmd is important, otherwise autocommands (e.g. from plugins) are
 " executed for each opened file.
 nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
@@ -271,6 +274,7 @@ if has('win32') && !executable('grep')
     " Map a special grep for certain languages
     au FileType c,cpp nnoremap <Leader>s :silent grep /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 else
+    " grep parameter:
     " n = print line number
     " H = print file name
     " i = ignore case
@@ -312,16 +316,15 @@ nnoremap <leader>k :pc<CR>
 " VISUAL SETTINGS
 " ---------------
 
-" Fillchar (looks nicer for split windows)
+" Empty fillchar (looks nicer for split windows)
 set fillchars=
-" set fillchars=diff:│,vert:│
 set synmaxcol=256 " maximum line length for syntax coloring
-" set cursorline      " this is slooooooooow
+" set cursorline  " this is slooooooooow
 " No sound on errors
-set noerrorbells " don't ring the bell (beep or screen flash) for error messages.
-set novisualbell " disable visual bell
-set t_vb=        " disable visual bell
-set nofoldenable " When off, all folds are open.
+set noerrorbells  " don't ring the bell (beep or screen flash) for error messages.
+set novisualbell  " disable visual bell
+set t_vb=         " disable visual bell
+set nofoldenable  " When off, all folds are open.
 
 " visual settings
 if has('gui_running')
@@ -363,13 +366,16 @@ endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
 " <whitespace detection>
-highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+augroup ExtraWhitespaceHighlightGroup
+    autocmd!
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
+    autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
+augroup END
 " </whitespace detection>
 
 " Status line
@@ -386,15 +392,15 @@ runtime macros/matchit.vim
 " ctrlp settings:
 nnoremap <silent> <Leader>p :CtrlP<CR>
 nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
-let g:ctrlp_extensions = [ 'tag', 'buffertag', 'dir' ]
-let g:ctrlp_max_depth = 12
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_mruf_max = 800
-let g:ctrlp_max_files = 10000
-let g:ctrlp_use_caching = 1
+let g:ctrlp_extensions          = [ 'tag', 'buffertag', 'dir' ]
+let g:ctrlp_max_depth           = 12
+let g:ctrlp_working_path_mode   = 'ra'
+let g:ctrlp_mruf_max            = 800
+let g:ctrlp_max_files           = 10000
+let g:ctrlp_use_caching         = 1
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_max_height = 20
-let g:ctrlp_lazy_update = 100 " only update after 100 ms
+let g:ctrlp_max_height          = 20
+let g:ctrlp_lazy_update         = 100 " only update after 100 ms
 " Set directory for ctrlp cache:
 if has('unix')
     let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
@@ -412,17 +418,17 @@ let g:bufExplorerDefaultHelp=0
 " NERDTree to <leader>f (use current file as starting point)
 nnoremap <silent> <Leader>f :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
-let NERDChristmasTree = 1
+let NERDChristmasTree           = 1
 let NERDTreeHighlightCursorline = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-" NERD Commenter, turns the menu off
-let NERDMenuMode = 0
-" Tagbar as taglist replacement
-let g:tagbar_left = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_compact = 1
-let g:tagbar_usearrows = 0
+let NERDTreeMinimalUI           = 1
+let NERDTreeDirArrows           = 1
+" NERD Commenter, turns the menu off:
+let NERDMenuMode                = 0
+" Tagbar as taglist replacement:
+let g:tagbar_left               = 1
+let g:tagbar_autofocus          = 1
+let g:tagbar_compact            = 1
+let g:tagbar_usearrows          = 0
 " g:vim_gitrepo_path is the path to the git repository
 " required for g:tagbar_type_tex
 let g:vim_gitrepo_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -449,6 +455,7 @@ nnoremap <silent> <leader>l :TagbarToggle<CR>
 :noremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
 " automate opening quickfix window when AsyncRun starts
 augroup vimrc
+    autocmd!
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
 augroup END
 
@@ -456,19 +463,7 @@ augroup END
 " ----------------------
 
 " LaTex specific:
-autocmd BufEnter *.tex    compiler tex
-" Two possible ways for latex compilation with errors in Vim:
-" a) The following binding: (which is fine for single file latex documents)
-" autocmd BufEnter *.tex    set makeprg=pdflatex\ -synctex=1\ -file-line-error\ --shell-escape\ -interaction=nonstopmode\ %
-" b) A batch file (under windows) with the name "make.bat" and the following content:
-" @echo off
-" pdflatex -synctex=1 -file-line-error --shell-escape -interaction=nonstopmode MYMAINFILE.tex MYMAINFILE
-" (make sure that makeprg is set to "make", approach b) is more suitable for
-" larger latex projects (like a thesis):
-autocmd BufEnter *.tex    setlocal makeprg=make
-autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
-autocmd BufEnter *.tex    setlocal wrap
-
+"
 " if synctex=1 is set, we can directly jump to the PDF position we are
 " currently editing.
 function! SyncTexForward()
@@ -479,10 +474,20 @@ function! SyncTexForward()
         exec execstr
     endif
 endfunction
-autocmd BufEnter *.tex    nnoremap <Leader>v :call SyncTexForward()<CR>
+augroup LatexGroup
+    autocmd!
+    autocmd BufEnter *.tex    compiler tex
+    autocmd BufEnter *.tex    setlocal makeprg=make
+    autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
+    autocmd BufEnter *.tex    setlocal wrap
+    autocmd BufEnter *.tex    nnoremap <Leader>v :call SyncTexForward()<CR>
+augroup END
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
-autocmd FileType make setlocal noexpandtab
+augroup MakefileGroup
+    autocmd!
+    autocmd FileType make setlocal noexpandtab
+augroup END
 
 " BACKUP SETTINGS
 " ---------------
