@@ -348,6 +348,7 @@ if has('gui_running')
 else
     " console settings:
     set background=dark
+    set t_Co=256         " not the right way to do it, but it helps e.g. Git Bash
     colorscheme gruvbox
 endif
 
