@@ -2,6 +2,10 @@
 " ===================
 " jan@zwiener.org
 "
+" =============================================================================
+" Information
+" =============================================================================
+"
 " Tag based code navigation
 " -------------------------
 "
@@ -33,7 +37,9 @@
 " Add a new line with 'stty -ixon' to your .bashrc
 " <S-Space> won't work.
 " <C-BS> won't work.
-
+"
+" =============================================================================
+"
 " PATHOGEN
 " --------
 " Example to disable specific plugins (here syntastic):
@@ -49,15 +55,16 @@ else
     filetype on
 endif
 
-" NEOVIM
+" Neovim
 " ------
 if has('nvim')
     let g:python_host_prog='/usr/bin/python' " for neovim
     " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
-
-
+"
+" =============================================================================
+"
 " Essential
 " ---------
 
@@ -75,10 +82,12 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>  " won't work in most terminals
 " Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
-
-" MY VIM SETTINGS
-" ---------------
-
+"
+" =============================================================================
+"
+" Settings
+" --------
+"
 " Mouse settings:
 set mousemodel=popup           " right mouse button pops up a menu
 set selectmode=mouse,key       " select text with the mouse or with Shift+cursor keys
@@ -212,10 +221,12 @@ augroup ChangeDirOnceGroup
     autocmd!
     autocmd BufRead * call s:change_dir_once()
 augroup END
-
+"
+" =============================================================================
+"
 " MY KEYMAPS
 " ----------
-
+"
 " Use Y to copy until the end of the line. Use yy to copy the whole line:
 nnoremap Y y$
 " Ctrl-Backspace to delete the last word (for gVim, terminals can't do <C-BS>):
@@ -300,6 +311,31 @@ else
     nnoremap <Leader>s :AsyncRun grep -nHir --exclude-dir=".git" --exclude=tags --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
 
+" ctags stuff:
+" ------------
+" use :tag, :ts, :tn, :tp for navigation
+" use :CtrlPTag a. CtrlPBufTag for fuzzy search
+" Taglist options
+set tags=./tags,tags,./../tags,./../../tags
+" Shortcut to generate tags file on F4
+nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" F3 goto tag (Eclipse like), use <C-o> to jump back
+noremap <F3> <C-]>
+" F12 goto tag (Visual Studio like)
+noremap <F12> <C-]>
+" use :tn and :tp (tag next, tag previous) to navigate between matches
+noremap <leader>t <C-]>
+" map manual key to tag preview
+nnoremap K <C-w>}
+" close the preview buffer
+nnoremap <leader>k :pc<CR>
+" tag complete in insert mode is <C-X><C-]>
+" <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
+" inoremap <C-x><C-t> <C-X><C-]>
+"
+"
+" =============================================================================
+"
 " VISUAL SETTINGS
 " ---------------
 
@@ -352,28 +388,6 @@ else
     colorscheme gruvbox
 endif
 
-" ctags stuff:
-" ------------
-" use :tag, :ts, :tn, :tp for navigation
-" use :CtrlPTag a. CtrlPBufTag for fuzzy search
-" Taglist options
-set tags=./tags,tags,./../tags,./../../tags
-" Shortcut to generate tags file on F4
-nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-" F3 goto tag (Eclipse like), use <C-o> to jump back
-noremap <F3> <C-]>
-" F12 goto tag (Visual Studio like)
-noremap <F12> <C-]>
-" use :tn and :tp (tag next, tag previous) to navigate between matches
-noremap <leader>t <C-]>
-" map manual key to tag preview
-nnoremap K <C-w>}
-" close the preview buffer
-nnoremap <leader>k :pc<CR>
-" tag complete in insert mode is <C-X><C-]>
-" <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
-" inoremap <C-x><C-t> <C-X><C-]>
-
 " Detect whitespaces and tabs at the end of a line with red highlighting
 " <whitespace detection>
 augroup ExtraWhitespaceHighlightGroup
@@ -393,6 +407,9 @@ augroup END
 "set statusline=%F%m%r%h%w\ format=%{&ff}\ enc=%{&fenc}\ type=%Y\ bom=%{&bomb}\ hex=\%02.2B\ col=%v
 set laststatus=2     " Always display a statusline
 
+"
+" =============================================================================
+"
 " PLUGIN SETTINGS
 " ---------------
 
@@ -469,6 +486,9 @@ augroup vimrc
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
 augroup END
 
+"
+" =============================================================================
+"
 " FILE SPECIFIC SETTINGS
 " ----------------------
 
@@ -501,6 +521,9 @@ augroup MakefileGroup
     autocmd FileType make setlocal noexpandtab
 augroup END
 
+"
+" =============================================================================
+"
 " BACKUP SETTINGS
 " ---------------
 
