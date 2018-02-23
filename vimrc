@@ -303,28 +303,6 @@ else
     au FileType c,cpp nnoremap <Leader>s :silent grep --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
 
-" ctags stuff:
-" ------------
-" use :tag, :ts, :tn, :tp for navigation
-" use :CtrlPTag a. CtrlPBufTag for fuzzy search
-" Taglist options
-set tags=./tags,tags,./../tags,./../../tags
-" Shortcut to generate tags file on F4
-nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-" F3 goto tag (Eclipse like), use <C-o> to jump back
-noremap <F3> <C-]>
-" F12 goto tag (Visual Studio like)
-noremap <F12> <C-]>
-" use :tn and :tp (tag next, tag previous) to navigate between matches
-noremap <leader>t <C-]>
-" map manual key to tag preview
-nnoremap K <C-w>}
-" close the preview buffer
-nnoremap <leader>k :pc<CR>
-" tag complete in insert mode is <C-X><C-]>
-" <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
-" inoremap <C-x><C-t> <C-X><C-]>
-
 " VISUAL SETTINGS
 " ---------------
 
@@ -372,9 +350,31 @@ if has('gui_running')
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 else
     " console settings:
-    colorscheme molokai
     set background=dark
+    colorscheme gruvbox
 endif
+
+" ctags stuff:
+" ------------
+" use :tag, :ts, :tn, :tp for navigation
+" use :CtrlPTag a. CtrlPBufTag for fuzzy search
+" Taglist options
+set tags=./tags,tags,./../tags,./../../tags
+" Shortcut to generate tags file on F4
+nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" F3 goto tag (Eclipse like), use <C-o> to jump back
+noremap <F3> <C-]>
+" F12 goto tag (Visual Studio like)
+noremap <F12> <C-]>
+" use :tn and :tp (tag next, tag previous) to navigate between matches
+noremap <leader>t <C-]>
+" map manual key to tag preview
+nnoremap K <C-w>}
+" close the preview buffer
+nnoremap <leader>k :pc<CR>
+" tag complete in insert mode is <C-X><C-]>
+" <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
+" inoremap <C-x><C-t> <C-X><C-]>
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
 " <whitespace detection>
