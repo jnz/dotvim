@@ -223,7 +223,7 @@ endif
 " s:change_dir_once()) is used to change to working directory to the
 " first file opened in a vim session. because this is normally where i expect
 " my working directory. subsequent files won't change the path.
-function! s:change_dir_once()
+function! s:change_dir_once() abort
     if !exists('s:change_dir_once_latch')
         cd %:p:h
         let s:change_dir_once_latch = 1
@@ -535,7 +535,7 @@ augroup END
 "
 " if synctex=1 is set, we can directly jump to the PDF position we are
 " currently editing.
-function! SyncTexForward()
+function! SyncTexForward() abort
     if has('win32')
         echo 'Not implemented'
     else
