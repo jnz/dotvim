@@ -52,11 +52,11 @@
 " Add a new line with 'stty -ixon' to your .bashrc
 " <S-Space> won't work.
 " <C-BS> won't work.
-"
+
 " =============================================================================
-"
 " Pathogen
-" --------
+" =============================================================================
+
 " Example to disable specific plugins (here syntastic):
 " let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'syntastic')
@@ -67,22 +67,19 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-"
 " =============================================================================
-"
 " Neovim
-" ------
+" =============================================================================
+
 if has('nvim')
     " unused atm
 endif
-"
+
 " =============================================================================
-"
 " Settings
-" --------
-"
-" Essential stuff
-"
+" =============================================================================
+
+" Essential:
 " Leave input mode with jj - much faster than reaching for the esc key and only
 " very rarely a hurdle:
 inoremap jj <Esc>
@@ -97,8 +94,8 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>  " won't work in most terminals
 " Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
-"
-" Mouse settings:
+
+" Mouse:
 set mousemodel=popup           " right mouse button pops up a menu
 set selectmode=mouse,key       " select text with the mouse or with Shift+cursor keys
 set keymodel=startsel,stopsel  " shift starts the sel-mode, any other key stops it
@@ -106,9 +103,9 @@ set mouse=a                    " enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection:
 set backspace=indent,eol,start " backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " cursor left/right to move to the previous/next line
-" Clipboard settings, unnamedplus is useful for X-Windows
+" Clipboard:
 if has('unnamedplus')
-    set clipboard^=unnamedplus
+    set clipboard^=unnamedplus " unnamedplus is useful for X-Windows
 else
     set clipboard^=unnamed
 endif
@@ -163,8 +160,7 @@ set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
 
-" cindent options:
-"
+" cindent:
 " help: :h cinoptions-values
 " Align cindent function arguments with 'cino'
 " void my_func(int arg1,  >   void my_func(int arg1,
@@ -249,12 +245,10 @@ else
     endif
 endif
 
-"
 " =============================================================================
-"
 " Keymaps
-" -------
-"
+" =============================================================================
+
 " Use Y to copy until the end of the line. Use yy to copy the whole line:
 nnoremap Y y$
 " Ctrl-Backspace to delete the last word (for gVim, terminals can't do <C-BS>):
@@ -338,12 +332,11 @@ else
     " Map a special grep for C/C++
     nnoremap <Leader>s :AsyncRun grep -nHir --exclude-dir=".git" --exclude=tags --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
-"
+
 " =============================================================================
-"
 " ctags
-" -----
-"
+" =============================================================================
+
 " Search for tags file path:
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
@@ -361,12 +354,10 @@ nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
 inoremap <C-x><C-t> <C-X><C-]>
-"
-"
+
 " =============================================================================
-"
 " Visual settings
-" ---------------
+" =============================================================================
 
 " Empty fillchar (looks nicer for split windows)
 set fillchars=
@@ -438,11 +429,9 @@ augroup END
 set statusline=%<%F\ %h%m%r%=type=%Y\ [%{&ff}]\ [%{&fenc}]\ %-14.(%l,%c%V%)\ %P
 set laststatus=2     " Always display a statusline
 
-"
 " =============================================================================
-"
 " Plugin settings
-" ---------------
+" =============================================================================
 
 " Matchit:
 " match paren is slow (e. g. in large latex code):
@@ -537,11 +526,9 @@ augroup vimrc
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
 augroup END
 
-"
 " =============================================================================
-"
 " File specific settings
-" ----------------------
+" =============================================================================
 
 " LaTex specific:
 "
