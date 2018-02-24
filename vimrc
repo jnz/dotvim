@@ -14,7 +14,7 @@
 "  - ctags                      ctags specific settings
 "  - Visual settings            Change the look and feel
 "  - Plugin settings            Settings for different plug-ins
-"  - File specific settings
+"  - File specific settings     Settings for file types (e.g. for .tex files)
 "
 " Tag based code navigation
 " -------------------------
@@ -65,11 +65,7 @@
 execute pathogen#infect()
 
 syntax on
-if version>600
-    filetype plugin indent on
-else
-    filetype on
-endif
+filetype plugin indent on
 
 "
 " =============================================================================
@@ -127,7 +123,7 @@ set ignorecase       " If the 'ignorecase' option is on, the case of normal lett
 set smartcase        " Case insensitive searches become sensitive with capitals
 set hidden           " Edit multiple buffers without saving the modifications made to a buffer
 set autoindent       " Copy indent from current line when starting a new line
-set tabstop=4        " Number of spaces that a <Tab> in the file counts for.
+set tabstop=4        " Number of spaces that a <Tab> in the file counts for. This is not 8, this is 4.
 set shiftwidth=4     " Number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
 set shiftround       " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands.
 set scrolloff=5      " Minimal number of screen lines to keep above and below the cursor.
@@ -242,12 +238,14 @@ set viminfo=
 if has('nvim')
     " no encryption
 else
-    if v:version >= 704 && has('patch399')
+    if v:version >= 703
+        set cm=blowfish
+    endif
+    if v:version == 704 && has('patch399')
         set cm=blowfish2
-    else
-        if version >= 703
-            set cm=blowfish
-        endif
+    endif
+    if v:version >= 800
+        set cm=blowfish2
     endif
 endif
 
@@ -413,7 +411,7 @@ if has('gui_running')
 else
     " Console settings:
     set background=dark
-    set t_Co=256         " not the right way to do it, but it helps e.g. Git Bash
+    set t_Co=256         " not the right way to do it, but it helps e.g. in Git Bash
     colorscheme gruvbox
 endif
 
