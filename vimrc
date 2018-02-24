@@ -177,11 +177,11 @@ set cino+=(0
 " }             >   }
 set cino+=g0
 " Adjust (0 for long lines with W4:
-" a_long_line(		        >  a_long_line(
-"             argument,		>     argument,
-"             argument);	>     argument);
+" a_long_line(              >  a_long_line(
+"             argument,     >     argument,
+"             argument);    >     argument);
 " a_short_line(argument,    >  a_short_line(argument,
-"              argument);	>  	            argument);
+"              argument);   >               argument);
 set cino+=W4
 
 " Press F2 to open the vimrc config:
