@@ -58,7 +58,7 @@
 " =============================================================================
 
 " Example to disable specific plugins (here syntastic):
-" let g:pathogen_disabled = []
+" let g:pathogen_disabled=[]
 " call add(g:pathogen_disabled, 'syntastic')
 
 " Pathogen init. Load all plugins from bundle/ directory:
@@ -84,8 +84,8 @@ endif
 " very rarely a hurdle:
 inoremap jj <Esc>
 " Set <leader> to ,
-let mapleader = ','
-let g:mapleader = ','
+let mapleader=','
+let g:mapleader=','
 " Easy half-page scrolling with <space>:
 nnoremap <Space> <C-d>
 nnoremap <S-Space> <C-u>  " won't work in most terminals
@@ -97,10 +97,10 @@ nnoremap <CR> :noh<CR>
 
 " Mouse:
 set mousemodel=popup           " right mouse button pops up a menu
-set selectmode=mouse,key       " select text with the mouse or with Shift+cursor keys
+set selectmode=mouse,key       " select text with the mouse or with shift+cursor keys
 set keymodel=startsel,stopsel  " shift starts the sel-mode, any other key stops it
 set mouse=a                    " enable the mouse
-set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection:
+set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
 set backspace=indent,eol,start " backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " cursor left/right to move to the previous/next line
 " Clipboard:
@@ -126,7 +126,7 @@ set shiftround       " Round indent to multiple of 'shiftwidth'.  Applies to > a
 set scrolloff=5      " Minimal number of screen lines to keep above and below the cursor.
 set sidescrolloff=10 " The minimal number of screen columns to keep to the left and to the right of the cursor
 set ffs=unix,dos     " This gives the end-of-line (<EOL>) formats that will be tried when starting to edit a new buffer and when reading a file into an existing buffer
-set smarttab         " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'.  'ts' or 'sts' else.  A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
+set smarttab         " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'. A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
 set number           " Precede each line with its line number
 set showbreak=>      " String to put at the start of lines that have been wrapped.
 set showmode         " If in Insert, Replace or Visual mode put a message on the last line.
@@ -148,8 +148,8 @@ if v:version >= 704 || (v:version >= 703 && has('patch72'))
     set wildignorecase " When set case is ignored when completing file names and directories.
 endif
 set lazyredraw       " The screen will not be redrawn while executing macros,
-set showcmd          " Show partial command in last line of the screen (Set this option off if your terminal is slow.)
-set showtabline=2    " Always display tabs
+set showcmd          " Show partial command in last line of the screen (set this option off if your terminal is slow.)
+set showtabline=1    " 2=Always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists.
 if v:version >= 704 || (v:version >= 703 && has('patch541'))
     set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
@@ -215,7 +215,7 @@ endif
 function! s:change_dir_once() abort
     if !exists('s:change_dir_once_latch')
         cd %:p:h
-        let s:change_dir_once_latch = 1
+        let s:change_dir_once_latch=1
     endif
 endfunction
 augroup ChangeDirOnceGroup
@@ -396,7 +396,7 @@ if has('gui_running')
     set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
 
     " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-    let &guioptions = substitute(&guioptions, 't', '', 'g')
+    let &guioptions=substitute(&guioptions, 't', '', 'g')
 
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 else
@@ -435,7 +435,7 @@ set laststatus=2     " Always display a statusline
 
 " Matchit:
 " match paren is slow (e. g. in large latex code):
-" let loaded_matchparen = 1
+" let loaded_matchparen=1
 " set noshowmatch
 runtime macros/matchit.vim
 
@@ -462,11 +462,11 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_lazy_update         = 100
 " Set directory for ctrlp cache:
 if has('unix')
-    let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive = 0
+    let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
+    let g:ctrlp_mruf_case_sensitive=0
 else
-    let g:ctrlp_cache_dir = $HOME.'\vimfiles\ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive = 0
+    let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
+    let g:ctrlp_mruf_case_sensitive=0
 endif
 nnoremap <silent> <Leader>h :CtrlPTag<CR>
 nnoremap <silent> <Leader>j :CtrlPBufTag<CR>
@@ -498,10 +498,10 @@ let g:tagbar_autofocus          = 1
 let g:tagbar_compact            = 1
 " g:vim_gitrepo_path is the path to the git repository
 " required for g:tagbar_type_tex (so we find 'latex.cnf'
-let g:vim_gitrepo_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let g:vim_gitrepo_path=fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " tagbar can be used to index latex files with ctags. but we need a
 " configuration file for that: latex.cnf in the vim config directory.
-let g:tagbar_type_tex = {
+let g:tagbar_type_tex={
             \ 'ctagstype' : 'latex',
             \ 'kinds'     : [
                 \ 's:sections',
@@ -538,7 +538,7 @@ function! SyncTexForward() abort
     if has('win32')
         echo 'Not implemented'
     else
-        let execstr = 'silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
+        let execstr='silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
         exec execstr
         " otherwise the terminal window is messed up:
         redraw!
