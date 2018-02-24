@@ -31,7 +31,7 @@
 " <leader>m              :CtrlPMRUFiles
 " <leader>e              :BufExplorer
 " <leader>f              :NERDTree
-" <leader>l              :TagbarToggle
+" <leader>l              :TagbarToggle (use 'zo' and 'zc' to open and close folds)
 " <leader>n              :Make
 " <leader>w              Remove trailing whitespaces
 " <leader>g              :grep
@@ -41,6 +41,7 @@
 " <leader>j              :CtrlPBufTag
 " <leader>v              Sync Tex
 " <C-x><C-t>             Tag complete in insert mode
+" <leader>cc             Comment out the current line or text selected in visual mode
 "
 " Use :tag, :ts, :tn, :tp for navigation.
 " Use :CtrlPTag and CtrlPBufTag for fuzzy search.
@@ -121,9 +122,6 @@ set completeopt=menu,menuone,longest
 set pumheight=15
 " Select empty areas with visual block mode:
 set virtualedit=block
-" match paren is slow (e. g. in large latex code):
-" let loaded_matchparen = 1
-" set noshowmatch
 set linebreak        " If on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
 set ignorecase       " If the 'ignorecase' option is on, the case of normal letters is ignored.
 set smartcase        " Case insensitive searches become sensitive with capitals
@@ -148,7 +146,6 @@ set wildchar=<Tab>   " Character you have to type to start wildcard expansion in
 set wildmode=longest,full " Completion mode: complete longest common string, then each full match
 set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing,
-set ruler            " Show the line and column number of the cursor position
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>.
 set history=200      " The command-lines that you enter are remembered in a history table
 set undolevels=1000  " Maximum number of changes that can be undone.
@@ -450,20 +447,32 @@ set laststatus=2     " Always display a statusline
 " ---------------
 
 " Matchit:
+" match paren is slow (e. g. in large latex code):
+" let loaded_matchparen = 1
+" set noshowmatch
 runtime macros/matchit.vim
 
 " Ctrlp:
 nnoremap <silent> <Leader>p :CtrlP<CR>
 nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
-let g:ctrlp_extensions          = [ 'tag', 'buffertag', 'dir' ]
-let g:ctrlp_max_depth           = 12
+" 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file.
+" 'buffertag' - :CtrlPBufTag - Search for a tag within the current buffer.
+let g:ctrlp_extensions          = [ 'tag', 'buffertag' ]
+let g:ctrlp_max_depth           = 12     " Directory depth to recurse into when scanning.
+" CtrlP sets its local working directory according to this variable:
+" r - the nearest ancestor of the current file that contains one of these
+"      directories or files: .git .hg .svn .bzr _darcs
+" a - the directory of the current file, unless it is a subdirectory of the cwd.
 let g:ctrlp_working_path_mode   = 'ra'
-let g:ctrlp_mruf_max            = 800
-let g:ctrlp_max_files           = 10000
-let g:ctrlp_use_caching         = 1
+" Specify the number of recently opened files you want CtrlP to remember:
+let g:ctrlp_mruf_max            = 250
+" Number of files to scan initially
+let g:ctrlp_max_files           = 8000
+let g:ctrlp_use_caching         = 1 " Enable per-session caching
+" Set this to 0 to enable cross-session caching by not deleting the cache files:
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_max_height          = 20
-let g:ctrlp_lazy_update         = 100 " only update after 100 ms
+" Only update when typing has stopped after 100 ms
+let g:ctrlp_lazy_update         = 100
 " Set directory for ctrlp cache:
 if has('unix')
     let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlpcache'
@@ -482,8 +491,7 @@ let g:bufExplorerDefaultHelp    = 0
 " NERDTree Plugin:
 nnoremap <silent> <Leader>f :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
-let NERDChristmasTree           = 1
-let NERDTreeHighlightCursorline = 1
+" Disables display of the 'Bookmarks' label and 'Press ? for help' text:
 let NERDTreeMinimalUI           = 1
 let NERDTreeDirArrows           = 1
 
@@ -491,12 +499,18 @@ let NERDTreeDirArrows           = 1
 let NERDMenuMode                = 0
 
 " Tagbar:
+"
+" tagbar window is opened on the left:
 let g:tagbar_left               = 1
+" If you set this option the cursor will move to the Tagbar window when it is
+" opened:
 let g:tagbar_autofocus          = 1
+" Setting this option will result in Tagbar omitting the short help at the
+" top of the window and the blank lines in between top-level scopes in order to
+" save screen real estate:
 let g:tagbar_compact            = 1
-let g:tagbar_usearrows          = 0
 " g:vim_gitrepo_path is the path to the git repository
-" required for g:tagbar_type_tex
+" required for g:tagbar_type_tex (so we find 'latex.cnf'
 let g:vim_gitrepo_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " tagbar can be used to index latex files with ctags. but we need a
 " configuration file for that: latex.cnf in the vim config directory.
