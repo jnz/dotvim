@@ -6,6 +6,16 @@
 " Information
 " =============================================================================
 "
+" vimrc sections:
+"  - Pathogen                   First section to enable plug-ins in bundle/
+"  - Neovim                     Neovim specific settings
+"  - Settings                   General settings
+"  - Keymaps                    Key bindings
+"  - ctags                      ctags specific settings
+"  - Visual settings            Change the look and feel
+"  - Plugin settings            Settings for different plug-ins
+"  - File specific settings
+"
 " Tag based code navigation
 " -------------------------
 "
@@ -17,19 +27,23 @@
 "
 " Special <leader> commands:
 " --------------------------
-" <leader>p           :CtrlP
-" <leader>m           :CtrlPMRUFiles
-" <leader>e           :BufExplorer
-" <leader>f           :NERDTree
-" <leader>l           :TagbarToggle
-" <leader>n           :Make
-" <leader>w           Remove trailing whitespaces
-" <leader>g           :grep
-" <leader>s           :grep for *.h, *.c, *.cpp files
-" <leader>b           :vimgrep
-" <leader>h           :CtrlPTag
-" <leader>j           :CtrlPBufTag
-" <leader>v           Sync Tex
+" <leader>p              :CtrlP
+" <leader>m              :CtrlPMRUFiles
+" <leader>e              :BufExplorer
+" <leader>f              :NERDTree
+" <leader>l              :TagbarToggle
+" <leader>n              :Make
+" <leader>w              Remove trailing whitespaces
+" <leader>g              :grep
+" <leader>s              :grep for *.h, *.c, *.cpp files
+" <leader>b              :vimgrep
+" <leader>h              :CtrlPTag
+" <leader>j              :CtrlPBufTag
+" <leader>v              Sync Tex
+" <C-x><C-t>             Tag complete in insert mode
+"
+" Use :tag, :ts, :tn, :tp for navigation.
+" Use :CtrlPTag and CtrlPBufTag for fuzzy search.
 "
 " Limitations of the terminal:
 "
@@ -40,7 +54,7 @@
 "
 " =============================================================================
 "
-" PATHOGEN
+" Pathogen
 " --------
 " Example to disable specific plugins (here syntastic):
 " let g:pathogen_disabled = []
@@ -48,6 +62,7 @@
 
 " Pathogen init. Load all plugins from bundle/ directory:
 execute pathogen#infect()
+
 syntax on
 if version>600
     filetype plugin indent on
@@ -55,19 +70,22 @@ else
     filetype on
 endif
 
+"
+" =============================================================================
+"
 " Neovim
 " ------
 if has('nvim')
-    let g:python_host_prog='/usr/bin/python' " for neovim
-    " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    " unused atm
 endif
 "
 " =============================================================================
 "
-" Essential
-" ---------
-
+" Settings
+" --------
+"
+" Essential stuff
+"
 " Leave input mode with jj - much faster than reaching for the esc key and only
 " very rarely a hurdle:
 inoremap jj <Esc>
@@ -82,11 +100,6 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>  " won't work in most terminals
 " Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
-"
-" =============================================================================
-"
-" Settings
-" --------
 "
 " Mouse settings:
 set mousemodel=popup           " right mouse button pops up a menu
@@ -111,24 +124,22 @@ set virtualedit=block
 " match paren is slow (e. g. in large latex code):
 " let loaded_matchparen = 1
 " set noshowmatch
-
-" Common vim stuff
-set linebreak        " if on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
+set linebreak        " If on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
 set ignorecase       " If the 'ignorecase' option is on, the case of normal letters is ignored.
-set smartcase        " case insensitive searches become sensitive with capitals
-set hidden           " edit multiple buffers without saving the modifications made to a buffer
-set autoindent       " copy indent from current line when starting a new line
-set tabstop=4        " number of spaces that a <Tab> in the file counts for.
-set shiftwidth=4     " number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
+set smartcase        " Case insensitive searches become sensitive with capitals
+set hidden           " Edit multiple buffers without saving the modifications made to a buffer
+set autoindent       " Copy indent from current line when starting a new line
+set tabstop=4        " Number of spaces that a <Tab> in the file counts for.
+set shiftwidth=4     " Number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
 set shiftround       " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands.
 set scrolloff=5      " Minimal number of screen lines to keep above and below the cursor.
 set sidescrolloff=10 " The minimal number of screen columns to keep to the left and to the right of the cursor
 set ffs=unix,dos     " This gives the end-of-line (<EOL>) formats that will be tried when starting to edit a new buffer and when reading a file into an existing buffer
 set smarttab         " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'.  'ts' or 'sts' else.  A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
-set number           " precede each line with its line number
+set number           " Precede each line with its line number
 set showbreak=>      " String to put at the start of lines that have been wrapped.
 set showmode         " If in Insert, Replace or Visual mode put a message on the last line.
-set autoread         " if the file has changed outside, but was not modified in vim: reload
+set autoread         " If the file has changed outside, but was not modified in vim: reload
 set autowrite        " Automatically save before commands like :next and :make
 set hlsearch         " When there is a previous search pattern, highlight all its matches.
 set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches.
@@ -144,22 +155,23 @@ set undolevels=1000  " Maximum number of changes that can be undone.
 set showmatch        " When a bracket is inserted, briefly jump to the matching one.
 set matchtime=2      " Tenths of a second to show the matching paren (default: 500 ms)
 if v:version >= 704 || (v:version >= 703 && has('patch72'))
-    set wildignorecase   " When set case is ignored when completing file names and directories.
+    set wildignorecase " When set case is ignored when completing file names and directories.
 endif
-set lazyredraw       " the screen will not be redrawn while executing macros,
-set showcmd          " show partial command in last line of the screen (Set this option off if your terminal is slow.)
-set showtabline=2    " always display tabs
+set lazyredraw       " The screen will not be redrawn while executing macros,
+set showcmd          " Show partial command in last line of the screen (Set this option off if your terminal is slow.)
+set showtabline=2    " Always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists.
 if v:version >= 704 || (v:version >= 703 && has('patch541'))
     set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
 endif
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.lst " gcc arm listings
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
 
+" cindent options:
+"
 " help: :h cinoptions-values
 " Align cindent function arguments with 'cino'
 " void my_func(int arg1,  >   void my_func(int arg1,
@@ -204,7 +216,7 @@ if has('multi_byte')
   set termencoding=utf-8       " Encoding used for the terminal. For the Win32 GUI 'termencoding' is not used for typed characters.
   set encoding=utf-8           " Sets the character encoding used inside Vim.
   setglobal fileencoding=utf-8 " Sets the character encoding for files
-  set nobomb                   " no BOM (Byte Order Mark) is prepended to the file
+  set nobomb                   " No BOM (Byte Order Mark) is prepended to the file
 endif
 
 " The following snippet (function change_dir_once and au BufRead * call
@@ -221,11 +233,32 @@ augroup ChangeDirOnceGroup
     autocmd!
     autocmd BufRead * call s:change_dir_once()
 augroup END
+
+" Backup, swapfile, undo stuff
+" Turn off backup (good idea?)
+set nobackup
+set nowb
+set noswapfile
+set viminfo=
+
+" Encryption
+if has('nvim')
+    " no encryption
+else
+    if v:version >= 704 && has('patch399')
+        set cm=blowfish2
+    else
+        if version >= 703
+            set cm=blowfish
+        endif
+    endif
+endif
+
 "
 " =============================================================================
 "
-" MY KEYMAPS
-" ----------
+" Keymaps
+" -------
 "
 " Use Y to copy until the end of the line. Use yy to copy the whole line:
 nnoremap Y y$
@@ -233,7 +266,7 @@ nnoremap Y y$
 inoremap <C-BS> <C-W>
 " Paste text into command line with <C-v>
 cnoremap <C-V> <C-R>+
-" change to current file's path:
+" Change to current file's path:
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
@@ -245,7 +278,7 @@ onoremap id i[
 onoremap ad a[
 vnoremap id i[
 vnoremap ad a[
-" toggles the 'paste' option:
+" Toggles the 'paste' option:
 set pastetoggle=<F8>
 " Sane navigation between wrapped lines:
 nnoremap j gj
@@ -263,7 +296,7 @@ nnoremap <A-down>  :cnext<CR>
 nnoremap <A-up>    :cprev<CR>
 nnoremap <A-right> :tabnext<CR>
 nnoremap <A-left>  :tabprevious<CR>
-" navigation between windows:
+" Simple navigation between windows:
 noremap <C-j> <C-W><C-J>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
@@ -276,10 +309,10 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " noautocmd is important, otherwise autocommands (e.g. from plugins) are
 " executed for each opened file.
 nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
-" plattform specific grep search / findstr stuff
-" if in doubt, use vimgrep (<leader>b), but grep and findstr are faster.
+" Plattform specific grep search / findstr stuff.
+" If in doubt, use vimgrep (<leader>b), but grep and findstr are faster.
 if has('win32') && !executable('grep')
-    " prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
+    " Prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
     set grepprg=findstr\ /spin
 
     " Use findstr.exe on Windows (or use GNU win32 grep:
@@ -298,7 +331,7 @@ else
     " prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
     set grepprg=grep\ -nHir\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
 
-    " grep parameter:
+    " grep parameters:
     " n = print line number
     " H = print file name
     " i = ignore case
@@ -310,18 +343,19 @@ else
     " Map a special grep for C/C++
     nnoremap <Leader>s :AsyncRun grep -nHir --exclude-dir=".git" --exclude=tags --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
-
-" ctags stuff:
-" ------------
-" use :tag, :ts, :tn, :tp for navigation
-" use :CtrlPTag a. CtrlPBufTag for fuzzy search
-" Taglist options
+"
+" =============================================================================
+"
+" ctags
+" -----
+"
+" Search for tags file path:
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file on F4
 nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " F3 goto tag (Eclipse like), use <C-o> to jump back
 noremap <F3> <C-]>
-" F12 goto tag (Visual Studio like)
+" F12 goto tag (Visual Studio like), use <C-o> to jump back
 noremap <F12> <C-]>
 " use :tn and :tp (tag next, tag previous) to navigate between matches
 noremap <leader>t <C-]>
@@ -331,25 +365,23 @@ nnoremap K <C-w>}
 nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
-" inoremap <C-x><C-t> <C-X><C-]>
+inoremap <C-x><C-t> <C-X><C-]>
 "
 "
 " =============================================================================
 "
-" VISUAL SETTINGS
+" Visual settings
 " ---------------
 
 " Empty fillchar (looks nicer for split windows)
 set fillchars=
 set synmaxcol=256 " maximum line length for syntax coloring
-" set cursorline  " this is slooooooooow
-" No sound on errors
 set noerrorbells  " don't ring the bell (beep or screen flash) for error messages.
 set novisualbell  " disable visual bell
 set t_vb=         " disable visual bell
 set nofoldenable  " When off, all folds are open.
+" set cursorline  " this is slooooooooow, don't use it
 
-" visual settings
 if has('gui_running')
     " GUI settings:
     colorscheme blueshift
@@ -382,7 +414,7 @@ if has('gui_running')
 
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
 else
-    " console settings:
+    " Console settings:
     set background=dark
     set t_Co=256         " not the right way to do it, but it helps e.g. Git Bash
     colorscheme gruvbox
@@ -403,20 +435,24 @@ augroup END
 " </whitespace detection>
 
 " Status line
-" More information in status line
-"set statusline=%F%m%r%h%w\ format=%{&ff}\ enc=%{&fenc}\ type=%Y\ bom=%{&bomb}\ hex=\%02.2B\ col=%v
+" More information in status line:
+" %F Full path, %m modified flag [+], %r readonly flag [RO], %h help flag [help],
+" %w Preview window flag [Preview]
+" Based on default status line, but adds the file format, the file encoding,
+" and the file type.
+set statusline=%<%F\ %h%m%r%=type=%Y\ [%{&ff}]\ [%{&fenc}]\ %-14.(%l,%c%V%)\ %P
 set laststatus=2     " Always display a statusline
 
 "
 " =============================================================================
 "
-" PLUGIN SETTINGS
+" Plugin settings
 " ---------------
 
-" load matchit plugin:
+" Matchit:
 runtime macros/matchit.vim
 
-" ctrlp settings:
+" Ctrlp:
 nnoremap <silent> <Leader>p :CtrlP<CR>
 nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_extensions          = [ 'tag', 'buffertag', 'dir' ]
@@ -439,19 +475,22 @@ endif
 nnoremap <silent> <Leader>h :CtrlPTag<CR>
 nnoremap <silent> <Leader>j :CtrlPBufTag<CR>
 
-" Buffer Explorer to <leader>e
+" Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
-let g:bufExplorerDefaultHelp=0
-" NERDTree to <leader>f (use current file as starting point)
+let g:bufExplorerDefaultHelp    = 0
+
+" NERDTree Plugin:
 nnoremap <silent> <Leader>f :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
 let NERDChristmasTree           = 1
 let NERDTreeHighlightCursorline = 1
 let NERDTreeMinimalUI           = 1
 let NERDTreeDirArrows           = 1
-" NERD Commenter, turns the menu off:
+
+" NERD Commenter:
 let NERDMenuMode                = 0
-" Tagbar as taglist replacement:
+
+" Tagbar:
 let g:tagbar_left               = 1
 let g:tagbar_autofocus          = 1
 let g:tagbar_compact            = 1
@@ -475,11 +514,11 @@ let g:tagbar_type_tex = {
         \ }
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
-" AsyncRun
+" AsyncRun:
 " :Make command
-:command! -bang -nargs=* -complete=file Make AsyncRun -save=2 -program=make @ <args>
+command! -bang -nargs=* -complete=file Make AsyncRun -save=2 -program=make @ <args>
 " Use F9 to toggle quickfix window rapidly:
-:noremap <F9> :call asyncrun#quickfix_toggle(8)<cr>
+noremap <silent> <F9> :call asyncrun#quickfix_toggle(8)<cr>
 " automate opening quickfix window when AsyncRun starts
 augroup vimrc
     autocmd!
@@ -489,7 +528,7 @@ augroup END
 "
 " =============================================================================
 "
-" FILE SPECIFIC SETTINGS
+" File specific settings
 " ----------------------
 
 " LaTex specific:
@@ -520,29 +559,4 @@ augroup MakefileGroup
     autocmd!
     autocmd FileType make setlocal noexpandtab
 augroup END
-
-"
-" =============================================================================
-"
-" BACKUP SETTINGS
-" ---------------
-
-" Backup, swapfile, undo stuff
-" Turn off backup (good idea?)
-set nobackup
-set nowb
-set noswapfile
-set viminfo=
-
-if has('nvim')
-    " no encryption at the moment?
-else
-    if v:version >= 704 && has('patch399')
-        set cm=blowfish2
-    else
-        if version >= 703
-            set cm=blowfish
-        endif
-    endif
-endif
 
