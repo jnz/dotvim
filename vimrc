@@ -50,6 +50,14 @@
 " Add a new line with 'stty -ixon' to your .bashrc
 " <S-Space> won't work.
 " <C-BS> won't work.
+"
+"
+" Profile Vim:
+"   * Execute :profile start profile_result.txt | profile func *
+"   * Do some stuff (moving cursor around or splitting windows)
+"   * Quit Vim.
+"   * Open result file and go to the last part of the log, see what's causing
+"     your editor heavy.
 
 " =============================================================================
 " Pathogen
@@ -137,16 +145,13 @@ set wildchar=<Tab>   " Character you have to type to start wildcard expansion in
 set wildmode=longest,full " Completion mode: complete longest common string, then each full match
 set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
+set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
-set history=200      " The command-lines that you enter are remembered in a history table
-set undolevels=1000  " Maximum number of changes that can be undone
-set showmatch        " When a bracket is inserted, briefly jump to the matching one
-set matchtime=2      " Tenths of a second to show the matching paren (default: 500 ms)
 if v:version >= 704 || (v:version >= 703 && has('patch72'))
     set wildignorecase " When set case is ignored when completing file names and directories
 endif
 set lazyredraw       " The screen will not be redrawn while executing macros
-set showcmd          " Show partial command in last line of the screen (set this option off if your terminal is slow.)
+set noshowcmd        " Show partial command in last line of the screen (set this option off if your terminal is slow.)
 set showtabline=1    " 2=Always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists
 if v:version >= 704 || (v:version >= 703 && has('patch541'))
@@ -432,9 +437,7 @@ set laststatus=2     " Always display a statusline
 " =============================================================================
 
 " Matchit:
-" match paren is slow (e. g. in large latex code):
-" let loaded_matchparen=1
-" set noshowmatch
+let g:loaded_matchparen=1 " matchit is slow, disable it
 runtime macros/matchit.vim
 
 " Ctrlp:
