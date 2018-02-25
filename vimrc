@@ -86,7 +86,7 @@ endif
 " =============================================================================
 
 " Detect environment
-" from https://github.com/justinmk/config/blob/master/.vimrc
+" (from https://github.com/justinmk/config/blob/master/.vimrc)
 let s:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
 let s:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
 let s:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
@@ -123,7 +123,7 @@ else
 endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
-set complete-=i      " Don't scan includes (tags file is more performant).
+set complete-=i      " Don't scan include files (tags file is more performant)
 " Limit the number of items to 15 in the completion popup menu:
 set pumheight=15
 " Select empty areas with visual block mode:
@@ -500,7 +500,6 @@ let NERDTreeDirArrows           = 1
 let NERDMenuMode                = 0
 
 " Tagbar:
-"
 " tagbar window is opened on the left:
 let g:tagbar_left               = 1
 " If you set this option the cursor will move to the Tagbar window when it is
