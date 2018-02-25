@@ -85,6 +85,12 @@ endif
 " Settings
 " =============================================================================
 
+" Detect environment
+" from https://github.com/justinmk/config/blob/master/.vimrc
+let s:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
+let s:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
+let s:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
+
 " Essential:
 " Leave input mode with jj - much faster than reaching for the esc key and only
 " very rarely a hurdle:
@@ -117,6 +123,7 @@ else
 endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
+set complete-=i      " Don't scan includes (tags file is more performant).
 " Limit the number of items to 15 in the completion popup menu:
 set pumheight=15
 " Select empty areas with visual block mode:
@@ -147,6 +154,7 @@ set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
 set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
+set nrformats-=octal " Ignore octal numbers for CTRL-A and CTRL-X
 if v:version >= 704 || (v:version >= 703 && has('patch72'))
     set wildignorecase " When set case is ignored when completing file names and directories
 endif
@@ -371,7 +379,7 @@ set t_vb=         " disable visual bell
 set nofoldenable  " When off, all folds are open
 " set cursorline  " this is slooooooooow, don't use it
 
-if has('gui_running')
+if s:is_gui
     " GUI settings:
     colorscheme blueshift
 
@@ -384,11 +392,16 @@ if has('gui_running')
     elseif has('gui_gtk3')
         " for linux
         set guifont=DejaVu\ Sans\ Mono\ 11
-    else
+    elseif has('win32')
         " Consolas Font for Windows
         " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
         " set guifont=Consolas:h11
         set guifont=Consolas:h11
+        if has("directx")
+            set renderoptions=type:directx
+        endif
+        " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+        let &guioptions=substitute(&guioptions, 't', '', 'g')
     endif
 
     set guioptions-=T " hide icons
@@ -397,15 +410,14 @@ if has('gui_running')
     set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window
     set guioptions+=l " Left-hand scrollbar is always present
     set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window
-
-    " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-    let &guioptions=substitute(&guioptions, 't', '', 'g')
-
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
 else
     " Console settings:
     set background=dark
-    set t_Co=256         " not the right way to do it, but it helps e.g. in Git Bash
+    " force 256 colors for the msys mintty terminal
+    if s:is_msys || s:is_msysgit
+        set t_Co=256
+    endif
     colorscheme gruvbox
 endif
 
