@@ -1,47 +1,45 @@
-" Jan Zwiener's vimrc
-" ===================
-" jan@zwiener.org
+" vimrc (Jan Zwiener, jan@zwiener.org)
 "
 " =============================================================================
 " Information
 " =============================================================================
 "
 " vimrc sections:
-"  - Pathogen                   First section to enable plug-ins in bundle/
+"  - Pathogen                   First section to enable plugins in bundle/
 "  - Neovim                     Neovim specific settings
 "  - Settings                   General settings
 "  - Keymaps                    Key bindings
 "  - ctags                      ctags specific settings
 "  - Visual settings            Change the look and feel
-"  - Plugin settings            Settings for different plug-ins
+"  - Plugin settings            Settings for different plugins
 "  - File specific settings     Settings for file types (e.g. for .tex files)
 "
 " Tag based code navigation
 " -------------------------
 "
-" F4 to generate tags in current directory (should be in source root)
-" F3/F12/<leader>t to goto tag under cursor
-" Ctrl-o / Ctrl-i navigate backward/forward
-" K to preview function, <leader>k to close preview
-" Tab to complete
+" F4 to generate tags in current directory (should be in source root).
+" F3/F12/<leader>t to goto tag under cursor.
+" Ctrl-o / Ctrl-i navigate backward/forward.
+" K to preview function, <leader>k to close preview.
+" Tab to complete (VimCompletesMe plugin).
 "
 " Special <leader> commands:
 " --------------------------
-" <leader>p              :CtrlP
-" <leader>m              :CtrlPMRUFiles
-" <leader>e              :BufExplorer
-" <leader>f              :NERDTree
-" <leader>l              :TagbarToggle (use 'zo' and 'zc' to open and close folds)
-" <leader>n              :Make
-" <leader>w              Remove trailing whitespaces
-" <leader>g              :grep
-" <leader>s              :grep for *.h, *.c, *.cpp files
-" <leader>b              :vimgrep
-" <leader>h              :CtrlPTag
-" <leader>j              :CtrlPBufTag
-" <leader>v              Sync Tex
-" <C-x><C-t>             Tag complete in insert mode
-" <leader>cc             Comment out the current line or text selected in visual mode
+" <leader>p        :CtrlP
+" <leader>m        :CtrlPMRUFiles
+" <leader>e        :BufExplorer
+" <leader>f        :NERDTree
+" <leader>l        :TagbarToggle (use 'zo' and 'zc' to open and close folds)
+" <leader>n        :Make
+" <leader>g        :grep
+" <leader>s        :grep for *.h, *.c, *.cpp files
+" <leader>b        :vimgrep
+" <leader>h        :CtrlPTag
+" <leader>j        :CtrlPBufTag
+" <leader>w        Remove trailing whitespaces
+" <leader>v        Sync Tex
+" <C-x><C-t>       Tag complete in insert mode
+" <leader>cc       Comment out the current line or text selected in visual mode
 "
 " Use :tag, :ts, :tn, :tp for navigation.
 " Use :CtrlPTag and CtrlPBufTag for fuzzy search.
@@ -88,21 +86,21 @@ let mapleader=','
 let g:mapleader=','
 " Easy half-page scrolling with <space>:
 nnoremap <Space> <C-d>
-nnoremap <S-Space> <C-u>  " won't work in most terminals
+nnoremap <S-Space> <C-u>  " won't work in a terminal
 " Support this in visual-mode:
 vnoremap <Space> <C-d>
-vnoremap <S-Space> <C-u>  " won't work in most terminals
+vnoremap <S-Space> <C-u>  " won't work in a terminal
 " Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
 
 " Mouse:
-set mousemodel=popup           " right mouse button pops up a menu
-set selectmode=mouse,key       " select text with the mouse or with shift+cursor keys
-set keymodel=startsel,stopsel  " shift starts the sel-mode, any other key stops it
-set mouse=a                    " enable the mouse
+set mousemodel=popup           " Right mouse button pops up a menu
+set selectmode=mouse,key       " Select text with the mouse or with shift+cursor keys
+set keymodel=startsel,stopsel  " Shift+cursor starts the sel-mode, any other key stops it
+set mouse=a                    " Enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
-set backspace=indent,eol,start " backspace wrap to previous/next line
-set whichwrap+=<,>,[,]         " cursor left/right to move to the previous/next line
+set backspace=indent,eol,start " Backspace wrap to previous/next line
+set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
 " Clipboard:
 if has('unnamedplus')
     set clipboard^=unnamedplus " unnamedplus is useful for X-Windows
@@ -115,44 +113,44 @@ set completeopt=menu,menuone,longest
 set pumheight=15
 " Select empty areas with visual block mode:
 set virtualedit=block
-set linebreak        " If on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen.
-set ignorecase       " If the 'ignorecase' option is on, the case of normal letters is ignored.
+set linebreak        " If on Vim will wrap long lines at a character in 'breakat' rather than at the last character that fits on the screen
+set ignorecase       " If the 'ignorecase' option is on, the case of normal letters is ignored
 set smartcase        " Case insensitive searches become sensitive with capitals
 set hidden           " Edit multiple buffers without saving the modifications made to a buffer
 set autoindent       " Copy indent from current line when starting a new line
-set tabstop=4        " Number of spaces that a <Tab> in the file counts for. This is not 8, this is 4.
-set shiftwidth=4     " Number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used.
-set shiftround       " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands.
-set scrolloff=5      " Minimal number of screen lines to keep above and below the cursor.
+set tabstop=4        " Number of spaces that a <Tab> in the file counts for. This is not 8, this is 4
+set shiftwidth=4     " Number of spaces to use for each step of (auto)indent. when zero the 'ts' value will be used
+set shiftround       " Round indent to multiple of 'shiftwidth'.  Applies to > and < commands
+set scrolloff=5      " Minimal number of screen lines to keep above and below the cursor
 set sidescrolloff=10 " The minimal number of screen columns to keep to the left and to the right of the cursor
 set ffs=unix,dos     " This gives the end-of-line (<EOL>) formats that will be tried when starting to edit a new buffer and when reading a file into an existing buffer
-set smarttab         " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'. A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
+set smarttab         " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'. A <BS> will delete a 'shiftwidth' worth of space at the start of the line
 set number           " Precede each line with its line number
-set showbreak=>      " String to put at the start of lines that have been wrapped.
-set showmode         " If in Insert, Replace or Visual mode put a message on the last line.
+set showbreak=>      " String to put at the start of lines that have been wrapped
+set showmode         " If in Insert, Replace or Visual mode put a message on the last line
 set autoread         " If the file has changed outside, but was not modified in vim: reload
 set autowrite        " Automatically save before commands like :next and :make
-set hlsearch         " When there is a previous search pattern, highlight all its matches.
-set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches.
-set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode.  On pressing 'wildchar' (usually <Tab>) to invoke completion,
-set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'.
+set hlsearch         " When there is a previous search pattern, highlight all its matches
+set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches
+set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode. Press 'wildchar' (usually <Tab>) to invoke completion
+set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'
 set wildmode=longest,full " Completion mode: complete longest common string, then each full match
 set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
-set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing,
-set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>.
+set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
+set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set history=200      " The command-lines that you enter are remembered in a history table
-set undolevels=1000  " Maximum number of changes that can be undone.
-set showmatch        " When a bracket is inserted, briefly jump to the matching one.
+set undolevels=1000  " Maximum number of changes that can be undone
+set showmatch        " When a bracket is inserted, briefly jump to the matching one
 set matchtime=2      " Tenths of a second to show the matching paren (default: 500 ms)
 if v:version >= 704 || (v:version >= 703 && has('patch72'))
-    set wildignorecase " When set case is ignored when completing file names and directories.
+    set wildignorecase " When set case is ignored when completing file names and directories
 endif
-set lazyredraw       " The screen will not be redrawn while executing macros,
+set lazyredraw       " The screen will not be redrawn while executing macros
 set showcmd          " Show partial command in last line of the screen (set this option off if your terminal is slow.)
 set showtabline=1    " 2=Always display tabs
-set formatoptions+=n " When formatting text, recognize numbered lists.
+set formatoptions+=n " When formatting text, recognize numbered lists
 if v:version >= 704 || (v:version >= 703 && has('patch541'))
-    set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines.
+    set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines
 endif
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
@@ -197,13 +195,13 @@ else
     nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
 endif
 
-set nowrap          " When on, lines longer than the width of the window will wrap and displaying continues on the next line.
-set textwidth=0     " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width.
-set spelllang=en,de " When the 'spell' option is on spellchecking will be done for these languages.
+set nowrap          " When on, lines longer than the width of the window will wrap and displaying continues on the next line
+set textwidth=0     " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
+set spelllang=en,de " When the 'spell' option is on spellchecking will be done for these languages
 " UTF-8 settings
 if has('multi_byte')
-  set termencoding=utf-8       " Encoding used for the terminal. For the Win32 GUI 'termencoding' is not used for typed characters.
-  set encoding=utf-8           " Sets the character encoding used inside Vim.
+  set termencoding=utf-8       " Encoding used for the terminal (if the terminal is not using utf-8 it's misconfigured)
+  set encoding=utf-8           " Sets the character encoding used inside Vim
   setglobal fileencoding=utf-8 " Sets the character encoding for files
   set nobomb                   " No BOM (Byte Order Mark) is prepended to the file
 endif
@@ -224,11 +222,11 @@ augroup ChangeDirOnceGroup
 augroup END
 
 " Backup, swapfile, undo stuff
-" Turn off backup (good idea?)
+" Turn off backup and swap files
 set nobackup
-set nowb
-set noswapfile
-set viminfo=
+set nowb        " Make a backup before overwriting a file
+set noswapfile  " Disable swap files. If Vim or your computer crashes, swapfiles allow you to recover those changes
+set viminfo=    " Forget everything after a restart
 
 " Encryption
 if has('nvim')
@@ -339,17 +337,17 @@ endif
 
 " Search for tags file path:
 set tags=./tags,tags,./../tags,./../../tags
-" Shortcut to generate tags file on F4
+" Shortcut to generate tags file with F4:
 nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-" F3 goto tag (Eclipse like), use <C-o> to jump back
+" F3 goto tag (Eclipse like), use <C-o> to jump back:
 noremap <F3> <C-]>
-" F12 goto tag (Visual Studio like), use <C-o> to jump back
+" F12 goto tag (Visual Studio like), use <C-o> to jump back:
 noremap <F12> <C-]>
-" use :tn and :tp (tag next, tag previous) to navigate between matches
+" use :tn and :tp (tag next, tag previous) to navigate between matches:
 noremap <leader>t <C-]>
-" map manual key to tag preview
+" map manual key to tag preview:
 nnoremap K <C-w>}
-" close the preview buffer
+" close the preview buffer:
 nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
@@ -359,13 +357,13 @@ inoremap <C-x><C-t> <C-X><C-]>
 " Visual settings
 " =============================================================================
 
-" Empty fillchar (looks nicer for split windows)
+" Empty fillchar (looks nicer for split windows):
 set fillchars=
 set synmaxcol=256 " maximum line length for syntax coloring
-set noerrorbells  " don't ring the bell (beep or screen flash) for error messages.
+set noerrorbells  " don't ring the bell (beep or screen flash) for error messages
 set novisualbell  " disable visual bell
 set t_vb=         " disable visual bell
-set nofoldenable  " When off, all folds are open.
+set nofoldenable  " When off, all folds are open
 " set cursorline  " this is slooooooooow, don't use it
 
 if has('gui_running')
@@ -390,15 +388,15 @@ if has('gui_running')
 
     set guioptions-=T " hide icons
     " Hide scrollbars:
-    set guioptions+=r " Right-hand scrollbar is always present.
-    set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window.
-    set guioptions+=l " Left-hand scrollbar is always present.
-    set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window.
+    set guioptions+=r " Right-hand scrollbar is always present
+    set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window
+    set guioptions+=l " Left-hand scrollbar is always present
+    set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window
 
     " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
     let &guioptions=substitute(&guioptions, 't', '', 'g')
 
-    set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing.
+    set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
 else
     " Console settings:
     set background=dark
@@ -442,23 +440,23 @@ runtime macros/matchit.vim
 " Ctrlp:
 nnoremap <silent> <Leader>p :CtrlP<CR>
 nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
-" 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file.
-" 'buffertag' - :CtrlPBufTag - Search for a tag within the current buffer.
+" 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file
+" 'buffertag' - :CtrlPBufTag - Search for a tag within the current buffer
 let g:ctrlp_extensions          = [ 'tag', 'buffertag' ]
-let g:ctrlp_max_depth           = 12     " Directory depth to recurse into when scanning.
+let g:ctrlp_max_depth           = 12  " Directory depth to recurse into when scanning
 " CtrlP sets its local working directory according to this variable:
 " r - the nearest ancestor of the current file that contains one of these
 "      directories or files: .git .hg .svn .bzr _darcs
-" a - the directory of the current file, unless it is a subdirectory of the cwd.
+" a - the directory of the current file, unless it is a subdirectory of the cwd
 let g:ctrlp_working_path_mode   = 'ra'
 " Specify the number of recently opened files you want CtrlP to remember:
 let g:ctrlp_mruf_max            = 250
-" Number of files to scan initially
+" Number of files to scan initially:
 let g:ctrlp_max_files           = 8000
 let g:ctrlp_use_caching         = 1 " Enable per-session caching
 " Set this to 0 to enable cross-session caching by not deleting the cache files:
 let g:ctrlp_clear_cache_on_exit = 0
-" Only update when typing has stopped after 100 ms
+" Only update when typing has stopped after 100 ms:
 let g:ctrlp_lazy_update         = 100
 " Set directory for ctrlp cache:
 if has('unix')
@@ -500,7 +498,7 @@ let g:tagbar_compact            = 1
 " required for g:tagbar_type_tex (so we find 'latex.cnf'
 let g:vim_gitrepo_path=fnamemodify(resolve(expand('<sfile>:p')), ':h')
 " tagbar can be used to index latex files with ctags. but we need a
-" configuration file for that: latex.cnf in the vim config directory.
+" configuration file for that: latex.cnf in the vim config directory
 let g:tagbar_type_tex={
             \ 'ctagstype' : 'latex',
             \ 'kinds'     : [
@@ -516,11 +514,11 @@ let g:tagbar_type_tex={
 nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " AsyncRun:
-" :Make command
+" Add the :Make command for async. make calls
 command! -bang -nargs=* -complete=file Make AsyncRun -save=2 -program=make @ <args>
 " Use F9 to toggle quickfix window rapidly:
 noremap <silent> <F9> :call asyncrun#quickfix_toggle(8)<cr>
-" automate opening quickfix window when AsyncRun starts
+" automate opening quickfix window when AsyncRun starts:
 augroup vimrc
     autocmd!
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
@@ -533,7 +531,7 @@ augroup END
 " LaTex specific:
 "
 " if synctex=1 is set, we can directly jump to the PDF position we are
-" currently editing.
+" currently editing
 function! SyncTexForward() abort
     if has('win32')
         echo 'Not implemented'
@@ -553,7 +551,7 @@ augroup LatexGroup
     autocmd BufEnter *.tex    nnoremap <Leader>v :call SyncTexForward()<CR>
 augroup END
 
-" In Makefiles, don't expand tabs to spaces, since we need the actual tabs
+" In Makefiles, don't expand tabs to spaces, since we need the actual tabs:
 augroup MakefileGroup
     autocmd!
     autocmd FileType make setlocal noexpandtab
