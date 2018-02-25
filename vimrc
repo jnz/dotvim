@@ -403,6 +403,7 @@ if s:is_gui
         endif
         " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
         let &guioptions=substitute(&guioptions, 't', '', 'g')
+        autocmd GUIEnter * simalt ~x  " always maximize initial GUI window
     endif
 
     set guioptions-=T " hide icons
