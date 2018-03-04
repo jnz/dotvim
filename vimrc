@@ -391,7 +391,8 @@ if s:is_gui
         set fuopt+=maxhorz
     elseif has('gui_gtk3') || has('gui_gtk2')
         " for linux
-        set guifont=DejaVu\ Sans\ Mono\ 11
+        " set guifont=DejaVu\ Sans\ Mono\ 11
+        set guifont=Monospace\ 11
     elseif has('win32')
         " Consolas Font for Windows
         " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
