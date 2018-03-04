@@ -389,7 +389,7 @@ if s:is_gui
         " special MacVim option:
         " grow to maximum horizontal width on entering fullscreen mode
         set fuopt+=maxhorz
-    elseif has('gui_gtk3')
+    elseif has('gui_gtk3') || has('gui_gtk2')
         " for linux
         set guifont=DejaVu\ Sans\ Mono\ 11
     elseif has('win32')
