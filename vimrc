@@ -574,3 +574,4 @@ augroup MakefileGroup
     autocmd FileType make setlocal noexpandtab
 augroup END
 
+set rtp+=~/.fzf
