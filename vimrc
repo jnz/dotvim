@@ -459,7 +459,6 @@ if executable('fzf')
     nnoremap <silent> <Leader>m :History<CR>
     nnoremap <silent> <Leader>h :Tags<CR>
     if has('unix')
-        set rtp+=~/.fzf
         let g:fzf_history_dir=$HOME.'/.vim/ctrlpcache'
     else
         let g:fzf_history_dir=$HOME.'\vimfiles\ctrlpcache'
