@@ -462,7 +462,6 @@ if executable('fzf')
         set rtp+=~/.fzf
         let g:fzf_history_dir=$HOME.'/.vim/ctrlpcache'
     else
-        set rtp+=$HOME.'\vimfiles\fzf'
         let g:fzf_history_dir=$HOME.'\vimfiles\ctrlpcache'
     endif
 else
