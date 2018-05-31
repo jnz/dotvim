@@ -25,8 +25,8 @@
 "
 " Special <leader> commands:
 " --------------------------
-" <leader>p        :CtrlP
-" <leader>m        :CtrlPMRUFiles
+" <leader>p        :FZF
+" <leader>m        :History
 " <leader>e        :BufExplorer
 " <leader>f        :NERDTree
 " <leader>l        :TagbarToggle (use 'zo' and 'zc' to open and close folds)
@@ -34,15 +34,13 @@
 " <leader>g        :grep
 " <leader>s        :grep for *.h, *.c, *.cpp files
 " <leader>b        :vimgrep
-" <leader>h        :CtrlPTag
-" <leader>j        :CtrlPBufTag
+" <leader>h        :Tags
 " <leader>w        Remove trailing whitespaces
 " <leader>v        Sync Tex
 " <C-x><C-t>       Tag complete in insert mode
 " <leader>cc       Comment out the current line or text selected in visual mode
 "
 " Use :tag, :ts, :tn, :tp for navigation.
-" Use :CtrlPTag and CtrlPBufTag for fuzzy search.
 "
 " Limitations of the terminal:
 "
@@ -455,37 +453,15 @@ set laststatus=2     " Always display a statusline
 let g:loaded_matchparen=1 " matchit is slow, disable it
 runtime macros/matchit.vim
 
-" Ctrlp:
-nnoremap <silent> <Leader>p :CtrlP<CR>
-nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
-" 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file
-" 'buffertag' - :CtrlPBufTag - Search for a tag within the current buffer
-let g:ctrlp_extensions          = [ 'tag', 'buffertag' ]
-let g:ctrlp_max_depth           = 12  " Directory depth to recurse into when scanning
-" CtrlP sets its local working directory according to this variable:
-" r - the nearest ancestor of the current file that contains one of these
-"      directories or files: .git .hg .svn .bzr _darcs
-" a - the directory of the current file, unless it is a subdirectory of the cwd
-let g:ctrlp_working_path_mode   = 'ra'
-" Specify the number of recently opened files you want CtrlP to remember:
-let g:ctrlp_mruf_max            = 250
-" Number of files to scan initially:
-let g:ctrlp_max_files           = 8000
-let g:ctrlp_use_caching         = 1 " Enable per-session caching
-" Set this to 0 to enable cross-session caching by not deleting the cache files:
-let g:ctrlp_clear_cache_on_exit = 0
-" Only update when typing has stopped after 100 ms:
-let g:ctrlp_lazy_update         = 100
-" Set directory for ctrlp cache:
+" FZF:
+nnoremap <silent> <Leader>p :FZF<CR>
+nnoremap <silent> <Leader>p :History<CR>
+nnoremap <silent> <Leader>h :Tags<CR>
 if has('unix')
-    let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive=0
+    set rtp+=~/.fzf
 else
-    let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive=0
+    set rtp+=$HOME.'\vimfiles\fzf'
 endif
-nnoremap <silent> <Leader>h :CtrlPTag<CR>
-nnoremap <silent> <Leader>j :CtrlPBufTag<CR>
 
 " Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
@@ -574,4 +550,3 @@ augroup MakefileGroup
     autocmd FileType make setlocal noexpandtab
 augroup END
 
-set rtp+=~/.fzf
