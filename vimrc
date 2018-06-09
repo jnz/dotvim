@@ -597,3 +597,18 @@ augroup MakefileGroup
     autocmd FileType make setlocal noexpandtab
 augroup END
 
+" =============================================================================
+" Machine specific settings
+" =============================================================================
+
+" If there are any machine-specific tweaks for Vim, load them from the following file.
+try
+    if has('win32')
+        source ~/vimfiles/vimrc_machine_specific
+    else
+        source ~/.vim/vimrc_machine_specific
+    endif
+catch
+    " No such file? No problem; just ignore it.
+endtry
+
