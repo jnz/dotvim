@@ -251,6 +251,13 @@ else
     endif
 endif
 
+" jump to the last position when reopening a file
+" from :help last-position-jump
+au BufReadPost *
+   \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+   \ |   exe "normal! g`\""
+   \ | endif
+
 " Encryption
 if has('nvim')
     " no encryption
