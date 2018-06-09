@@ -194,16 +194,15 @@ set cino+=g0
 set cino+=W4
 
 " Press F2 to open the vimrc config:
-if has('unix')
+if has('win32')
+    set wildignore+=.git\*,.hg\*,.svn\*
+    " edit vimrc on windows
+    nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
+else
     " unix-like platform
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
     " edit vimrc on unixoidal systems
     nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
-else
-    " probably Windows
-    set wildignore+=.git\*,.hg\*,.svn\*
-    " edit vimrc on windows
-    nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
 endif
 
 set nowrap          " When on, lines longer than the width of the window will wrap and displaying continues on the next line
@@ -237,7 +236,20 @@ augroup END
 set nobackup
 set nowb        " Make a backup before overwriting a file
 set noswapfile  " Disable swap files. If Vim or your computer crashes, swapfiles allow you to recover those changes
-set viminfo=    " Forget everything after a restart
+
+" viminfo
+if has('nvim')
+    " neovim has a different viminfo
+    set viminfo=  " Forget everything after a restart
+else
+    " remember up to 250 files
+    set viminfo='250,<0,/0,s0,:0,h
+    if has('win32')
+        set viminfo+=n~/vimfiles/viminfo
+    else
+        set viminfo+=n~/.vim/viminfo
+    endif
+endif
 
 " Encryption
 if has('nvim')
@@ -419,7 +431,7 @@ else
     if s:is_msys || s:is_msysgit
         set t_Co=256
     endif
-    colorscheme gruvbox
+    colorscheme blueshift
 endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
@@ -458,12 +470,10 @@ if executable('fzf')
     nnoremap <silent> <Leader>p :FZF<CR>
     nnoremap <silent> <Leader>m :History<CR>
     nnoremap <silent> <Leader>h :Tags<CR>
-    if has('unix')
-        set rtp+=~/.fzf
-        let g:fzf_history_dir=$HOME.'/.vim/ctrlpcache'
-    else
+    if has('win32')
         set rtp+=$HOME.'\vimfiles\fzf'
-        let g:fzf_history_dir=$HOME.'\vimfiles\ctrlpcache'
+    else
+        set rtp+=~/.fzf
     endif
 else
     " Ctrlp:
@@ -488,11 +498,11 @@ else
     " Only update when typing has stopped after 100 ms:
     let g:ctrlp_lazy_update         = 100
     " Set directory for ctrlp cache:
-    if has('unix')
-        let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
+    if has('win32')
+        let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
         let g:ctrlp_mruf_case_sensitive=0
     else
-        let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
+        let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
         let g:ctrlp_mruf_case_sensitive=0
     endif
     nnoremap <silent> <Leader>h :CtrlPTag<CR>
