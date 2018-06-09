@@ -470,11 +470,6 @@ if executable('fzf')
     nnoremap <silent> <Leader>p :FZF<CR>
     nnoremap <silent> <Leader>m :History<CR>
     nnoremap <silent> <Leader>h :Tags<CR>
-    if has('win32')
-        set rtp+=$HOME.'\vimfiles\fzf'
-    else
-        set rtp+=~/.fzf
-    endif
 else
     " Ctrlp:
     nnoremap <silent> <Leader>p :CtrlP<CR>
