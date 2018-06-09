@@ -373,6 +373,16 @@ A file is latin1 encoded and is loaded in Vim, i.e. `:set enc?` results in
 file to utf-8.  Do `:set fenc=utf-8` and write the file `:w`.  Reload the file with
 the correct encoding: `:e ++enc=<utf-8>`.
 
+Debugger (Vim 8.1)
+------------------
+
+Type :help terminal-debug for a tutorial.
+Short version:
+
+    packadd termdebug
+    :Termdebug programfile
+    :Break in source code
+    :Evaluate (on visually selected text)
 
 Installation from Github
 ------------------------
