@@ -194,10 +194,10 @@ set cino+=g0
 set cino+=W4
 
 " Press F2 to open the vimrc config:
-if has('win32')
+if has('win32') || s:is_msys || s:is_msysgit
     set wildignore+=.git\*,.hg\*,.svn\*
     " edit vimrc on windows
-    nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
+    nnoremap <silent> <F2> :tabedit ~/vimfiles/vimrc<cr>
 else
     " unix-like platform
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
@@ -433,12 +433,6 @@ if s:is_gui
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
 else
     " Console settings:
-    set background=dark
-    " force 256 colors for the msys mintty terminal
-    if s:is_msys || s:is_msysgit
-        set t_Co=256
-    endif
-    colorscheme blueshift
 endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
@@ -602,8 +596,13 @@ augroup END
 " =============================================================================
 
 " If there are any machine-specific tweaks for Vim, load them from the following file.
+"
+" e.g. for Git Bash
+" set background=dark
+" set t_Co=256
+" colorscheme wombat256
 try
-    if has('win32')
+    if has('win32') || s:is_msys || s:is_msysgit
         source ~/vimfiles/vimrc_machine_specific
     else
         source ~/.vim/vimrc_machine_specific
