@@ -85,9 +85,10 @@ endif
 
 " Detect environment
 " (from https://github.com/justinmk/config/blob/master/.vimrc)
-let s:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
-let s:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
-let s:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
+" Global g: so that we can use it e.g. in vimrc_machine_specific
+let g:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
+let g:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
+let g:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
 
 " Essential:
 " Leave input mode with jj - much faster than reaching for the esc key and only
@@ -194,10 +195,10 @@ set cino+=g0
 set cino+=W4
 
 " Press F2 to open the vimrc config:
-if has('win32')
+if has('win32') || g:is_msys || g:is_msysgit
     set wildignore+=.git\*,.hg\*,.svn\*
     " edit vimrc on windows
-    nnoremap <silent> <F2> :tabedit ~\vimfiles\vimrc<cr>
+    nnoremap <silent> <F2> :tabedit ~/vimfiles/vimrc<cr>
 else
     " unix-like platform
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
@@ -396,7 +397,7 @@ set t_vb=         " disable visual bell
 set nofoldenable  " When off, all folds are open
 " set cursorline  " this is slooooooooow, don't use it
 
-if s:is_gui
+if g:is_gui
     " GUI settings:
     colorscheme blueshift
 
@@ -433,12 +434,7 @@ if s:is_gui
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
 else
     " Console settings:
-    set background=dark
-    " force 256 colors for the msys mintty terminal
-    if s:is_msys || s:is_msysgit
-        set t_Co=256
-    endif
-    colorscheme blueshift
+    colorscheme wombat256
 endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
@@ -601,9 +597,23 @@ augroup END
 " Machine specific settings
 " =============================================================================
 
+" Set t_Co for msys or msysgit (Git Bash)
+if g:is_msys || g:is_msysgit
+   set t_Co=256
+endif
+
 " If there are any machine-specific tweaks for Vim, load them from the following file.
+"
+" e.g.:
+"   if g:is_gui
+"       colorscheme blueshift
+"   else
+"       set background=dark
+"       colorscheme wombat256
+"   endif
+
 try
-    if has('win32')
+    if has('win32') || g:is_msys || g:is_msysgit
         source ~/vimfiles/vimrc_machine_specific
     else
         source ~/.vim/vimrc_machine_specific
