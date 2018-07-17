@@ -245,7 +245,7 @@ if has('nvim')
 else
     " remember up to 250 files
     set viminfo='250,<0,/0,s0,:0,h
-    if has('win32')
+    if has('win32') || g:is_msys || g:is_msysgit
         set viminfo+=n~/vimfiles/viminfo
     else
         set viminfo+=n~/.vim/viminfo
