@@ -221,6 +221,7 @@ endif
 " s:change_dir_once()) is used to change to working directory to the
 " first file opened in a vim session. because this is normally where i expect
 " my working directory. subsequent files won't change the path.
+"
 function! s:change_dir_once() abort
     if !exists('s:change_dir_once_latch')
         cd %:p:h
@@ -422,7 +423,7 @@ if g:is_gui
         endif
         " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
         let &guioptions=substitute(&guioptions, 't', '', 'g')
-        autocmd GUIEnter * simalt ~x  " always maximize initial GUI window
+        " autocmd GUIEnter * simalt ~x  " always maximize initial GUI window
     endif
 
     set guioptions-=T " hide icons
@@ -559,6 +560,10 @@ augroup vimrc
     autocmd!
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
 augroup END
+
+" Vim-Rooter:
+let g:rooter_silent_chdir = 1   " stop vim-rooter echoing the project directory
+let g:rooter_change_directory_for_non_project_files = ''  " Don't change directory
 
 " =============================================================================
 " File specific settings
