@@ -67,7 +67,10 @@
 
 " Pathogen init. Load all plugins from bundle/ directory:
 execute pathogen#infect()
-" execute pathogen#helptags()
+" Call this after a plugin/submodule update to update the help tags
+"   :Helptags
+" or:
+"   execute pathogen#helptags()
 
 syntax on
 filetype plugin indent on
