@@ -89,6 +89,7 @@ endif
 let g:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
 let g:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
 let g:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
+let g:is_windows = has('win32') || has('win64') || g:is_msys || g:is_msysgit
 
 " Essential:
 " Leave input mode with jj - much faster than reaching for the esc key and only
@@ -195,7 +196,7 @@ set cino+=g0
 set cino+=W4
 
 " Press F2 to open the vimrc config:
-if has('win32') || g:is_msys || g:is_msysgit
+if g:is_windows
     set wildignore+=.git\*,.hg\*,.svn\*
     " edit vimrc on windows
     nnoremap <silent> <F2> :tabedit ~/vimfiles/vimrc<cr>
@@ -246,7 +247,7 @@ if has('nvim')
 else
     " remember up to 250 files
     set viminfo='250,<0,/0,s0,:0,h
-    if has('win32') || g:is_msys || g:is_msysgit
+    if g:is_windows
         set viminfo+=n~/vimfiles/viminfo
     else
         set viminfo+=n~/.vim/viminfo
@@ -330,7 +331,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " Plattform specific grep search / findstr stuff.
 " If in doubt, use vimgrep (<leader>b), but grep and findstr are faster.
-if has('win32') && !executable('grep')
+if g:is_windows && !executable('grep')
     " Prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
     set grepprg=findstr\ /spin
 
@@ -412,7 +413,7 @@ if g:is_gui
         " for linux
         " set guifont=DejaVu\ Sans\ Mono\ 11
         set guifont=Monospace\ 11
-    elseif has('win32')
+    elseif g:is_windows
         " Consolas Font for Windows
         " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
         " set guifont=Consolas:h11
@@ -497,7 +498,7 @@ else
     " Only update when typing has stopped after 100 ms:
     let g:ctrlp_lazy_update         = 100
     " Set directory for ctrlp cache:
-    if has('win32')
+    if g:is_windows
         let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
         let g:ctrlp_mruf_case_sensitive=0
     else
@@ -574,7 +575,7 @@ let g:rooter_change_directory_for_non_project_files = ''  " Don't change directo
 " if synctex=1 is set, we can directly jump to the PDF position we are
 " currently editing
 function! SyncTexForward() abort
-    if has('win32')
+    if g:is_windows
         echo 'Not implemented'
     else
         let execstr='silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
@@ -618,7 +619,7 @@ endif
 "   endif
 
 try
-    if has('win32') || g:is_msys || g:is_msysgit
+    if g:is_windows
         source ~/vimfiles/vimrc_machine_specific
     else
         source ~/.vim/vimrc_machine_specific
