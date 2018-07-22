@@ -412,7 +412,9 @@ set novisualbell  " disable visual bell
 set t_vb=         " disable visual bell
 set nofoldenable  " When off, all folds are open
 " set cursorline  " this is slooooooooow, don't use it
-set termguicolors " use 24-bit color
+if has('termguicolors')
+    set termguicolors " use 24-bit color
+endif
 
 if g:is_gui
     " GUI settings:
@@ -450,7 +452,9 @@ if g:is_gui
     set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
 else
-    set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
+    if has('balloon_eval_term')
+        set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
+    endif
     " Console settings:
     colorscheme gruvbox
 endif
