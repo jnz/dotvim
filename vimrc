@@ -67,6 +67,7 @@
 
 " Pathogen init. Load all plugins from bundle/ directory:
 execute pathogen#infect()
+" execute pathogen#helptags()
 
 syntax on
 filetype plugin indent on
@@ -195,15 +196,11 @@ set cino+=g0
 "              argument);   >               argument);
 set cino+=W4
 
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 " Press F2 to open the vimrc config:
 if g:is_windows
-    set wildignore+=.git\*,.hg\*,.svn\*
-    " edit vimrc on windows
     nnoremap <silent> <F2> :tabedit ~/vimfiles/vimrc<cr>
 else
-    " unix-like platform
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-    " edit vimrc on unixoidal systems
     nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
 endif
 
@@ -503,7 +500,7 @@ if g:is_windows
     let g:ctrlp_mruf_case_sensitive=0
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive=0
+    let g:ctrlp_mruf_case_sensitive=1
 endif
 nnoremap <silent> <Leader>h :CtrlPTag<CR>
 " if we have ripgrep (rg), then we don't need caching and we use ripgrep
@@ -566,10 +563,6 @@ augroup vimrc
     autocmd!
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
 augroup END
-
-" Vim-Rooter:
-let g:rooter_silent_chdir = 1   " stop vim-rooter echoing the project directory
-let g:rooter_change_directory_for_non_project_files = ''  " Don't change directory
 
 " =============================================================================
 " File specific settings
