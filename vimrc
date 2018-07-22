@@ -332,11 +332,14 @@ nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><le
 " Plattform specific grep search / findstr stuff.
 " If in doubt, use vimgrep (<leader>b), but grep, ripgrep and findstr are faster.
 if executable('rg')
+    " If we have ripgrep (rg) in the path, let's use it
     set grepprg=rg\ --vimgrep\ --smart-case
+
     " Prepare a ripgrep search command
-    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case 
+    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
+
     " Map a special ripgrep for C/C++
-    nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp -t c 
+    nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp -t c ""<left>
 elseif g:is_windows && !executable('grep') && !executable('rg')
     " Prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
     set grepprg=findstr\ /spin
@@ -468,6 +471,12 @@ augroup END
 set statusline=%<%F\ %h%m%r%=type=%Y\ [%{&ff}]\ [%{&fenc}]\ %-14.(%l,%c%V%)\ %P
 set laststatus=2     " Always display a statusline
 
+" Color hack for Git Bash for Windows.
+" Set t_Co for msys or msysgit:
+if g:is_msys || g:is_msysgit
+   set t_Co=256
+endif
+
 " =============================================================================
 " Plugin settings
 " =============================================================================
@@ -560,7 +569,7 @@ nnoremap <silent> <leader>l :TagbarToggle<CR>
 " Add the :Make command for async. make calls
 command! -bang -nargs=* -complete=file Make AsyncRun -save=2 -program=make @ <args>
 " Use F9 to toggle quickfix window rapidly:
-noremap <silent> <F9> :call asyncrun#quickfix_toggle(8)<cr>
+noremap <silent> <F9> :call asyncrun#quickfix_toggle(7)<cr>
 " automate opening quickfix window when AsyncRun starts:
 augroup vimrc
     autocmd!
@@ -603,11 +612,6 @@ augroup END
 " =============================================================================
 " Machine specific settings
 " =============================================================================
-
-" Set t_Co for msys or msysgit (Git Bash)
-if g:is_msys || g:is_msysgit
-   set t_Co=256
-endif
 
 " If there are any machine-specific tweaks for Vim, load them from the following file.
 "
