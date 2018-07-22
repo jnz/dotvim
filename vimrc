@@ -25,8 +25,8 @@
 "
 " Special <leader> commands:
 " --------------------------
-" <leader>p        :FZF / :CtrlP
-" <leader>m        :History / :CtrlPMRUFiles
+" <leader>p        :CtrlP (similar to :FZF)
+" <leader>m        :CtrlPMRUFiles (similar to fzf.vim's :History)
 " <leader>e        :BufExplorer
 " <leader>f        :NERDTree
 " <leader>l        :TagbarToggle (use 'zo' and 'zc' to open and close folds)
@@ -34,7 +34,7 @@
 " <leader>g        :grep
 " <leader>s        :grep for *.h, *.c, *.cpp files
 " <leader>b        :vimgrep
-" <leader>h        :Tags / :CtrlPTag
+" <leader>h        :CtrlPTag (similar to fzf.vim's :Tags)
 " <leader>w        Remove trailing whitespaces
 " <leader>v        Sync Tex
 " <C-x><C-t>       Tag complete in insert mode
@@ -330,8 +330,14 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " executed for each opened file.
 nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " Plattform specific grep search / findstr stuff.
-" If in doubt, use vimgrep (<leader>b), but grep and findstr are faster.
-if g:is_windows && !executable('grep')
+" If in doubt, use vimgrep (<leader>b), but grep, ripgrep and findstr are faster.
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --smart-case
+    " Prepare a ripgrep search command
+    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case 
+    " Map a special ripgrep for C/C++
+    nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp 
+elseif g:is_windows && !executable('grep') && !executable('rg')
     " Prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
     set grepprg=findstr\ /spin
 
@@ -470,43 +476,42 @@ set laststatus=2     " Always display a statusline
 let g:loaded_matchparen=1 " matchit is slow, disable it
 runtime macros/matchit.vim
 
-if executable('fzf')
-    " FZF:
-    nnoremap <silent> <Leader>p :FZF<CR>
-    nnoremap <silent> <Leader>m :History<CR>
-    nnoremap <silent> <Leader>h :Tags<CR>
+" Ctrlp:
+nnoremap <silent> <Leader>p :CtrlP<CR>
+nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
+" 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file
+" 'buffertag' - :CtrlPBufTag - Search for a tag within the current buffer
+let g:ctrlp_extensions          = [ 'tag', 'buffertag' ]
+let g:ctrlp_max_depth           = 12  " Directory depth to recurse into when scanning
+" CtrlP sets its local working directory according to this variable:
+" r - the nearest ancestor of the current file that contains one of these
+"      directories or files: .git .hg .svn .bzr _darcs
+" a - the directory of the current file, unless it is a subdirectory of the cwd
+let g:ctrlp_working_path_mode   = 'ra'
+" Specify the number of recently opened files you want CtrlP to remember:
+let g:ctrlp_mruf_max            = 250
+" Number of files to scan initially:
+let g:ctrlp_max_files           = 8000
+let g:ctrlp_use_caching         = 1 " Enable per-session caching
+" Set this to 0 to enable cross-session caching by not deleting the cache files:
+let g:ctrlp_clear_cache_on_exit = 0
+" Only update when typing has stopped after 100 ms:
+let g:ctrlp_lazy_update         = 100
+" Set directory for ctrlp cache:
+if g:is_windows
+    let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
+    let g:ctrlp_mruf_case_sensitive=0
 else
-    " Ctrlp:
-    nnoremap <silent> <Leader>p :CtrlP<CR>
-    nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
-    " 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file
-    " 'buffertag' - :CtrlPBufTag - Search for a tag within the current buffer
-    let g:ctrlp_extensions          = [ 'tag', 'buffertag' ]
-    let g:ctrlp_max_depth           = 12  " Directory depth to recurse into when scanning
-    " CtrlP sets its local working directory according to this variable:
-    " r - the nearest ancestor of the current file that contains one of these
-    "      directories or files: .git .hg .svn .bzr _darcs
-    " a - the directory of the current file, unless it is a subdirectory of the cwd
-    let g:ctrlp_working_path_mode   = 'ra'
-    " Specify the number of recently opened files you want CtrlP to remember:
-    let g:ctrlp_mruf_max            = 250
-    " Number of files to scan initially:
-    let g:ctrlp_max_files           = 8000
-    let g:ctrlp_use_caching         = 1 " Enable per-session caching
-    " Set this to 0 to enable cross-session caching by not deleting the cache files:
-    let g:ctrlp_clear_cache_on_exit = 0
-    " Only update when typing has stopped after 100 ms:
-    let g:ctrlp_lazy_update         = 100
-    " Set directory for ctrlp cache:
-    if g:is_windows
-        let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
-        let g:ctrlp_mruf_case_sensitive=0
-    else
-        let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
-        let g:ctrlp_mruf_case_sensitive=0
-    endif
-    nnoremap <silent> <Leader>h :CtrlPTag<CR>
+    let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
+    let g:ctrlp_mruf_case_sensitive=0
 endif
+nnoremap <silent> <Leader>h :CtrlPTag<CR>
+" if we have ripgrep (rg), then we don't need caching and we use ripgrep
+" to search.
+if executable('rg')
+    let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+    let g:ctrlp_use_caching = 0
+end
 
 " Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
