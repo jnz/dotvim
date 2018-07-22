@@ -499,7 +499,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_lazy_update         = 100
 " Set directory for ctrlp cache:
 if g:is_windows
-    let g:ctrlp_cache_dir=$HOME.'\vimfiles\ctrlpcache'
+    let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
     let g:ctrlp_mruf_case_sensitive=0
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
@@ -510,7 +510,7 @@ nnoremap <silent> <Leader>h :CtrlPTag<CR>
 " to search.
 if executable('rg')
     let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-    let g:ctrlp_use_caching = 0
+    let g:ctrlp_use_caching = 0 " disable per-session caching
 end
 
 " Buffer Explorer:
