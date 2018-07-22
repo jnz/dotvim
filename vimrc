@@ -280,6 +280,11 @@ endif
 " Keymaps
 " =============================================================================
 
+" Use CTRL-S for saving, also in Insert mode (<C-O> doesn't work well when
+" using completions).
+noremap <C-S>		:write<CR>
+vnoremap <C-S>		<C-C>:write<CR>
+inoremap <C-S>		<Esc>:write<CR>gi
 " Use Y to copy until the end of the line. Use yy to copy the whole line:
 nnoremap Y y$
 " Ctrl-Backspace to delete the last word (for gVim, terminals can't do <C-BS>):
