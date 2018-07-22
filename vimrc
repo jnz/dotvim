@@ -336,7 +336,7 @@ if executable('rg')
     " Prepare a ripgrep search command
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case 
     " Map a special ripgrep for C/C++
-    nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp 
+    nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp -t c 
 elseif g:is_windows && !executable('grep') && !executable('rg')
     " Prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
     set grepprg=findstr\ /spin
