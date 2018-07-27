@@ -110,6 +110,12 @@ vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>  " won't work in a terminal
 " Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
+" In the quickfix window, <CR> is used to jump to the error under the
+" cursor, so undefine the mapping there.
+augroup QuickFixEnterMappingGroup
+    autocmd!
+    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>"
+augroup END
 
 " Mouse:
 set mousemodel=popup           " Right mouse button pops up a menu
