@@ -512,11 +512,10 @@ let g:ctrlp_working_path_mode   = 'ra'
 let g:ctrlp_mruf_max            = 250
 " Number of files to scan initially:
 let g:ctrlp_max_files           = 8000
-let g:ctrlp_use_caching         = 1 " Enable per-session caching
-" Set this to 0 to enable cross-session caching by not deleting the cache files:
-let g:ctrlp_clear_cache_on_exit = 0
 " Only update when typing has stopped after 100 ms:
 let g:ctrlp_lazy_update         = 100
+" Set this to 0 to enable cross-session caching by not deleting the cache files:
+let g:ctrlp_clear_cache_on_exit = 0
 " Set directory for ctrlp cache:
 if g:is_windows
     let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
@@ -531,6 +530,8 @@ nnoremap <silent> <Leader>h :CtrlPTag<CR>
 if executable('rg')
     let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
     let g:ctrlp_use_caching = 0 " disable per-session caching
+else
+    let g:ctrlp_use_caching = 1 " Enable per-session caching
 end
 
 " Buffer Explorer:
