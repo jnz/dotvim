@@ -104,10 +104,12 @@ let mapleader=','
 let g:mapleader=','
 " Easy half-page scrolling with <space>:
 nnoremap <Space> <C-d>
-nnoremap <S-Space> <C-u>  " won't work in a terminal
+" won't work in a terminal:
+nnoremap <S-Space> <C-u>
 " Support this in visual-mode:
 vnoremap <Space> <C-d>
-vnoremap <S-Space> <C-u>  " won't work in a terminal
+" won't work in a terminal
+vnoremap <S-Space> <C-u>
 " Remove search highlighting with <enter>:
 nnoremap <CR> :noh<CR>
 " In the quickfix window, <CR> is used to jump to the error under the
@@ -228,10 +230,11 @@ endif
 " s:change_dir_once()) is used to change to working directory to the
 " first file opened in a vim session. because this is normally where i expect
 " my working directory. subsequent files won't change the path.
-"
+" :Rooter tries to find a root directory for the first file that we open
 function! s:change_dir_once() abort
     if !exists('s:change_dir_once_latch')
         cd %:p:h
+        :Rooter
         let s:change_dir_once_latch=1
     endif
 endfunction
@@ -299,6 +302,8 @@ inoremap <C-BS> <C-W>
 cnoremap <C-V> <C-R>+
 " Change to current file's path:
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" Change to current file's root:
+noremap <leader>cr :Rooter<CR>:pwd<CR>
 " :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
 " Don't use Ex mode:
@@ -351,7 +356,7 @@ if executable('rg')
 
     " Map a special ripgrep for C/C++
     nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp -t c ""<left>
-elseif g:is_windows && !executable('grep') && !executable('rg')
+elseif g:is_windows && !executable('grep')
     " Prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
     set grepprg=findstr\ /spin
 
@@ -391,7 +396,8 @@ endif
 " Search for tags file path:
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file with F4:
-nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <F4> :AsyncRun ctags -R .<CR>
 " F3 goto tag (Eclipse like), use <C-o> to jump back:
 noremap <F3> <C-]>
 " F12 goto tag (Visual Studio like), use <C-o> to jump back:
@@ -513,15 +519,17 @@ let g:ctrlp_max_depth           = 12  " Directory depth to recurse into when sca
 " r - the nearest ancestor of the current file that contains one of these
 "      directories or files: .git .hg .svn .bzr _darcs
 " a - the directory of the current file, unless it is a subdirectory of the cwd
-let g:ctrlp_working_path_mode   = 'ra'
+let g:ctrlp_working_path_mode   = '0'
 " Specify the number of recently opened files you want CtrlP to remember:
 let g:ctrlp_mruf_max            = 250
 " Number of files to scan initially:
 let g:ctrlp_max_files           = 8000
 " Only update when typing has stopped after 100 ms:
-let g:ctrlp_lazy_update         = 100
+" let g:ctrlp_lazy_update         = 100
 " Set this to 0 to enable cross-session caching by not deleting the cache files:
 let g:ctrlp_clear_cache_on_exit = 0
+" Set this to 1 to set searching by filename
+let g:ctrlp_by_filename = 1
 " Set directory for ctrlp cache:
 if g:is_windows
     let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
@@ -543,6 +551,8 @@ end
 " Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp    = 0
+" taken to the active window when selecting a buffer
+let g:bufExplorerFindActive     = 0
 
 " NERDTree Plugin:
 nnoremap <silent> <Leader>f :NERDTree<CR>
@@ -597,6 +607,7 @@ augroup END
 " Vim-Rooter:
 let g:rooter_silent_chdir = 1   " stop vim-rooter echoing the project directory
 let g:rooter_change_directory_for_non_project_files = ''  " Don't change directory
+let g:rooter_manual_only = 1    " stop vim-rooter changing directory automatically
 
 " =============================================================================
 " File specific settings
