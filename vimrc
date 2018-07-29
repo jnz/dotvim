@@ -108,14 +108,10 @@ nnoremap <S-Space> <C-u>  " won't work in a terminal
 " Support this in visual-mode:
 vnoremap <Space> <C-d>
 vnoremap <S-Space> <C-u>  " won't work in a terminal
-" Remove search highlighting with <enter>:
-nnoremap <CR> :noh<CR>
+" Remove search highlighting with <enter>
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
-augroup QuickFixEnterMappingGroup
-    autocmd!
-    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>"
-augroup END
+nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<CR>'
 
 " Mouse:
 set mousemodel=popup           " Right mouse button pops up a menu
@@ -165,6 +161,7 @@ set ttyfast          " Indicates a fast terminal connection.  More characters wi
 set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set nrformats-=octal " Ignore octal numbers for CTRL-A and CTRL-X
+set ttimeout         " time out on :mappings and key codes
 if v:version >= 704 || (v:version >= 703 && has('patch72'))
     set wildignorecase " When set case is ignored when completing file names and directories
 endif
@@ -228,7 +225,6 @@ endif
 " s:change_dir_once()) is used to change to working directory to the
 " first file opened in a vim session. because this is normally where i expect
 " my working directory. subsequent files won't change the path.
-"
 function! s:change_dir_once() abort
     if !exists('s:change_dir_once_latch')
         cd %:p:h
@@ -497,6 +493,8 @@ endif
 " =============================================================================
 " Plugin settings
 " =============================================================================
+
+let g:loaded_vimballPlugin = 1 " Tell vimball to get lost.
 
 " Matchit:
 let g:loaded_matchparen=1 " matchit is slow, disable it
