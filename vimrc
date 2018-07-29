@@ -62,8 +62,15 @@
 " =============================================================================
 
 " Example to disable specific plugins (here syntastic):
-" let g:pathogen_disabled=[]
-" call add(g:pathogen_disabled, 'syntastic')
+let g:pathogen_disabled=[]
+if v:version < 701
+    call add(g:pathogen_disabled, 'tagbar')
+end
+if v:version <= 703
+    call add(g:pathogen_disabled, 'bufexplorer')
+    call add(g:pathogen_disabled, 'nerdtree')
+    call add(g:pathogen_disabled, 'vim-rooter')
+end
 
 " Pathogen init. Load all plugins from bundle/ directory:
 execute pathogen#infect()
@@ -233,7 +240,9 @@ endif
 function! s:change_dir_once() abort
     if !exists('s:change_dir_once_latch')
         cd %:p:h
-        :Rooter
+        if exists('g:loaded_rooter')
+            :Rooter
+        endif
         let s:change_dir_once_latch=1
     endif
 endfunction
@@ -472,16 +481,19 @@ endif
 
 " Detect whitespaces and tabs at the end of a line with red highlighting
 " <whitespace detection>
-augroup ExtraWhitespaceHighlightGroup
-    autocmd!
-    highlight ExtraWhitespace ctermbg=red guibg=red
-    match ExtraWhitespace /\s\+$/
-    autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-    autocmd BufWinLeave * call clearmatches()
-augroup END
+" clearmatches requires newer vim versions
+if v:version > 701
+    augroup ExtraWhitespaceHighlightGroup
+        autocmd!
+        highlight ExtraWhitespace ctermbg=red guibg=red
+        match ExtraWhitespace /\s\+$/
+        autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+        autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+        autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+        autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+        autocmd BufWinLeave * call clearmatches()
+    augroup END
+endif
 " </whitespace detection>
 
 " Status line
