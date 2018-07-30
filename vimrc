@@ -479,22 +479,8 @@ else
     colorscheme gruvbox
 endif
 
-" Detect whitespaces and tabs at the end of a line with red highlighting
-" <whitespace detection>
-" clearmatches requires newer vim versions
-if v:version > 701
-    augroup ExtraWhitespaceHighlightGroup
-        autocmd!
-        highlight ExtraWhitespace ctermbg=red guibg=red
-        match ExtraWhitespace /\s\+$/
-        autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-        autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-        autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-        autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-        autocmd BufWinLeave * call clearmatches()
-    augroup END
-endif
-" </whitespace detection>
+" Display tabs, trailing white spaces, nbsp, etc.
+set list listchars=tab:▸\ ,trail:·,extends:›,precedes:‹,nbsp:·
 
 " Status line
 " More information in status line:
