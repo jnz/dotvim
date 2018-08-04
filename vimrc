@@ -430,6 +430,7 @@ set synmaxcol=256 " maximum line length for syntax coloring
 set noerrorbells  " don't ring the bell (beep or screen flash) for error messages
 set novisualbell  " disable visual bell
 set t_vb=         " disable visual bell
+set belloff=all   " just be quiet
 set nofoldenable  " When off, all folds are open
 " set cursorline  " this is slooooooooow, don't use it
 if has('termguicolors')
