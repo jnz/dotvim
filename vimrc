@@ -458,7 +458,7 @@ if g:is_gui
         set guifont=Consolas:h11
         if has("directx")
             " disabled: flickers while scrolling
-            " set renderoptions=type:directx
+            set renderoptions=type:directx
         endif
         " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
         let &guioptions=substitute(&guioptions, 't', '', 'g')
