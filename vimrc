@@ -299,11 +299,9 @@ endif
 
 " Use CTRL-S for saving, also in Insert mode (<C-O> doesn't work well when
 " using completions).
-noremap <C-S>		:write<CR>
-vnoremap <C-S>		<C-C>:write<CR>
-inoremap <C-S>		<Esc>:write<CR>gi
-" Use Y to copy until the end of the line. Use yy to copy the whole line:
-nnoremap Y y$
+noremap <C-S> :write<CR>
+vnoremap <C-S> <C-C>:write<CR>
+inoremap <C-S> <Esc>:write<CR>gi
 " Ctrl-Backspace to delete the last word (for gVim, terminals can't do <C-BS>):
 inoremap <C-BS> <C-W>
 " Paste text into command line with <C-v>
@@ -345,6 +343,18 @@ noremap <C-j> <C-W><C-J>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
+"
+" Terminal window navigation
+if has('terminal')
+    " escape from insert mode in terminal window
+    tnoremap <Esc> <C-\><C-n>
+    " Simple navigation between windows:
+    tnoremap <C-h> <C-w>h
+    tnoremap <C-j> <C-w>j
+    tnoremap <C-k> <C-w>k
+    tnoremap <C-l> <C-w>l
+endif
+
 " Use Q for formatting the current visual selection:
 vnoremap Q gq
 " Strips the trailing whitespace from a file:
@@ -530,13 +540,12 @@ let g:ctrlp_max_files           = 8000
 let g:ctrlp_clear_cache_on_exit = 0
 " Set this to 1 to set searching by filename
 let g:ctrlp_by_filename = 1
+let g:ctrlp_mruf_case_sensitive=0
 " Set directory for ctrlp cache:
-if g:is_windows
+if has('win32')
     let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive=0
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
-    let g:ctrlp_mruf_case_sensitive=1
 endif
 nnoremap <silent> <Leader>h :CtrlPTag<CR>
 " if we have ripgrep (rg), then we don't need caching and we use ripgrep
