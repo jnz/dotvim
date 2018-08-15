@@ -491,7 +491,7 @@ else
 endif
 
 " Display tabs, trailing white spaces, nbsp, etc.
-set list listchars=tab:▸\ ,trail:·,extends:›,precedes:‹,nbsp:·
+set list listchars=tab:>\ ,trail:.,extends:>,precedes:<,nbsp:.
 
 " Status line
 " More information in status line:
