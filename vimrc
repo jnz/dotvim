@@ -306,6 +306,8 @@ inoremap <C-S> <Esc>:write<CR>gi
 inoremap <C-BS> <C-W>
 " Paste text into command line with <C-v>
 cnoremap <C-V> <C-R>+
+" Paste text in insert mode with <C-v>
+inoremap <C-V> <C-R>+
 " Change to current file's path:
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Change to current file's root:
