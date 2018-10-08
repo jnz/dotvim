@@ -35,6 +35,3 @@
 [submodule "bundle/vim-rooter"]
 	path = bundle/vim-rooter
 	url = https://github.com/airblade/vim-rooter.git
-[submodule "bundle/vim-tex-syntax"]
-	path = bundle/vim-tex-syntax
-	url = https://github.com/gerw/vim-tex-syntax.git
