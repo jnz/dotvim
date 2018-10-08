@@ -316,6 +316,8 @@ noremap <leader>cr :Rooter<CR>:pwd<CR>
 noremap <leader>n :Make<CR>
 " Don't use Ex mode:
 noremap Q <nop>
+" Yank to the end of the line (consistent with C and D command)
+nnoremap Y y$
 " Add a "d" shortcut for inside/around square brackets,
 " like b for parens and B for curly braces:
 onoremap id i[
@@ -430,6 +432,7 @@ nnoremap K <C-w>}
 nnoremap <leader>k :pc<CR>
 " tag complete in insert mode is <C-X><C-]>
 " <c-x><c-]> is hard to type on a german keyboard. use t instead of ]
+" This is normally used for thesaurus completion
 inoremap <C-x><C-t> <C-X><C-]>
 
 " =============================================================================
