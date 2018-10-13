@@ -222,7 +222,15 @@ endif
 
 set nowrap          " When on, lines longer than the width of the window will wrap and displaying continues on the next line
 set textwidth=0     " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
-set spelllang=en,de " When the 'spell' option is on spellchecking will be done for these languages
+set spelllang=de,en_us " When the 'spell' option is on spellchecking will be done for these languages
+" add a custom spellfile
+if g:is_windows
+    set spellfile=~/vimfiles/spell/de.utf-8.add
+else
+    set spellfile=~/.vim/spell/de.utf-8.add
+endif
+" Toggle spell checking for the current buffer (F7 is also the spell check in MS Office)
+noremap <F7> :setlocal spell!<CR>
 " UTF-8 settings
 if has('multi_byte')
   set termencoding=utf-8       " Encoding used for the terminal (if the terminal is not using utf-8 it's misconfigured)
@@ -314,6 +322,7 @@ noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 noremap <leader>cr :Rooter<CR>:pwd<CR>
 " :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
+noremap <F5> :Make<CR>
 " Don't use Ex mode:
 noremap Q <nop>
 " Yank to the end of the line (consistent with C and D command)
