@@ -129,6 +129,7 @@ set selectmode=mouse,key       " Select text with the mouse or with shift+cursor
 set keymodel=startsel,stopsel  " Shift+cursor starts the sel-mode, any other key stops it
 set mouse=a                    " Enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
+set guioptions+=k              " Keep the GUI window size when adding/removing a scrollbar, etc.
 set backspace=indent,eol,start " Backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
 " Clipboard:
@@ -641,13 +642,17 @@ let g:rooter_manual_only = 1    " stop vim-rooter changing directory automatical
 " currently editing
 function! SyncTexForward() abort
     if g:is_windows
-        echo 'Not implemented'
+        " let execstr='!echo %:p:r.pdf -forward-search %:p '.line(".")
+        " Expression %:p:r.pdf - Current file with .pdf ending
+        " Expression %:p       - Current file (.tex)
+        " Expression line(".") - Function returns current line
+        let execstr='silent !start SumatraPDF %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
     else
         let execstr='silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
-        exec execstr
-        " otherwise the terminal window is messed up:
-        redraw!
     endif
+    exec execstr
+    " redraw, otherwise the terminal window is messed up:
+    redraw!
 endfunction
 augroup LatexGroup
     autocmd!
@@ -663,6 +668,7 @@ augroup MakefileGroup
     autocmd!
     autocmd FileType make setlocal noexpandtab
 augroup END
+let g:tex_comment_nospell = 1  " don't spell check in comments
 
 " =============================================================================
 " Machine specific settings
