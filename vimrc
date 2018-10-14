@@ -638,15 +638,15 @@ let g:rooter_manual_only = 1    " stop vim-rooter changing directory automatical
 
 " LaTex specific:
 "
-" if synctex=1 is set, we can directly jump to the PDF position we are
-" currently editing
+" if pdflatex is run with synctex=1, we can directly jump to the PDF position we are
+" currently editing in some PDF viewers.
 function! SyncTexForward() abort
     if g:is_windows
         " let execstr='!echo %:p:r.pdf -forward-search %:p '.line(".")
         " Expression %:p:r.pdf - Current file with .pdf ending
         " Expression %:p       - Current file (.tex)
         " Expression line(".") - Function returns current line
-        let execstr='silent !start SumatraPDF %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
+        let execstr='!start /B SumatraPDF %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
     else
         let execstr='silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
     endif
