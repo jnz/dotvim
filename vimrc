@@ -129,7 +129,6 @@ set selectmode=mouse,key       " Select text with the mouse or with shift+cursor
 set keymodel=startsel,stopsel  " Shift+cursor starts the sel-mode, any other key stops it
 set mouse=a                    " Enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
-set guioptions+=k              " Keep the GUI window size when adding/removing a scrollbar, etc.
 set backspace=indent,eol,start " Backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
 " Clipboard:
@@ -328,46 +327,16 @@ noremap <F5> :Make<CR>
 noremap Q <nop>
 " Yank to the end of the line (consistent with C and D command)
 nnoremap Y y$
-" Add a "d" shortcut for inside/around square brackets,
-" like b for parens and B for curly braces:
-onoremap id i[
-onoremap ad a[
-vnoremap id i[
-vnoremap ad a[
-" Toggles the 'paste' option:
-set pastetoggle=<F8>
 " Sane navigation between wrapped lines:
 nnoremap j gj
 vnoremap j gj
 nnoremap k gk
 vnoremap k gk
-" Remap cursorkeys (good training for hjkl keys)
-" Left/Right: navigate tabs
-" Up/Down: navigate quick-fix window
-nnoremap <down>    :cnext<CR>
-nnoremap <up>      :cprev<CR>
-nnoremap <right>   :tabnext<CR>
-nnoremap <left>    :tabprevious<CR>
-nnoremap <A-down>  :cnext<CR>
-nnoremap <A-up>    :cprev<CR>
-nnoremap <A-right> :tabnext<CR>
-nnoremap <A-left>  :tabprevious<CR>
 " Simple navigation between windows:
 noremap <C-j> <C-W><C-J>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
-"
-" Terminal window navigation
-if has('terminal')
-    " escape from insert mode in terminal window
-    tnoremap <Esc> <C-\><C-n>
-    " Simple navigation between windows:
-    tnoremap <C-h> <C-w>h
-    tnoremap <C-j> <C-w>j
-    tnoremap <C-k> <C-w>k
-    tnoremap <C-l> <C-w>l
-endif
 
 " Use Q for formatting the current visual selection:
 vnoremap Q gq
@@ -485,11 +454,10 @@ if g:is_gui
             " disabled: flickers while scrolling
             set renderoptions=type:directx
         endif
-        " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-        let &guioptions=substitute(&guioptions, 't', '', 'g')
         " autocmd GUIEnter * simalt ~x  " always maximize initial GUI window
     endif
 
+    set guioptions-=t " no tearoff menu entries
     set guioptions-=T " hide icons
     " Hide scrollbars:
     set guioptions+=r " Right-hand scrollbar is always present
