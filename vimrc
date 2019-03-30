@@ -659,8 +659,8 @@ augroup LatexGroup
     autocmd BufEnter *.tex    compiler tex
     autocmd BufEnter *.tex    setlocal makeprg=make
     autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
-    autocmd BufEnter *.tex    setlocal wrap
     autocmd BufEnter *.tex    nnoremap <Leader>v :call SyncTexForward()<CR>
+    " autocmd BufEnter *.tex    setlocal wrap
 augroup END
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs:
