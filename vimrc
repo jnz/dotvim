@@ -594,6 +594,10 @@ augroup vimrc
     autocmd!
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
 augroup END
+" The only reason to set asyncrun_stdin to 0 is that ripgrep won't work
+" otherwise (date: 14.4.2019). If this is handled by asyncrun or ripgrep
+" in the future, remove that line:
+let g:asyncrun_stdin = 0
 
 " Vim-Rooter:
 let g:rooter_silent_chdir = 1   " stop vim-rooter echoing the project directory
