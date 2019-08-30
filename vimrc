@@ -618,7 +618,8 @@ function! SyncTexForward() abort
         " Expression %:p:r.pdf - Current file with .pdf ending
         " Expression %:p       - Current file (.tex)
         " Expression line(".") - Function returns current line
-        let execstr='!start /B SumatraPDF %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
+        " Yeah, the Sumatra PDF path is hard coded here.
+        let execstr='!start /B "c:\\Program Files\\SumatraPDF\\SumatraPDF.exe" %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
     else
         let execstr='silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
     endif
