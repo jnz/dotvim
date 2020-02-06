@@ -410,7 +410,7 @@ Update all submodules
 
 Add a new submodule
 
-    git submodule add URL bundle/NAME
+    git submodule add URL pack/plugins/start/NAME
     git submodule init
     git submodule update
 
@@ -418,7 +418,7 @@ Remove a submodule
 
     edit .gitmodules and remove the module
     edit .git/config and remove the module
-    git rm --cached bundle/submodulepath
-    rm -rf bundle/submodulepath
+    git rm --cached pack/plugins/start/submodulepath
+    rm -rf pack/plugins/start/submodulepath
 
 
