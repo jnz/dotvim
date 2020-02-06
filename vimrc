@@ -447,7 +447,7 @@ else
         set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
     endif
     " Console settings:
-    colorscheme gruvbox
+    colorscheme wombat256
 endif
 
 " Display tabs, trailing white spaces, nbsp, etc.
