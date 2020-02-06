@@ -5,7 +5,6 @@
 " =============================================================================
 "
 " vimrc sections:
-"  - Pathogen                   First section to enable plugins in bundle/
 "  - Neovim                     Neovim specific settings
 "  - Settings                   General settings
 "  - Keymaps                    Key bindings
@@ -56,28 +55,6 @@
 "   * Quit Vim.
 "   * Open result file and go to the last part of the log, see what's causing
 "     your editor heavy.
-
-" =============================================================================
-" Pathogen
-" =============================================================================
-
-" Example to disable specific plugins (here syntastic):
-let g:pathogen_disabled=[]
-if v:version < 701
-    call add(g:pathogen_disabled, 'tagbar')
-end
-if v:version <= 703
-    call add(g:pathogen_disabled, 'bufexplorer')
-    call add(g:pathogen_disabled, 'nerdtree')
-    call add(g:pathogen_disabled, 'vim-rooter')
-end
-
-" Pathogen init. Load all plugins from bundle/ directory:
-execute pathogen#infect()
-" Call this after a plugin/submodule update to update the help tags
-"   :Helptags
-" or:
-"   execute pathogen#helptags()
 
 syntax on
 filetype plugin indent on

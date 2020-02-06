@@ -1,40 +1,40 @@
 [submodule "bundle/tabular"]
-	path = bundle/tabular
+	path = pack/plugins/start/tabular
 	url = https://github.com/godlygeek/tabular.git
     ignore = dirty
 [submodule "bundle/tagbar"]
-	path = bundle/tagbar
+	path = pack/plugins/start/tagbar
 	url = http://github.com/majutsushi/tagbar
     ignore = dirty
 [submodule "bundle/vim-repeat"]
-	path = bundle/vim-repeat
+	path = pack/plugins/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
     ignore = dirty
 [submodule "bundle/vim-surround"]
-	path = bundle/vim-surround
+	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
     ignore = dirty
 [submodule "bundle/matchtag"]
-	path = bundle/matchtag
+	path = pack/plugins/start/matchtag
 	url = https://github.com/gregsexton/MatchTag.git
 [submodule "bundle/nerdcommenter"]
-	path = bundle/nerdcommenter
+	path = pack/plugins/start/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
 [submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
+	path = pack/plugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
 [submodule "bundle/ctrlp.vim"]
-	path = bundle/ctrlp.vim
+	path = pack/plugins/start/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "bundle/bufexplorer"]
-	path = bundle/bufexplorer
+	path = pack/plugins/start/bufexplorer
 	url = https://github.com/jlanzarotta/bufexplorer
 [submodule "bundle/AsyncRun"]
-	path = bundle/AsyncRun
+	path = pack/plugins/start/AsyncRun
 	url = https://github.com/skywind3000/asyncrun.vim.git
 [submodule "bundle/vim-rooter"]
-	path = bundle/vim-rooter
+	path = pack/plugins/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter.git
 [submodule "bundle/fugitive"]
-	path = bundle/fugitive
+	path = pack/plugins/opt/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
