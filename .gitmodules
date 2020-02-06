@@ -6,14 +6,6 @@
 	path = pack/plugins/start/tagbar
 	url = http://github.com/majutsushi/tagbar
     ignore = dirty
-[submodule "bundle/vim-repeat"]
-	path = pack/plugins/start/vim-repeat
-	url = https://github.com/tpope/vim-repeat.git
-    ignore = dirty
-[submodule "bundle/vim-surround"]
-	path = pack/plugins/start/vim-surround
-	url = https://github.com/tpope/vim-surround.git
-    ignore = dirty
 [submodule "bundle/matchtag"]
 	path = pack/plugins/start/matchtag
 	url = https://github.com/gregsexton/MatchTag.git
