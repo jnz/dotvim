@@ -64,7 +64,12 @@ filetype plugin indent on
 " =============================================================================
 
 if has('nvim')
-    " unused atm
+    if has('win32')
+        set runtimepath^=$HOME.'/vimfiles/'
+    else
+        set runtimepath^=~/.vim
+    endif
+    let &packpath=&runtimepath
 endif
 
 " =============================================================================
