@@ -643,13 +643,4 @@ let g:tex_comment_nospell = 1  " don't spell check in comments
 "   let g:airline#extensions#tabline#enabled = 1
 "   AirlineTheme wombat
 
-try
-    if g:is_windows
-        source ~/vimfiles/vimrc_machine_specific
-    else
-        source ~/.vim/vimrc_machine_specific
-    endif
-catch
-    " No such file? No problem; just ignore it.
-endtry
-
+silent! source ~/.vimrc.local
