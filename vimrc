@@ -59,12 +59,20 @@
 syntax on
 filetype plugin indent on
 
+" Detect environment
+" (from https://github.com/justinmk/config/blob/master/.vimrc)
+" Global g: so that we can use it e.g. in vimrc_machine_specific
+let g:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
+let g:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
+let g:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
+let g:is_windows = has('win32') || has('win64') || g:is_msys || g:is_msysgit
+
 " =============================================================================
 " Neovim
 " =============================================================================
 
 if has('nvim')
-    if has('win32')
+    if g:is_windows
         set runtimepath^=$HOME.'/vimfiles/'
     else
         set runtimepath^=~/.vim
@@ -75,14 +83,6 @@ endif
 " =============================================================================
 " Settings
 " =============================================================================
-
-" Detect environment
-" (from https://github.com/justinmk/config/blob/master/.vimrc)
-" Global g: so that we can use it e.g. in vimrc_machine_specific
-let g:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
-let g:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
-let g:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
-let g:is_windows = has('win32') || has('win64') || g:is_msys || g:is_msysgit
 
 " Essential:
 " Leave input mode with jj - much faster than reaching for the esc key and only
@@ -478,9 +478,10 @@ endif
 " =============================================================================
 
 let g:loaded_vimballPlugin = 1 " Tell vimball to get lost.
+let g:loaded_rrhelper = 1 " disable weird plugin
 
 " Matchit:
-let g:loaded_matchparen=1 " matchit is slow, disable it
+let g:loaded_matchparen = 1 " matchit is slow, disable it
 runtime macros/matchit.vim
 
 " Ctrlp:
