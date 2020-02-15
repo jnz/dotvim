@@ -5,7 +5,7 @@
 " =============================================================================
 "
 " vimrc sections:
-"  - Neovim                     Neovim specific settings
+"  - Neovim/Vim                 Neovim/Vim specific settings
 "  - Settings                   General settings
 "  - Keymaps                    Key bindings
 "  - ctags                      ctags specific settings
@@ -47,7 +47,6 @@
 " <S-Space> won't work.
 " <C-BS> won't work.
 "
-"
 " Profile Vim:
 "   * Execute :profile start profile_result.txt | profile func *
 "   * Do some stuff (moving cursor around or splitting windows)
@@ -66,17 +65,21 @@ let g:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
 let g:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
 let g:is_windows = has('win32') || has('win64') || g:is_msys || g:is_msysgit
 
+if has('nvim')
 " =============================================================================
 " Neovim
 " =============================================================================
-
-if has('nvim')
     if g:is_windows
         set runtimepath^=$HOME.'/vimfiles/'
     else
         set runtimepath^=~/.vim
     endif
     let &packpath=&runtimepath
+else
+" =============================================================================
+" Vim
+" =============================================================================
+    set cryptmethod=blowfish2
 endif
 
 " =============================================================================
@@ -120,7 +123,7 @@ else
 endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
-set complete-=i      " Don't scan include files (tags file is more performant)
+set complete-=i      " Don't scan include files (use a tags file)
 " Limit the number of items to 15 in the completion popup menu:
 set pumheight=15
 " Select empty areas with visual block mode:
@@ -153,16 +156,12 @@ set noshowmatch      " When a bracket is inserted, briefly jump to the matching 
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set nrformats-=octal " Ignore octal numbers for CTRL-A and CTRL-X
 set ttimeout         " time out on :mappings and key codes
-if v:version >= 704 || (v:version >= 703 && has('patch72'))
-    set wildignorecase " When set case is ignored when completing file names and directories
-endif
+set wildignorecase   " When set case is ignored when completing file names and directories
 set lazyredraw       " The screen will not be redrawn while executing macros
 set noshowcmd        " Show partial command in last line of the screen (set this option off if your terminal is slow.)
 set showtabline=1    " 2=Always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists
-if v:version >= 704 || (v:version >= 703 && has('patch541'))
-    set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines
-endif
+set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
@@ -267,21 +266,6 @@ au BufReadPost *
    \ |   exe "normal! g`\""
    \ | endif
 
-" Encryption
-if has('nvim')
-    " no encryption
-else
-    if v:version >= 703
-        set cm=blowfish
-    endif
-    if v:version == 704 && has('patch399')
-        set cm=blowfish2
-    endif
-    if v:version >= 800
-        set cm=blowfish2
-    endif
-endif
-
 " =============================================================================
 " Keymaps
 " =============================================================================
@@ -366,7 +350,6 @@ endif
 " Search for tags file path:
 set tags=./tags,tags,./../tags,./../../tags
 " Shortcut to generate tags file with F4:
-" nnoremap <F4> :AsyncRun ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 nnoremap <F4> :AsyncRun ctags -R .<CR>
 " F3 goto tag (Eclipse like), use <C-o> to jump back:
 noremap <F3> <C-]>
@@ -420,7 +403,6 @@ if g:is_gui
         " set guifont=Consolas:h11
         set guifont=Consolas:h11
         if has("directx")
-            " disabled: flickers while scrolling
             set renderoptions=type:directx
         endif
         " autocmd GUIEnter * simalt ~x  " always maximize initial GUI window
