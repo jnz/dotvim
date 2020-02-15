@@ -20,7 +20,6 @@
 " F3/F12/<leader>t to goto tag under cursor.
 " Ctrl-o / Ctrl-i navigate backward/forward.
 " K to preview function, <leader>k to close preview.
-" Tab to complete (VimCompletesMe plugin).
 "
 " Special <leader> commands:
 " --------------------------
@@ -30,7 +29,7 @@
 " <leader>f        :NERDTree
 " <leader>l        :TagbarToggle (use 'zo' and 'zc' to open and close folds)
 " <leader>n        :Make
-" <leader>g        :grep
+" <leader>g        :grep (with useful options: recursive, ignoring tag files, git repos)
 " <leader>s        :grep for *.h, *.c, *.cpp files
 " <leader>b        :vimgrep
 " <leader>h        :CtrlPTag (similar to fzf.vim's :Tags)
@@ -113,7 +112,7 @@ set mouse=a                    " Enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
 set backspace=indent,eol,start " Backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
-" Clipboard:
+" Clipboard: (use :checkhealth on neovim to see if you need xclip)
 if has('unnamedplus')
     set clipboard^=unnamedplus " unnamedplus is useful for X-Windows
 else
@@ -324,25 +323,13 @@ noremap <C-h> <C-W><C-H>
 vnoremap Q gq
 " Strips the trailing whitespace from a file:
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-" Open vimgrep and put the cursor in the right position to type.
-" noautocmd is important, otherwise autocommands (e.g. from plugins) are
-" executed for each opened file.
-nnoremap <leader>b :noautocmd vimgrep // **/*.*<left><left><left><left><left><left><left><left>
 " Plattform specific grep search / findstr stuff.
-" If in doubt, use vimgrep (<leader>b), but grep, ripgrep and findstr are faster.
 if executable('rg')
-    " If we have ripgrep (rg) in the path, let's use it
-    set grepprg=rg\ --vimgrep\ --smart-case
-
     " Prepare a ripgrep search command
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
-
     " Map a special ripgrep for C/C++
     nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp -t c ""<left>
 elseif g:is_windows && !executable('grep')
-    " Prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
-    set grepprg=findstr\ /spin
-
     " Use findstr.exe on Windows (or use GNU win32 grep:
     " http://gnuwin32.sourceforge.net/packages/grep.htm)
     " /S = include sub-directories
@@ -644,3 +631,4 @@ let g:tex_comment_nospell = 1  " don't spell check in comments
 "   AirlineTheme wombat
 
 silent! source ~/.vimrc.local
+
