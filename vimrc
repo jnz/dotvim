@@ -212,12 +212,7 @@ endif
 " Toggle spell checking for the current buffer (F7 is also the spell check in MS Office)
 noremap <F7> :setlocal spell!<CR>
 " UTF-8 settings
-if has('multi_byte')
-  set termencoding=utf-8       " Encoding used for the terminal (if the terminal is not using utf-8 it's misconfigured)
-  set encoding=utf-8           " Sets the character encoding used inside Vim
-  setglobal fileencoding=utf-8 " Sets the character encoding for files
-  set nobomb                   " No BOM (Byte Order Mark) is prepended to the file
-endif
+set encoding=utf-8           " Sets the character encoding used inside Vim
 
 " The following snippet (function change_dir_once and au BufRead * call
 " s:change_dir_once()) is used to change to working directory to the
@@ -477,7 +472,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_by_filename = 1
 let g:ctrlp_mruf_case_sensitive=0
 " Set directory for ctrlp cache:
-if has('win32')
+if has('win32') || has('win64')
     let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
