@@ -394,8 +394,6 @@ if g:is_gui
         set guifont=Monospace\ 11
     elseif g:is_windows
         " Consolas Font for Windows
-        " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
-        " set guifont=Consolas:h11
         set guifont=Consolas:h11
         if has("directx")
             set renderoptions=type:directx
