@@ -107,6 +107,9 @@ nnoremap <CR> :noh<CR>
 " cursor, so undefine the mapping there.
 nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<CR>'
 
+" :terminal (exit Terminal mode with Esc)
+tnoremap <Esc> <C-\><C-n>
+
 " Mouse:
 set mousemodel=popup           " Right mouse button pops up a menu
 set selectmode=mouse,key       " Select text with the mouse or with shift+cursor keys
