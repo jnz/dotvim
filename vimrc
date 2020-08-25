@@ -409,7 +409,7 @@ if g:is_gui
     endif
 
     set guioptions-=t " no tearoff menu entries
-    set guioptions-=T " hide icons
+    " set guioptions-=T " hide icons
     " Hide scrollbars:
     set guioptions+=r " Right-hand scrollbar is always present
     set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window
