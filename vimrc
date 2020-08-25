@@ -53,6 +53,10 @@
 "   * Quit Vim.
 "   * Open result file and go to the last part of the log, see what's causing
 "     your editor heavy.
+"
+" Searching with grep/find:
+"    * grep -r -i text *.txt
+"    * find . -name '*jan*'
 
 syntax on
 filetype plugin indent on
