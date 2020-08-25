@@ -107,6 +107,9 @@ nnoremap <CR> :noh<CR>
 " cursor, so undefine the mapping there.
 nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<CR>'
 
+" :terminal (exit Terminal mode with Esc)
+tnoremap <Esc> <C-\><C-n>
+
 " Mouse:
 set mousemodel=popup           " Right mouse button pops up a menu
 set selectmode=mouse,key       " Select text with the mouse or with shift+cursor keys
@@ -212,12 +215,7 @@ endif
 " Toggle spell checking for the current buffer (F7 is also the spell check in MS Office)
 noremap <F7> :setlocal spell!<CR>
 " UTF-8 settings
-if has('multi_byte')
-  set termencoding=utf-8       " Encoding used for the terminal (if the terminal is not using utf-8 it's misconfigured)
-  set encoding=utf-8           " Sets the character encoding used inside Vim
-  setglobal fileencoding=utf-8 " Sets the character encoding for files
-  set nobomb                   " No BOM (Byte Order Mark) is prepended to the file
-endif
+set encoding=utf-8           " Sets the character encoding used inside Vim
 
 " The following snippet (function change_dir_once and au BufRead * call
 " s:change_dir_once()) is used to change to working directory to the
@@ -399,8 +397,6 @@ if g:is_gui
         set guifont=Monospace\ 11
     elseif g:is_windows
         " Consolas Font for Windows
-        " http://www.microsoft.com/downloads/en/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&displaylang=en
-        " set guifont=Consolas:h11
         set guifont=Consolas:h11
         if has("directx")
             set renderoptions=type:directx
@@ -477,7 +473,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_by_filename = 1
 let g:ctrlp_mruf_case_sensitive=0
 " Set directory for ctrlp cache:
-if has('win32')
+if has('win32') || has('win64')
     let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
