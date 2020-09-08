@@ -477,7 +477,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_by_filename = 1
 let g:ctrlp_mruf_case_sensitive=0
 " Set directory for ctrlp cache:
-if has('win32') || has('win64')
+if g:is_windows
     let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
