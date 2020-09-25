@@ -131,6 +131,7 @@ endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
 set complete-=i      " Don't scan include files (use a tags file)
+set complete+=spell  " Auto complete words from dictionary (if spell checking is enabled with :set spell)
 " Limit the number of items to 15 in the completion popup menu:
 set pumheight=15
 " Select empty areas with visual block mode:
