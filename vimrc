@@ -29,9 +29,7 @@
 " <leader>f        :NERDTree
 " <leader>l        :TagbarToggle (use 'zo' and 'zc' to open and close folds)
 " <leader>n        :Make
-" <leader>g        :grep (with useful options: recursive, ignoring tag files, git repos)
-" <leader>s        :grep for *.h, *.c, *.cpp files
-" <leader>b        :vimgrep
+" <leader>g        :ripgrep
 " <leader>h        :CtrlPTag (similar to fzf.vim's :Tags)
 " <leader>w        Remove trailing whitespaces
 " <leader>v        Sync Tex
@@ -55,8 +53,22 @@
 "     your editor heavy.
 "
 " Searching with grep/find:
-"    * grep -r -i text *.txt
+"    * grep -r -i text .
 "    * find . -name '*jan*'
+"
+" Using findstr.exe on Windows: findstr /spin /c:"searchString" *.*
+" /S = include sub-directories
+" /P = ignore files with non-printable characters
+" /I = case-insensitive
+" /N = print line number
+"
+" prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
+" set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
+" grep parameters:
+" n = print line number
+" H = print file name
+" i = ignore case
+" r = include sub-directories
 
 syntax on
 filetype plugin indent on
@@ -79,16 +91,21 @@ if has('nvim')
         set runtimepath^=~/.vim
     endif
     let &packpath=&runtimepath
+    " neovim has a different viminfo
+    set viminfo=  " Forget everything after a restart
 else
 " =============================================================================
 " Vim
 " =============================================================================
     set cryptmethod=blowfish2
+    " remember up to 250 files
+    set viminfo='250,<0,/0,s0,:0,h
+    if g:is_windows
+        set viminfo+=n~/vimfiles/viminfo
+    else
+        set viminfo+=n~/.vim/viminfo
+    endif
 endif
-
-" =============================================================================
-" Settings
-" =============================================================================
 
 " Essential:
 " Leave input mode with jj - much faster than reaching for the esc key and only
@@ -111,8 +128,9 @@ nnoremap <CR> :noh<CR>
 " cursor, so undefine the mapping there.
 nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<CR>'
 
-" :terminal (exit Terminal mode with Esc)
-tnoremap <Esc> <C-\><C-n>
+" =============================================================================
+" Settings
+" =============================================================================
 
 " Mouse:
 set mousemodel=popup           " Right mouse button pops up a menu
@@ -175,6 +193,15 @@ set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
+set nobackup         " turn off backup
+set nowb             " Make a backup before overwriting a file
+set noswapfile       " Disable swap files. If Vim or your computer crashes, swapfiles allow you to recover those changes
+set nowrap           " When on, lines longer than the width of the window will wrap and displaying continues on the next line
+set textwidth=0      " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
+set spelllang=de,en_us " When the 'spell' option is on spellchecking will be done for these languages
+set encoding=utf-8   " utf-8 everywhere
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
 
 " cindent:
 " help: :h cinoptions-values
@@ -200,27 +227,12 @@ set cino+=g0
 "              argument);   >               argument);
 set cino+=W4
 
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-" Press F2 to open the vimrc config:
-if g:is_windows
-    nnoremap <silent> <F2> :tabedit ~/vimfiles/vimrc<cr>
-else
-    nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
-endif
-
-set nowrap          " When on, lines longer than the width of the window will wrap and displaying continues on the next line
-set textwidth=0     " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
-set spelllang=de,en_us " When the 'spell' option is on spellchecking will be done for these languages
 " add a custom spellfile
 if g:is_windows
     set spellfile=~/vimfiles/spell/de.utf-8.add
 else
     set spellfile=~/.vim/spell/de.utf-8.add
 endif
-" Toggle spell checking for the current buffer (F7 is also the spell check in MS Office)
-noremap <F7> :setlocal spell!<CR>
-" UTF-8 settings
-set encoding=utf-8           " Sets the character encoding used inside Vim
 
 " The following snippet (function change_dir_once and au BufRead * call
 " s:change_dir_once()) is used to change to working directory to the
@@ -241,26 +253,6 @@ augroup ChangeDirOnceGroup
     autocmd!
     autocmd BufRead * call s:change_dir_once()
 augroup END
-
-" Backup, swapfile, undo stuff
-" Turn off backup and swap files
-set nobackup
-set nowb        " Make a backup before overwriting a file
-set noswapfile  " Disable swap files. If Vim or your computer crashes, swapfiles allow you to recover those changes
-
-" viminfo
-if has('nvim')
-    " neovim has a different viminfo
-    set viminfo=  " Forget everything after a restart
-else
-    " remember up to 250 files
-    set viminfo='250,<0,/0,s0,:0,h
-    if g:is_windows
-        set viminfo+=n~/vimfiles/viminfo
-    else
-        set viminfo+=n~/.vim/viminfo
-    endif
-endif
 
 " jump to the last position when reopening a file
 " from :help last-position-jump
@@ -290,7 +282,6 @@ noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 noremap <leader>cr :Rooter<CR>:pwd<CR>
 " :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
-noremap <F5> :Make<CR>
 " Don't use Ex mode:
 noremap Q <nop>
 " Yank to the end of the line (consistent with C and D command)
@@ -310,41 +301,23 @@ noremap <C-h> <C-W><C-H>
 vnoremap Q gq
 " Strips the trailing whitespace from a file:
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-" Plattform specific grep search / findstr stuff.
+
+" :terminal (exit Terminal mode with Esc)
+tnoremap <Esc> <C-\><C-n>
+
+" Use ripgrep if available
 if executable('rg')
     " Prepare a ripgrep search command
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
-    " Map a special ripgrep for C/C++
-    nnoremap <Leader>s :AsyncRun rg --vimgrep --smart-case -t cpp -t c ""<left>
-elseif g:is_windows && !executable('grep')
-    " Use findstr.exe on Windows (or use GNU win32 grep:
-    " http://gnuwin32.sourceforge.net/packages/grep.htm)
-    " /S = include sub-directories
-    " /P = ignore files with non-printable characters
-    " /I = case-insensitive
-    " /N = print line number
-    "
-    " Prepare a grep/findstr search command
-    nnoremap <Leader>g :AsyncRun findstr /spin /c:"" *.*<left><left><left><left><left>
-
-    " Map a special grep for C/C++
-    nnoremap <Leader>s :AsyncRun findstr /spin /c:"" *.cpp *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
-else
-    " prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
-    set grepprg=grep\ -nHir\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
-
-    " grep parameters:
-    " n = print line number
-    " H = print file name
-    " i = ignore case
-    " r = include sub-directories
-
-    " Prepare a grep search command
-    nnoremap <Leader>g :AsyncRun grep -nHir --exclude-dir=".git" --exclude=tags --include=*.* "" .<left><left><left>
-
-    " Map a special grep for C/C++
-    nnoremap <Leader>s :AsyncRun grep -nHir --exclude-dir=".git" --exclude=tags --include=*.cpp --include=*.h --include=*.c "" .<left><left><left>
 endif
+
+" Press F2 to open the vimrc config:
+if g:is_windows
+    nnoremap <silent> <F2> :tabedit ~/vimfiles/vimrc<cr>
+else
+    nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
+endif
+
 
 " =============================================================================
 " ctags
