@@ -393,15 +393,13 @@ Installation on Linux:
     ln -s ~/.vim/vimrc ~/.vimrc
     ln -s ~/.vim/gvimrc ~/.gvimrc
     cd ~/.vim
-    git submodule init
-    git submodule update
+    git submodule update --init --recursive
 
 Installation on Windows (Git Bash shell):
 
     git clone git://github.com/jnz/dotvim.git ~/vimfiles
     cd ~/vimfiles
-    git submodule init
-    git submodule update
+    git submodule update --init --recursive
 
 Update all submodules
 
@@ -411,8 +409,7 @@ Update all submodules
 Add a new submodule
 
     git submodule add URL pack/plugins/start/NAME
-    git submodule init
-    git submodule update
+    git submodule update --init --recursive
 
 Remove a submodule
 
