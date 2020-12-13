@@ -278,12 +278,11 @@ cnoremap <C-V> <C-R>+
 inoremap <C-V> <C-R>+
 " Change to current file's path:
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-" Change to current file's root:
-noremap <leader>cr :Rooter<CR>:pwd<CR>
 " :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
 " Don't use Ex mode:
-noremap Q <nop>
+noremap Q :echo 'Ex mode disabled'<CR>
+noremap gQ :echo 'Ex mode disabled'<CR>
 " Yank to the end of the line (consistent with C and D command)
 nnoremap Y y$
 " Sane navigation between wrapped lines:
@@ -297,8 +296,6 @@ noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
 
-" Use Q for formatting the current visual selection:
-vnoremap Q gq
 " Strips the trailing whitespace from a file:
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
@@ -407,7 +404,7 @@ set list listchars=tab:>\ ,trail:.,extends:>,precedes:<,nbsp:.
 " %w Preview window flag [Preview]
 " Based on default status line, but adds the file format, the file encoding,
 " and the file type.
-set statusline=%<%F\ %h%m%r%=type=%Y\ [%{&ff}]\ [%{&fenc}]\ %-14.(%l,%c%V%)\ %P
+set statusline=%<%F\ %h%m%r%=%Y\ %{&fenc}\ [%{&ff}]\ %-14.(%l,%c%V%)\ %P
 set laststatus=2     " Always display a statusline
 
 " Color hack for Git Bash for Windows.
@@ -521,7 +518,7 @@ augroup vimrc
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(8, 1)
 augroup END
 " The only reason to set asyncrun_stdin to 0 is that ripgrep won't work
-" otherwise (date: 14.4.2019). If this is handled by asyncrun or ripgrep
+" otherwise (date: 13.12.2020). If this is handled by asyncrun or ripgrep
 " in the future, remove that line:
 let g:asyncrun_stdin = 0
 
