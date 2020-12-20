@@ -3,7 +3,7 @@
 	url = https://github.com/godlygeek/tabular.git
     ignore = dirty
 [submodule "bundle/tagbar"]
-	path = pack/plugins/start/tagbar
+	path = pack/plugins/opt/tagbar
 	url = http://github.com/majutsushi/tagbar
     ignore = dirty
 [submodule "bundle/matchtag"]
