@@ -180,7 +180,8 @@ set ttyfast          " Indicates a fast terminal connection.  More characters wi
 set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set nrformats-=octal " Ignore octal numbers for CTRL-A and CTRL-X
-set ttimeout         " time out on :mappings and key codes
+set ttimeout         " Time out on :mappings and key codes
+set ttimeoutlen=100  " The time in milliseconds that is waited for a key sequence to complete
 set wildignorecase   " When set case is ignored when completing file names and directories
 set lazyredraw       " The screen will not be redrawn while executing macros
 set noshowcmd        " Show partial command in last line of the screen (set this option off if your terminal is slow.)
@@ -396,6 +397,7 @@ endif
 
 " Display tabs, trailing white spaces, nbsp, etc.
 set list listchars=tab:>\ ,trail:.,extends:>,precedes:<,nbsp:.
+set display+=lastline  " As much as possible of the last line in a window will be displayed.
 
 " Status line
 " More information in status line:
