@@ -122,11 +122,10 @@ nnoremap <S-Space> <C-u>
 vnoremap <Space> <C-d>
 " won't work in a terminal
 vnoremap <S-Space> <C-u>
-" Remove search highlighting with <enter>:
-nnoremap <CR> :noh<CR>
+" Clear the highlighting of :set hlsearch
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
-nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<CR>'
+nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':nohlsearch<CR>'
 
 " =============================================================================
 " Settings
