@@ -391,8 +391,8 @@ else
     if has('balloon_eval_term')
         set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
     endif
-    " Console settings:
-    colorscheme wombat256
+    " Console settings (don't make it a default):
+    " colorscheme wombat256
 endif
 
 " Display tabs, trailing white spaces, nbsp, etc.
