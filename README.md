@@ -389,7 +389,7 @@ Installation from Github
 
 Installation on Linux:
 
-    git clone git://github.com/jnz/dotvim.git ~/.vim
+    git clone git@github.com:jnz/dotvim.git ~/.vim
     ln -s ~/.vim/vimrc ~/.vimrc
     ln -s ~/.vim/gvimrc ~/.gvimrc
     cd ~/.vim
