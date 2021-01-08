@@ -303,10 +303,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 tnoremap <Esc> <C-\><C-n>
 
 " Use ripgrep if available
-if executable('rg')
-    " Prepare a ripgrep search command
-    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
-endif
+nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
 
 " Press F2 to open the vimrc config:
 if g:is_windows
@@ -314,7 +311,6 @@ if g:is_windows
 else
     nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
 endif
-
 
 " =============================================================================
 " ctags
