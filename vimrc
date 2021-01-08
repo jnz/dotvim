@@ -579,10 +579,12 @@ let g:tex_comment_nospell = 1  " don't spell check in comments
 "   else
 "       colorscheme wombat256
 "   endif
+"   let g:airline_powerline_fonts = 1
 "   packadd vim-airline
 "   packadd vim-airline-themes
 "   let g:airline#extensions#tabline#enabled = 1
 "   AirlineTheme wombat
 
 silent! source ~/.vimrc.local
+
 
