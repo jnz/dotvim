@@ -7,7 +7,7 @@
 	url = http://github.com/majutsushi/tagbar
     ignore = dirty
 [submodule "bundle/matchtag"]
-	path = pack/plugins/start/matchtag
+	path = pack/plugins/opt/matchtag
 	url = https://github.com/gregsexton/MatchTag.git
 [submodule "bundle/nerdcommenter"]
 	path = pack/plugins/start/nerdcommenter
