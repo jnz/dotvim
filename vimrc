@@ -389,6 +389,17 @@ else
     endif
     " Console settings (don't make it a default):
     " colorscheme wombat256
+
+    " Cursor in Windows Terminal (https://vim.fandom.com/wiki/Configuring_the_cursor)
+    " Source: https://github.com/microsoft/terminal/issues/4335
+    " 1 or 0 -> blinking block
+    " 6 -> solid vertical bar
+    if &term =~ '^xterm'
+        " normal mode
+        let &t_EI .= "\<Esc>[0 q"
+        " insert mode
+        let &t_SI .= "\<Esc>[6 q"
+    endif
 endif
 
 " Display tabs, trailing white spaces, nbsp, etc.
@@ -582,5 +593,4 @@ let g:tex_comment_nospell = 1  " don't spell check in comments
 "   AirlineTheme wombat
 
 silent! source ~/.vimrc.local
-
 
