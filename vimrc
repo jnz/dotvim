@@ -421,6 +421,18 @@ if g:is_msys || g:is_msysgit
    set t_Co=256
 endif
 
+" Windows Terminal specific settings
+" Detect Windows Terminal (Stack Overflow: 57014805)
+let uname = substitute(system('uname'),'\n','','')
+if uname == 'Linux'
+    let lines = readfile("/proc/version")
+    if lines[0] =~ "Microsoft"
+        " Disable mouse selection inside of Vim, so we can use Windows
+        " Terminal selection and Ctrl+Shift+C to copy text
+        set mouse=""
+    endif
+endif
+
 " =============================================================================
 " Plugin settings
 " =============================================================================
