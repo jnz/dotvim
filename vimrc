@@ -75,7 +75,7 @@ filetype plugin indent on
 
 " Detect environment
 " (from https://github.com/justinmk/config/blob/master/.vimrc)
-" Global g: so that we can use it e.g. in vimrc_machine_specific
+" Global g: so that we can use it e.g. in .vimrc.local
 let g:is_msys = ($MSYSTEM =~? 'MINGW\d\d')
 let g:is_msysgit = (has('win32') || has('win64')) && $TERM ==? 'cygwin'
 let g:is_gui = has('gui_running') || strlen(&term) == 0 || &term ==? 'builtin_gui'
