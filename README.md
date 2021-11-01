@@ -395,9 +395,9 @@ Installation on Linux:
     cd ~/.vim
     git submodule update --init --recursive
 
-Installation on Windows (Git Bash shell):
+Installation on Windows
 
-    git clone git@github.com:jnz/dotvim.git ~/.vim
+    git clone git@github.com:jnz/dotvim.git ~/vimfiles
     cd ~/vimfiles
     git submodule update --init --recursive
 

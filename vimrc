@@ -53,7 +53,7 @@
 "     your editor heavy.
 "
 " Searching with grep/find:
-"    * grep -r -i text .
+"    * grep -ri text .
 "    * find . -iname '*jan*'
 "
 " Using findstr.exe on Windows: findstr /spin /c:"searchString" *.*
