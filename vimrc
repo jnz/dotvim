@@ -492,8 +492,6 @@ let g:bufExplorerFindActive     = 0
 " NERDTree Plugin:
 nnoremap <silent> <Leader>f :NERDTree<CR>
 au Filetype nerdtree setlocal nolist
-" Disables display of the 'Bookmarks' label and 'Press ? for help' text:
-let NERDTreeMinimalUI           = 1
 
 " NERD Commenter:
 let NERDMenuMode                = 0
