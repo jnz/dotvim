@@ -29,7 +29,7 @@
 " <leader>f        :NERDTree
 " <leader>l        :TagbarToggle (use 'zo' and 'zc' to open and close folds)
 " <leader>n        :Make
-" <leader>g        :ripgrep
+" <leader>g        ripgrep
 " <leader>h        :CtrlPTag (similar to fzf.vim's :Tags)
 " <leader>w        Remove trailing whitespaces
 " <leader>v        Sync Tex
@@ -303,7 +303,11 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 tnoremap <Esc> <C-\><C-n>
 
 " Use ripgrep if available
-nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
+if executable('rg')
+    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
+else
+    nnoremap <Leader>g :AsyncRun grep -ri '' .<left><left><left>
+end
 
 " Press F2 to open the vimrc config:
 if g:is_windows
