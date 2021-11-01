@@ -55,6 +55,9 @@
 " Searching with grep/find:
 "    * grep -ri text .
 "    * find . -iname '*jan*'
+" On Windows:
+"    * dir /s /b *filename*
+"    * findstr /spin "jan" *.txt
 "
 " Using findstr.exe on Windows: findstr /spin /c:"searchString" *.*
 " /S = include sub-directories
@@ -193,6 +196,7 @@ set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
+set wildignore+=*.zip,*.7z " compressed files
 set nobackup         " turn off backup
 set nowb             " Make a backup before overwriting a file
 set noswapfile       " Disable swap files. If Vim or your computer crashes, swapfiles allow you to recover those changes
