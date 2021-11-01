@@ -54,7 +54,7 @@
 "
 " Searching with grep/find:
 "    * grep -r -i text .
-"    * find . -name '*jan*'
+"    * find . -iname '*jan*'
 "
 " Using findstr.exe on Windows: findstr /spin /c:"searchString" *.*
 " /S = include sub-directories
