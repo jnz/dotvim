@@ -303,9 +303,6 @@ noremap <C-h> <C-W><C-H>
 " Strips the trailing whitespace from a file:
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
-" :terminal (exit Terminal mode with Esc)
-tnoremap <Esc> <C-\><C-n>
-
 " Use ripgrep if available
 if executable('rg')
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
@@ -490,6 +487,8 @@ if executable('rg')
 else
     let g:ctrlp_use_caching = 1 " Enable per-session caching
 end
+
+" FZF
 
 " Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
