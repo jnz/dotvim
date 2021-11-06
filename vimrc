@@ -232,11 +232,11 @@ set cino+=g0
 set cino+=W4
 
 " add a custom spellfile
-if g:is_windows
-    set spellfile=~/vimfiles/spell/de.utf-8.add
-else
-    set spellfile=~/.vim/spell/de.utf-8.add
-endif
+" if g:is_windows
+"     set spellfile=~/vimfiles/spell/de.utf-8.add
+" else
+"     set spellfile=~/.vim/spell/de.utf-8.add
+" endif
 
 " The following snippet (function change_dir_once and au BufRead * call
 " s:change_dir_once()) is used to change to working directory to the
@@ -502,35 +502,6 @@ au Filetype nerdtree setlocal nolist
 
 " NERD Commenter:
 let NERDMenuMode                = 0
-
-" Tagbar:
-" tagbar window is opened on the left:
-let g:tagbar_left               = 1
-" If you set this option the cursor will move to the Tagbar window when it is
-" opened:
-let g:tagbar_autofocus          = 1
-" Setting this option will result in Tagbar omitting the short help at the
-" top of the window and the blank lines in between top-level scopes in order to
-" save screen real estate:
-let g:tagbar_compact            = 1
-" g:vim_gitrepo_path is the path to the git repository
-" required for g:tagbar_type_tex (so we find 'latex.cnf'
-let g:vim_gitrepo_path=fnamemodify(resolve(expand('<sfile>:p')), ':h')
-" tagbar can be used to index latex files with ctags. but we need a
-" configuration file for that: latex.cnf in the vim config directory
-let g:tagbar_type_tex={
-            \ 'ctagstype' : 'latex',
-            \ 'kinds'     : [
-                \ 's:sections',
-                \ 'g:graphics:0:0',
-                \ 'l:labels',
-                \ 'r:refs:1:0',
-                \ 'p:pagerefs:1:0'
-            \ ],
-            \ 'sort'    : 0,
-            \ 'deffile' : g:vim_gitrepo_path . '/latex.cnf'
-        \ }
-nnoremap <silent> <leader>l :TagbarToggle<CR>
 
 " AsyncRun:
 " Add the :Make command for async. make calls
