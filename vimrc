@@ -51,6 +51,8 @@
 "   * Open result file and go to the last part of the log, see what's causing
 "     your editor heavy.
 "
+"   * vim --startuptime vim.log
+"
 " Searching with grep/find:
 "    * grep -ri text .
 "    * find . -iname '*jan*'
