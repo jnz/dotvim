@@ -492,8 +492,6 @@ else
     let g:ctrlp_use_caching = 1 " Enable per-session caching
 end
 
-" FZF
-
 " Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
 let g:bufExplorerDefaultHelp    = 0
