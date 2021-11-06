@@ -388,6 +388,8 @@ if g:is_gui
     set guioptions+=l " Left-hand scrollbar is always present
     set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
+    set lines=40 columns=120 " default window size is a bit small. only use for GUI vims
+
 else
     if has('balloon_eval_term')
         set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
