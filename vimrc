@@ -143,11 +143,8 @@ set mouse=a                    " Enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
 set backspace=indent,eol,start " Backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
-" Clipboard: (use :checkhealth on neovim to see if you need xclip)
-set clipboard+=unnamed
-if has('unnamedplus')
-    set clipboard+=unnamedplus
-endif
+" Clipboard: (use :checkhealth on neovim), ^= operator to prepend string
+set clipboard^=unnamed,unnamedplus
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
 set complete-=i      " Don't scan include files (use a tags file)
@@ -438,12 +435,30 @@ if uname == 'Linux'
         " Terminal selection and Ctrl+Shift+C to copy text
         set mouse=""
         " WSL yank support (Stack Overflow: 1291425)
-        let s:clip = 'clip.exe' " change this path according to your mount point
-        if executable(s:clip)
-            augroup WSLYank
-                autocmd!
-                autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-            augroup END
+        if has('nvim')
+
+            let g:clipboard = {
+                \   'name': 'win32yank-wsl',
+                \   'copy': {
+                \      '+': '/path-file/win32yank.exe -i --crlf',
+                \      '*': '/path-file/win32yank.exe -i --crlf',
+                \    },
+                \   'paste': {
+                \      '+': '/path-file/win32yank.exe -o --lf',
+                \      '*': '/path-file/win32yank.exe -o --lf',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
+        else
+
+            let s:clip = 'clip.exe' " change this path according to your mount point
+            if executable(s:clip)
+                augroup WSLYank
+                    autocmd!
+                    autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+                augroup END
+            endif
+
         endif
     endif
 endif
@@ -584,6 +599,9 @@ let g:tex_comment_nospell = 1  " don't spell check in comments
 "   else
 "       colorscheme wombat256
 "   endif
+"
+" For vim-clang-format
+" let g:clang_format#auto_format=1 
 
 silent! source ~/.vimrc.local
 
