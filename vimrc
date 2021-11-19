@@ -97,6 +97,13 @@ if has('nvim')
     let &packpath=&runtimepath
     " neovim has a different viminfo
     set viminfo=  " Forget everything after a restart
+
+    " For WSL clipboard (from Neovim FAQ):
+    " ------------------------------------
+    " curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+    " unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
+    " chmod +x /tmp/win32yank.exe
+    " sudo mv /tmp/win32yank.exe /usr/local/bin/
 else
 " =============================================================================
 " Vim
@@ -440,12 +447,12 @@ if uname == 'Linux'
             let g:clipboard = {
                 \   'name': 'win32yank-wsl',
                 \   'copy': {
-                \      '+': '/path-file/win32yank.exe -i --crlf',
-                \      '*': '/path-file/win32yank.exe -i --crlf',
+                \      '+': 'win32yank.exe -i --crlf',
+                \      '*': 'win32yank.exe -i --crlf',
                 \    },
                 \   'paste': {
-                \      '+': '/path-file/win32yank.exe -o --lf',
-                \      '*': '/path-file/win32yank.exe -o --lf',
+                \      '+': 'win32yank.exe -o --lf',
+                \      '*': 'win32yank.exe -o --lf',
                 \   },
                 \   'cache_enabled': 0,
                 \ }
