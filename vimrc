@@ -144,10 +144,9 @@ set guioptions-=aA             " Vim won't become the owner of the windowing sys
 set backspace=indent,eol,start " Backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
 " Clipboard: (use :checkhealth on neovim to see if you need xclip)
+set clipboard+=unnamed
 if has('unnamedplus')
-    set clipboard^=unnamedplus " unnamedplus is useful for X-Windows
-else
-    set clipboard^=unnamed
+    set clipboard+=unnamedplus
 endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
@@ -438,6 +437,14 @@ if uname == 'Linux'
         " Disable mouse selection inside of Vim, so we can use Windows
         " Terminal selection and Ctrl+Shift+C to copy text
         set mouse=""
+        " WSL yank support (Stack Overflow: 1291425)
+        let s:clip = 'clip.exe' " change this path according to your mount point
+        if executable(s:clip)
+            augroup WSLYank
+                autocmd!
+                autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+            augroup END
+        endif
     endif
 endif
 
