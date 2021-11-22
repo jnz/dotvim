@@ -208,6 +208,7 @@ set nowrap           " When on, lines longer than the width of the window will w
 set textwidth=0      " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
 set spelllang=de,en_us " When the 'spell' option is on spellchecking will be done for these languages
 set encoding=utf-8   " utf-8 everywhere
+set termencoding=utf-8 " utf-8 everywhere
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
 
@@ -519,8 +520,6 @@ if executable('rg')
 else
     let g:ctrlp_use_caching = 1 " Enable per-session caching
 end
-
-" FZF
 
 " Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
