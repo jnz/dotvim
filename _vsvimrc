@@ -1,0 +1,40 @@
+inoremap jj <Esc>
+let mapleader=','
+let g:mapleader=','
+" Easy half-page scrolling with <space>:
+nnoremap <Space> <C-d>
+" won't work in a terminal:
+nnoremap <S-Space> <C-u>
+" Support this in visual-mode:
+vnoremap <Space> <C-d>
+" won't work in a terminal
+vnoremap <S-Space> <C-u>
+" CTRL-X and SHIFT-Del are Cut
+vnoremap <C-X> "+x
+vnoremap <S-Del> "+x
+" CTRL-C and CTRL-Insert are Copy
+vnoremap <C-C> "+y
+vnoremap <C-Insert> "+y
+" CTRL-V and SHIFT-Insert are Paste
+map <C-V> "+gP
+map <S-Insert> "+gP
+imap <C-V> <Esc>"+gpa
+cmap <C-V> <C-R>+
+cmap <S-Insert> <C-R>+
+imap <S-Insert> <C-V>
+vmap <S-Insert> <C-V>
+" Use CTRL-Q to do what CTRL-V used to do
+noremap <C-Q> <C-V>
+" set 'selection', 'selectmode', 'mousemodel' and 'keymodel' for MS-Windows
+behave mswin
+" backspace in Visual mode deletes selection
+vnoremap <BS> d
+" Use CTRL-S for saving, also in Insert mode
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
+" CTRL-Z is Undo; not in cmdline though
+noremap <C-Z> u
+inoremap <C-Z> <C-O>u
+set clipboard=unnamed
+
