@@ -97,6 +97,13 @@ if has('nvim')
     let &packpath=&runtimepath
     " neovim has a different viminfo
     set viminfo=  " Forget everything after a restart
+
+    " For WSL clipboard (from Neovim FAQ):
+    " ------------------------------------
+    " curl -sLo/tmp/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+    " unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
+    " chmod +x /tmp/win32yank.exe
+    " sudo mv /tmp/win32yank.exe /usr/local/bin/
 else
 " =============================================================================
 " Vim
@@ -143,12 +150,8 @@ set mouse=a                    " Enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
 set backspace=indent,eol,start " Backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
-" Clipboard: (use :checkhealth on neovim to see if you need xclip)
-if has('unnamedplus')
-    set clipboard^=unnamedplus " unnamedplus is useful for X-Windows
-else
-    set clipboard^=unnamed
-endif
+" Clipboard: (use :checkhealth on neovim), ^= operator to prepend string
+set clipboard^=unnamed,unnamedplus
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
 set complete-=i      " Don't scan include files (use a tags file)
@@ -439,6 +442,32 @@ if uname == 'Linux'
         " Disable mouse selection inside of Vim, so we can use Windows
         " Terminal selection and Ctrl+Shift+C to copy text
         set mouse=""
+        " WSL yank support (Stack Overflow: 1291425)
+        if has('nvim')
+
+            let g:clipboard = {
+                \   'name': 'win32yank-wsl',
+                \   'copy': {
+                \      '+': 'win32yank.exe -i --crlf',
+                \      '*': 'win32yank.exe -i --crlf',
+                \    },
+                \   'paste': {
+                \      '+': 'win32yank.exe -o --lf',
+                \      '*': 'win32yank.exe -o --lf',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
+        else
+
+            let s:clip = 'clip.exe' " change this path according to your mount point
+            if executable(s:clip)
+                augroup WSLYank
+                    autocmd!
+                    autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+                augroup END
+            endif
+
+        endif
     endif
 endif
 
@@ -576,6 +605,9 @@ let g:tex_comment_nospell = 1  " don't spell check in comments
 "   else
 "       colorscheme wombat256
 "   endif
+"
+" For vim-clang-format
+" let g:clang_format#auto_format=1 
 
 silent! source ~/.vimrc.local
 
