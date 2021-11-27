@@ -29,13 +29,13 @@
 " <leader>f        :NERDTree
 " <leader>n        :Make
 " <leader>g        ripgrep
-" <leader>h        :CtrlPTag (similar to fzf.vim's :Tags)
 " <leader>w        Remove trailing whitespaces
 " <leader>v        Sync Tex
 " <C-x><C-t>       Tag complete in insert mode
 " <leader>cc       Comment out the current line or text selected in visual mode
 "
 " Use :tag, :ts, :tn, :tp for navigation.
+" :CtrlPTag (similar to fzf.vim's :Tags)
 "
 " Limitations of the terminal:
 "
@@ -73,6 +73,8 @@
 " H = print file name
 " i = ignore case
 " r = include sub-directories
+
+set guioptions+=M  " for GVIM: disable loading of menu.vim (must be set before 'syntax on')
 
 syntax on
 filetype plugin indent on
@@ -145,7 +147,6 @@ nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':nohlsearch<CR>'
 " Mouse:
 set mousemodel=popup           " Right mouse button pops up a menu
 set selectmode=mouse,key       " Select text with the mouse or with shift+cursor keys
-set keymodel=startsel,stopsel  " Shift+cursor starts the sel-mode, any other key stops it
 set mouse=a                    " Enable the mouse
 set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
 set backspace=indent,eol,start " Backspace wrap to previous/next line
@@ -350,7 +351,7 @@ inoremap <C-x><C-t> <C-X><C-]>
 " =============================================================================
 
 " Empty fillchar (looks nicer for split windows):
-set fillchars=
+" set fillchars=
 set synmaxcol=256 " maximum line length for syntax coloring
 set noerrorbells  " don't ring the bell (beep or screen flash) for error messages
 set novisualbell  " disable visual bell
@@ -363,9 +364,6 @@ if has('termguicolors')
 endif
 
 if g:is_gui
-    " GUI settings:
-    colorscheme blueshift
-
     " Set font
     if has('gui_macvim')
         set guifont=Monaco:h13
@@ -386,11 +384,11 @@ if g:is_gui
     endif
 
     set guioptions-=t " no tearoff menu entries
-    " set guioptions-=T " hide icons
-    " Hide scrollbars:
-    set guioptions+=r " Right-hand scrollbar is always present
+    set guioptions-=T " hide icons
+    set guioptions-=m " hide menu
+    set guioptions-=r " no right scrollbar
     set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window
-    set guioptions+=l " Left-hand scrollbar is always present
+    set guioptions-=l " no left scrollbar
     set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window
     set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
     set lines=40 columns=120 " default window size is a bit small. only use for GUI vims
@@ -511,7 +509,6 @@ if has('win32') || has('win64')
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
 endif
-nnoremap <silent> <Leader>h :CtrlPTag<CR>
 " if we have ripgrep (rg), then we don't need caching and we use ripgrep
 " to search.
 if executable('rg')
