@@ -92,13 +92,11 @@ if has('nvim')
 " Neovim
 " =============================================================================
     if g:is_windows
-        set runtimepath^=$HOME.'/vimfiles/'
+        set runtimepath^=$HOME/vimfiles/
     else
         set runtimepath^=~/.vim
     endif
     let &packpath=&runtimepath
-    " neovim has a different viminfo
-    set viminfo=  " Forget everything after a restart
 
     " For WSL clipboard (from Neovim FAQ):
     " ------------------------------------
@@ -305,6 +303,8 @@ noremap <C-j> <C-W><C-J>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
+" Esc to leave terminal insert mode (might break fzf)
+tnoremap <Esc> <C-\><C-n>
 
 " Strips the trailing whitespace from a file:
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
