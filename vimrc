@@ -74,7 +74,7 @@
 " i = ignore case
 " r = include sub-directories
 
-set guioptions+=M  " for GVIM: disable loading of menu.vim (must be set before 'syntax on')
+" set guioptions+=M  " for GVIM: disable loading of menu.vim (must be set before 'syntax on')
 
 syntax on
 filetype plugin indent on
@@ -390,7 +390,7 @@ if g:is_gui
 
     set guioptions-=t " no tearoff menu entries
     set guioptions-=T " hide icons
-    set guioptions-=m " hide menu
+    " set guioptions-=m " hide menu
     set guioptions-=r " no right scrollbar
     set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window
     set guioptions-=l " no left scrollbar
