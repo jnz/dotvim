@@ -323,9 +323,9 @@ end
 
 " Press F2 to open the vimrc config:
 if g:is_windows
-    nnoremap <silent> <F2> :tabedit ~/vimfiles/vimrc<cr>
+    nnoremap <silent> <F2> :edit ~/vimfiles/vimrc<cr>
 else
-    nnoremap <silent> <F2> :tabedit ~/.vim/vimrc<cr>
+    nnoremap <silent> <F2> :edit ~/.vim/vimrc<cr>
 endif
 
 " =============================================================================
