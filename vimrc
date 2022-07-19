@@ -180,8 +180,8 @@ set hlsearch         " When there is a previous search pattern, highlight all it
 set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches
 set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode. Press 'wildchar' (usually <Tab>) to invoke completion
 set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'
-set wildmode=longest,full " Completion mode: complete longest common string, then each full match
-set wildoptions=pum  " Vim9 pop-up menu
+set wildmode=full    " Completion mode: complete longest common string, then each full match
+set wildoptions=pum,fuzzy  " Vim9 pop-up menu
 set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
 set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
@@ -189,12 +189,12 @@ set expandtab        " In Insert mode: Use the appropriate number of spaces to i
 set nrformats-=octal " Ignore octal numbers for CTRL-A and CTRL-X
 set ttimeout         " Time out on :mappings and key codes
 set ttimeoutlen=100  " The time in milliseconds that is waited for a key sequence to complete
-set wildignorecase   " When set case is ignored when completing file names and directories
 set lazyredraw       " The screen will not be redrawn while executing macros
 set noshowcmd        " Show partial command in last line of the screen (set this option off if your terminal is slow.)
 set showtabline=1    " 2=Always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists
 set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines
+set wildignorecase   " When set case is ignored when completing file names and directories
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
@@ -610,7 +610,7 @@ let g:tex_comment_nospell = 1  " don't spell check in comments
 "   endif
 "
 " For vim-clang-format
-" let g:clang_format#auto_format=1 
+" let g:clang_format#auto_format=1
 
 silent! source ~/.vimrc.local
 
