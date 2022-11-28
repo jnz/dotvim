@@ -1,0 +1,13 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "shift+space",
+        "command": "cursorPageUp",
+        "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space",
+        "command": "cursorPageDown",
+        "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
+    },
+]
