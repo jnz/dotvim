@@ -1,6 +1,8 @@
 {
     "workbench.colorTheme": "Visual Studio Light",
     "vim.gdefault": true,
+    "vim.incsearch": true,
+    "vim.hlsearch": true,
     "vim.useSystemClipboard": true,
     "vim.leader": ",",
     "vim.insertModeKeyBindings": [
@@ -37,6 +39,30 @@
             ],
             "commands": [ "editor.action.commentLine" ]
         },
+        {
+            "before": [
+                "<leader>", "w"
+            ],
+            "commands": [ "editor.action.trimTrailingWhitespace" ]
+        },
+        {
+            "before": [
+                "<leader>", "t"
+            ],
+            "commands": [ "editor.action.revealDefinition" ]
+        },
+        {
+            "before": [
+                "<leader>", "f"
+            ],
+            "commands": [ "workbench.view.explorer" ]
+        },
+        {
+            "before": [
+                "<leader>", "e"
+            ],
+            "commands": [ "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup" ]
+        },
         // Use > in Keyboard Shortcut Window (C-K C-S) to see command
         // Or go to: https://vscode-docs.readthedocs.io/en/stable/customization/keybindings/
         // https://kapeli.com/cheat_sheets/Visual_Studio_Code.docset/Contents/Resources/Documents/index
@@ -60,6 +86,6 @@
                 "<leader>", "c", "s"
             ],
             "commands": [ "editor.action.commentLine" ]
-        },
-    ],
+        }
+    ]
 }
