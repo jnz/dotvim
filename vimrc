@@ -210,7 +210,7 @@ set spelllang=de,en_us " When the 'spell' option is on spellchecking will be don
 set encoding=utf-8   " utf-8 everywhere
 set termencoding=utf-8 " utf-8 everywhere
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
+" set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
 
 " cindent:
 " help: :h cinoptions-values
@@ -319,7 +319,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 if executable('rg')
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
 else
-    nnoremap <Leader>g :AsyncRun grep -ri '' .<left><left><left>
+    nnoremap <Leader>g :AsyncRun grep -rin '' .<left><left><left>
 end
 
 " Press F2 to open the vimrc config:
