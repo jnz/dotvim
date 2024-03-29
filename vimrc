@@ -181,7 +181,11 @@ set incsearch        " While typing a search command, show where the pattern, as
 set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode. Press 'wildchar' (usually <Tab>) to invoke completion
 set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'
 set wildmode=full    " Completion mode: complete longest common string, then each full match
-set wildoptions=pum,fuzzy  " Vim9 pop-up menu
+try
+    set wildoptions+=pum " Vim9 pop-up menu
+    set wildoptions+=fuzzy
+catch
+endtry
 set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
 set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
