@@ -573,12 +573,13 @@ function! SyncTexForward() abort
         " Expression line(".") - Function returns current line
         " Yeah, the Sumatra PDF path is hard coded here.
         let execstr='!start /B "c:\\Program Files\\SumatraPDF\\SumatraPDF.exe" %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
+        exec execstr
+        " redraw, otherwise the terminal window is messed up:
+        redraw!
     else
-        let execstr='silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
+        let execstr = "okular --unique " .. expand("%:p:r") .. ".pdf\\#src:" .. line(".") .. expand("%:p") .. " &"
+        :call asyncrun#run("!", {}, execstr)
     endif
-    exec execstr
-    " redraw, otherwise the terminal window is messed up:
-    redraw!
 endfunction
 augroup LatexGroup
     autocmd!
