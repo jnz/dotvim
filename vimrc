@@ -54,7 +54,7 @@
 "   * vim --startuptime vim.log
 "
 " Searching with grep/find:
-"    * grep -ri text .
+"    * grep -rin text .
 "    * find . -iname '*jan*'
 " On Windows:
 "    * dir /s /b *filename*
@@ -323,7 +323,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 if executable('rg')
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
 else
-    nnoremap <Leader>g :AsyncRun grep -rin '' .<left><left><left>
+    nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin '' .<left><left><left>
 end
 
 " Press F2 to open the vimrc config:
