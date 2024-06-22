@@ -596,6 +596,9 @@ augroup MakefileGroup
 augroup END
 let g:tex_comment_nospell = 1  " don't spell check in comments
 
+" Python pylint
+autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | setlocal autowrite
+
 " =============================================================================
 " Machine specific settings
 " =============================================================================
