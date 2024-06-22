@@ -54,7 +54,7 @@
 "   * vim --startuptime vim.log
 "
 " Searching with grep/find:
-"    * grep -ri text .
+"    * grep -rin text .
 "    * find . -iname '*jan*'
 " On Windows:
 "    * dir /s /b *filename*
@@ -181,7 +181,11 @@ set incsearch        " While typing a search command, show where the pattern, as
 set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode. Press 'wildchar' (usually <Tab>) to invoke completion
 set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'
 set wildmode=full    " Completion mode: complete longest common string, then each full match
-set wildoptions=pum,fuzzy  " Vim9 pop-up menu
+try
+    set wildoptions+=pum " Vim9 pop-up menu
+    set wildoptions+=fuzzy
+catch
+endtry
 set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
 set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
@@ -319,7 +323,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 if executable('rg')
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
 else
-    nnoremap <Leader>g :AsyncRun grep -rin '' .<left><left><left>
+    nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin '' .<left><left><left>
 end
 
 " Press F2 to open the vimrc config:
@@ -573,12 +577,13 @@ function! SyncTexForward() abort
         " Expression line(".") - Function returns current line
         " Yeah, the Sumatra PDF path is hard coded here.
         let execstr='!start /B "c:\\Program Files\\SumatraPDF\\SumatraPDF.exe" %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
+        exec execstr
+        " redraw, otherwise the terminal window is messed up:
+        redraw!
     else
-        let execstr='silent !okular --unique %:p:r.pdf\\#src:".line(".")."%:p &'
+        let execstr = "okular --unique " .. expand("%:p:r") .. ".pdf\\#src:" .. line(".") .. expand("%:p") .. " &"
+        :call asyncrun#run("!", {}, execstr)
     endif
-    exec execstr
-    " redraw, otherwise the terminal window is messed up:
-    redraw!
 endfunction
 augroup LatexGroup
     autocmd!

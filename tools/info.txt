@@ -1,0 +1,15 @@
+Sources for portable .exe files
+-------------------------------
+
+make.exe for Windows:
+
+    https://sourceforge.net/projects/ezwinports/
+
+ripgrep for Windows and Linux:
+
+    https://github.com/BurntSushi/ripgrep/releases
+
+Universal-ctags:
+
+    https://github.com/universal-ctags/ctags-win32/releases
+
