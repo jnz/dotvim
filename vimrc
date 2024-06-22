@@ -369,9 +369,7 @@ set t_vb=         " disable visual bell
 set belloff=all   " just be quiet
 set nofoldenable  " When off, all folds are open
 " set cursorline  " this is slooooooooow, don't use it
-if has('termguicolors')
-    set termguicolors " use 24-bit color
-endif
+" set termguicolors " use 24-bit color
 
 if g:is_gui
     " Set font
