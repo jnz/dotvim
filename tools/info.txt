@@ -9,7 +9,11 @@ ripgrep for Windows and Linux:
 
     https://github.com/BurntSushi/ripgrep/releases
 
-Universal-ctags:
+Universal-ctags win32 builds:
 
     https://github.com/universal-ctags/ctags-win32/releases
+
+Universal-ctags nightly builds:
+
+    https://github.com/universal-ctags/ctags-nightly-build/releases/
 
