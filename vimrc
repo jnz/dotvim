@@ -177,6 +177,8 @@ set showmode         " If in Insert, Replace or Visual mode put a message on the
 set autoread         " If the file has changed outside, but was not modified in vim: reload
 set autowrite        " Automatically save before commands like :next and :make
 set hlsearch         " When there is a previous search pattern, highlight all its matches
+set nolangremap      " Disable a legacy behavior that can break plugin maps
+set history=250      " Recall command-lines with up and down cursor keys
 set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches
 set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode. Press 'wildchar' (usually <Tab>) to invoke completion
 set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'
@@ -197,7 +199,9 @@ set lazyredraw       " The screen will not be redrawn while executing macros
 set noshowcmd        " Show partial command in last line of the screen (set this option off if your terminal is slow.)
 set showtabline=1    " 2=Always display tabs
 set formatoptions+=n " When formatting text, recognize numbered lists
-set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines
+if v:version > 703 || v:version == 703 && has("patch541")
+    set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines
+endif
 set wildignorecase   " When set case is ignored when completing file names and directories
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
