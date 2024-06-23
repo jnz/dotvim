@@ -496,38 +496,44 @@ runtime macros/matchit.vim
 nnoremap <silent> <Leader>p :CtrlP<CR>
 nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
 " 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file
-" 'buffertag' - :CtrlPBufTag - Search for a tag within the current buffer
-let g:ctrlp_extensions          = [ 'tag', 'buffertag' ]
-let g:ctrlp_max_depth           = 12  " Directory depth to recurse into when scanning
+let g:ctrlp_extensions          = [ 'tag' ]
 " CtrlP sets its local working directory according to this variable:
 " r - the nearest ancestor of the current file that contains one of these
 "      directories or files: .git .hg .svn .bzr _darcs
 " a - the directory of the current file, unless it is a subdirectory of the cwd
 let g:ctrlp_working_path_mode   = '0'
 " Specify the number of recently opened files you want CtrlP to remember:
-let g:ctrlp_mruf_max            = 250
+let g:ctrlp_mruf_max            = 500
 " Number of files to scan initially:
 let g:ctrlp_max_files           = 8000
 " Only update when typing has stopped after 100 ms:
-" let g:ctrlp_lazy_update         = 100
+let g:ctrlp_lazy_update         = 0
+" For more files than this, no sorting will be performed to improve
+" performance, but quality of fuzzy finding results is reduced
+" let g:ctrlp_compare_lim         = 500
+let g:ctrlp_use_caching = 1 " Enable per-session caching, press F5 to purge
 " Set this to 0 to enable cross-session caching by not deleting the cache files:
-let g:ctrlp_clear_cache_on_exit = 0
-" Set this to 1 to set searching by filename
-let g:ctrlp_by_filename = 1
-let g:ctrlp_mruf_case_sensitive=0
+let g:ctrlp_clear_cache_on_exit = 1
+" Set to 1 for searching by filename by default and not the full path (<c-d>
+" to toggle)
+let g:ctrlp_by_filename           = 1
+let g:ctrlp_mruf_case_sensitive   = 0
 " Set directory for ctrlp cache:
 if has('win32') || has('win64')
     let g:ctrlp_cache_dir=$HOME.'/vimfiles/ctrlpcache'
 else
     let g:ctrlp_cache_dir=$HOME.'/.vim/ctrlpcache'
 endif
-" if we have ripgrep (rg), then we don't need caching and we use ripgrep
-" to search.
+" The default built-in search is pretty slow with a higher depth and can
+" take minutes (after that it is fast if caching is enabled though).
+" Note: this setting does not apply if ripgrep (rg) is used,
+" adjust rg's -max-depth=NUM argument below
+let g:ctrlp_max_depth             = 7
+" if ripgrep (rg) is available, use it for searching files
+
 if executable('rg')
-    let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-    let g:ctrlp_use_caching = 0 " disable per-session caching
-else
-    let g:ctrlp_use_caching = 1 " Enable per-session caching
+    let g:ctrlp_user_command = 'rg %s --max-depth=12 --files --color=never --glob ""'
+    " let g:ctrlp_use_caching = 0 " disable per-session caching
 end
 
 " Buffer Explorer:
