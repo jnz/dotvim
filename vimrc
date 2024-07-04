@@ -589,8 +589,9 @@ function! SyncTexForward() abort
         " redraw, otherwise the terminal window is messed up:
         redraw!
     else
-        let execstr = "okular --unique " .. expand("%:p:r") .. ".pdf\\#src:" .. line(".") .. expand("%:p") .. " &"
-        :call asyncrun#run("!", {}, execstr)
+        " Settings -> Editor -> Command: gvim --remote +%{line} %{input}
+        let execstr = "silent !okular --unique " .. expand("%:p:r") .. ".pdf\\#src:" .. line(".") .. expand("%:p") .. " &"
+        execute execstr
     endif
 endfunction
 augroup LatexGroup
