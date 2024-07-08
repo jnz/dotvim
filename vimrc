@@ -402,7 +402,9 @@ if g:is_gui
     set guioptions-=R " Right-hand scrollbar is present when there is a vertically split window
     set guioptions-=l " no left scrollbar
     set guioptions-=L " Left-hand scrollbar is present when there is a vertically split window
-    set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
+    if has('ballooneval')
+        set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
+    endif
     set lines=40 columns=120 " default window size is a bit small. only use for GUI vims
 
 else
@@ -492,7 +494,7 @@ let g:loaded_rrhelper = 1 " disable weird plugin
 let g:loaded_matchparen = 1 " matchit is slow, disable it
 runtime macros/matchit.vim
 
-" Ctrlp:
+" Ctrlp (use <c-e> to toggle to exact mode):
 nnoremap <silent> <Leader>p :CtrlP<CR>
 nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
 " 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file
