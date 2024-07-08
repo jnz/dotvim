@@ -392,11 +392,11 @@ if g:is_gui
         set fuopt+=maxhorz
     elseif has('gui_gtk3') || has('gui_gtk2')
         " for linux
-        " set guifont=DejaVu\ Sans\ Mono\ 11
-        set guifont=Monospace\ 11
+        " set guifont=DejaVu\ Sans\ Mono\ 12
+        set guifont=Monospace\ 12
     elseif g:is_windows
         " Consolas Font for Windows
-        set guifont=Consolas:h11
+        set guifont=Consolas:h12
         if has("directx")
             set renderoptions=type:directx
         endif
