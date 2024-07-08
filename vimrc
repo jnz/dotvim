@@ -591,8 +591,13 @@ function! SyncTexForward() abort
         " redraw, otherwise the terminal window is messed up:
         redraw!
     else
-        let execstr = "okular --unique " .. expand("%:p:r") .. ".pdf\\#src:" .. line(".") .. expand("%:p") .. " &"
-        :call asyncrun#run("!", {}, execstr)
+        " For backwards search configure Okular:
+        " Settings -> Editor -> Command: gvim --remote +%{line} %{input}
+        " In browse mode (hand visible) press Shift+Left click to jump to gvim
+        "
+        " The following command is for FORWARD search from vi to okular
+        let execstr = "silent !okular --unique " .. expand("%:p:r") .. ".pdf\\#src:" .. line(".") .. expand("%:p") .. " &"
+        execute execstr
     endif
 endfunction
 augroup LatexGroup
