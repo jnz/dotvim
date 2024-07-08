@@ -104,6 +104,14 @@ if has('nvim')
     " unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
     " chmod +x /tmp/win32yank.exe
     " sudo mv /tmp/win32yank.exe /usr/local/bin/
+    if exists("g:neovide")
+        let g:neovide_transparency = 0.95
+        let g:transparency = 0.95
+        let g:neovide_floating_shadow = v:true
+        let g:neovide_floating_z_height = 10
+        let g:neovide_light_angle_degrees = 45
+        let g:neovide_light_radius = 5
+    endif
 else
 " =============================================================================
 " Vim
