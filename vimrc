@@ -600,6 +600,8 @@ function! SyncTexForward() abort
         redraw!
     else
         " For backwards search configure Okular:
+        " Settings -> Editor -> Command: gvim --remote +%l %f
+        " Earlier I had to configure Okular like this:
         " Settings -> Editor -> Command: gvim --remote +%{line} %{input}
         " In browse mode (hand visible) press Shift+Left click to jump to gvim
         "
