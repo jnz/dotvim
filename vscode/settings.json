@@ -28,6 +28,13 @@
         {
             "before": [
                 "<leader>",
+                "n"
+            ],
+            "commands": [ "workbench.action.tasks.build" ]
+        },        
+        {
+            "before": [
+                "<leader>",
                 "p"
             ],
             "commands": [ "workbench.action.quickOpen" ]
