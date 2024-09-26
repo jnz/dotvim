@@ -100,5 +100,14 @@
             ],
             "commands": [ "editor.action.commentLine" ]
         }
-    ]
+    ],
+    "editor.inlineSuggest.enabled": true,
+    "editor.renderWhitespace": "all",
+    "telemetry.telemetryLevel": "off",
+    "workbench.colorTheme": "Visual Studio Dark",
+    "workbench.tips.enabled": false,
+    "editor.minimap.autohide": true,
+    "editor.fontSize": 13,
+    "terminal.integrated.fontSize": 13,
+    "debug.console.fontSize": 13,
 }
