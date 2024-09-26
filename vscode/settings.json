@@ -14,6 +14,12 @@
     "vim.normalModeKeyBindings": [
         {
             "before": [
+                "enter"
+            ],
+            "commands": [ ":nohl" ]
+        },
+        {
+            "before": [
                 "<leader>",
                 "m"
             ],
