@@ -37,5 +37,15 @@
         "key": "ctrl+j",
         "command": "workbench.action.navigateDown",
         "when": "vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.action.tasks.build",
+        "when": "taskCommandsRegistered"
+    },
+    {
+        "key": "shift+cmd+b",
+        "command": "-workbench.action.tasks.build",
+        "when": "taskCommandsRegistered"
     }
 ]
