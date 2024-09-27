@@ -3,7 +3,7 @@
     {
         "key": "shift+space",
         "command": "cursorPageUp",
-        "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
+        "when": "editorFocus && vim.active && !inDebugRepl && (vim.mode == 'Normal' || vim.mode == 'Visual')"
     },
     {
         "key": "space",
@@ -47,5 +47,25 @@
         "key": "shift+cmd+b",
         "command": "-workbench.action.tasks.build",
         "when": "taskCommandsRegistered"
+    },
+    {
+        "key": "q",
+        "command": "workbench.action.closeSidebar",
+        "when": "explorerViewletVisible && explorerViewletFocus"
+    },
+    {
+        "key": "escape",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "explorerViewletVisible && explorerViewletFocus"
+    },
+    {
+    "key": "escape",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "searchViewletVisible && searchViewletFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     }
 ]
