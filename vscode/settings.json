@@ -1,10 +1,11 @@
 {
-    "workbench.colorTheme": "Visual Studio Light",
     "vim.gdefault": true,
     "vim.incsearch": true,
     "vim.hlsearch": true,
+    "vim.easymotion": false,
     "vim.useSystemClipboard": true,
     "vim.leader": ",",
+    "vim.handleKeys": { "<C-f>": false },
     "vim.insertModeKeyBindings": [
        {
       "before": ["j", "j"],
