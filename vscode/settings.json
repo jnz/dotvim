@@ -103,7 +103,7 @@
         }
     ],
     "editor.inlineSuggest.enabled": true,
-    "editor.renderWhitespace": "all",
+    "editor.renderWhitespace": "trailing",
     "telemetry.telemetryLevel": "off",
     "workbench.colorTheme": "Visual Studio Dark",
     "workbench.tips.enabled": false,
