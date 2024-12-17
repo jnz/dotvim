@@ -5,11 +5,7 @@
         "command": "cursorPageUp",
         "when": "editorFocus && vim.active && !inDebugRepl && (vim.mode == 'Normal' || vim.mode == 'Visual')"
     },
-    {
-        "key": "space",
-        "command": "cursorPageDown",
-        "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Normal'"
-    },
+    // settings.json can't handle "shift+" properly, so this is done here.
     {
         "key": "ctrl+w ctrl+v",
         "command": "workbench.action.splitEditorLeft"
