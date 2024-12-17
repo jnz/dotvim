@@ -102,6 +102,19 @@
             "commands": [ "editor.action.commentLine" ]
         }
     ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<Space>"],
+            "after": ["<C-d>"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<Space>"],
+            "after": ["<C-d>"]
+        }
+    ],
+    // Shift+Space must be handled in keybindings.json
     "editor.inlineSuggest.enabled": true,
     "editor.renderWhitespace": "trailing",
     "telemetry.telemetryLevel": "off",
@@ -111,4 +124,5 @@
     "editor.fontSize": 13,
     "terminal.integrated.fontSize": 13,
     "debug.console.fontSize": 13,
+    "vim.highlightedyank.enable": true,
 }
