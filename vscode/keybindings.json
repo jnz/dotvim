@@ -2,10 +2,13 @@
 [
     {
         "key": "shift+space",
-        "command": "cursorPageUp",
+        "command": "vim.remap",
+        "args": {
+            "after": ["<C-u>"]
+        },
         "when": "editorFocus && vim.active && !inDebugRepl && (vim.mode == 'Normal' || vim.mode == 'Visual')"
     },
-    // settings.json can't handle "shift+" properly, so this is done here.
+    // Space is handled in settings.json
     {
         "key": "ctrl+w ctrl+v",
         "command": "workbench.action.splitEditorLeft"
@@ -63,5 +66,5 @@
         "key": "enter",
         "command": "-renameFile",
         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    }
+    },
 ]
