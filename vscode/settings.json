@@ -8,9 +8,9 @@
     "vim.handleKeys": { "<C-f>": false },
     "vim.insertModeKeyBindings": [
        {
-      "before": ["j", "j"],
-      "after": ["<Esc>"]
-       } 
+           "before": ["j", "j"],
+           "after": ["<Esc>"]
+       }
     ],
     "vim.normalModeKeyBindings": [
         {
@@ -32,7 +32,7 @@
                 "n"
             ],
             "commands": [ "workbench.action.tasks.build" ]
-        },        
+        },
         {
             "before": [
                 "<leader>",
@@ -105,13 +105,14 @@
     "editor.inlineSuggest.enabled": true,
     "editor.renderWhitespace": "trailing",
     "telemetry.telemetryLevel": "off",
-    "workbench.colorTheme": "Visual Studio Dark",
     "workbench.tips.enabled": false,
     "editor.minimap.autohide": true,
     "editor.fontSize": 13,
     "terminal.integrated.fontSize": 13,
     "debug.console.fontSize": 13,
+    "makefile.configureOnOpen": true,
+    "cmake.showOptionsMovedNotification": false,
     "vim.highlightedyank.enable": true,
-    "editor.occurrencesHighlight": false,
-    "editor.selectionHighlight": false,
+    "editor.occurrencesHighlight": "off",
+    "editor.selectionHighlight": false
 }
