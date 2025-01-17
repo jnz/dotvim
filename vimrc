@@ -320,13 +320,16 @@ noremap <C-j> <C-W><C-J>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
-" Esc to leave terminal insert mode (might break fzf)
-tnoremap <Esc> <C-\><C-n>
+" jj to leave terminal insert mode
+tnoremap jj <C-\><C-n>
+" might break e.g. FZF in the terminal:
+" tnoremap <Esc> <C-\><C-n>
 
-tnoremap <C-j> <C-\><C-N><C-w>h
-tnoremap <C-k> <C-\><C-N><C-w>j
-tnoremap <C-l> <C-\><C-N><C-w>k
-tnoremap <C-h> <C-\><C-N><C-w>l
+" Navigation in terminal mode
+tnoremap <C-j> <C-\><C-n><C-W>j
+tnoremap <C-k> <C-\><C-n><C-W>k
+tnoremap <C-l> <C-\><C-n><C-W>l
+tnoremap <C-h> <C-\><C-n><C-W>h
 
 " Strips the trailing whitespace from a file:
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
