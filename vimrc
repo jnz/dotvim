@@ -555,8 +555,11 @@ let g:bufExplorerDefaultHelp    = 0
 " taken to the active window when selecting a buffer
 let g:bufExplorerFindActive     = 0
 
-" NERDTree Plugin:
-nnoremap <silent> <Leader>f :NERDTree<CR>
+" Lazy loading of NERDTree Plugin:
+function! RebindNerdTree()
+    nnoremap <silent> <Leader>f :NERDTreeToggle<CR>
+endfunction
+nnoremap <silent> <Leader>f :packadd nerdtree <bar> :NERDTree <bar> :call RebindNerdTree()<CR>
 au Filetype nerdtree setlocal nolist
 
 " NERD Commenter:
@@ -649,4 +652,3 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 " let g:clang_format#auto_format=1
 
 silent! source ~/.vimrc.local
-
