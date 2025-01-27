@@ -458,40 +458,42 @@ endif
 
 " Windows Terminal specific settings
 " Detect Windows Terminal (Stack Overflow: 57014805)
-let uname = substitute(system('uname'),'\n','','')
-if uname == 'Linux'
-    let lines = readfile("/proc/version")
-    if lines[0] =~ "Microsoft"
-        " Disable mouse selection inside of Vim, so we can use Windows
-        " Terminal selection and Ctrl+Shift+C to copy text
-        set mouse=""
-        " WSL yank support (Stack Overflow: 1291425)
-        if has('nvim')
+if has("unix")
+    try
+        let lines = readfile("/proc/version")
+        if lines[0] =~ "Microsoft"
+            " Disable mouse selection inside of Vim, so we can use Windows
+            " Terminal selection and Ctrl+Shift+C to copy text
+            set mouse=""
+            " WSL yank support (Stack Overflow: 1291425)
+            if has('nvim')
 
-            let g:clipboard = {
-                \   'name': 'win32yank-wsl',
-                \   'copy': {
-                \      '+': 'win32yank.exe -i --crlf',
-                \      '*': 'win32yank.exe -i --crlf',
-                \    },
-                \   'paste': {
-                \      '+': 'win32yank.exe -o --lf',
-                \      '*': 'win32yank.exe -o --lf',
-                \   },
-                \   'cache_enabled': 0,
-                \ }
-        else
+                let g:clipboard = {
+                    \   'name': 'win32yank-wsl',
+                    \   'copy': {
+                    \      '+': 'win32yank.exe -i --crlf',
+                    \      '*': 'win32yank.exe -i --crlf',
+                    \    },
+                    \   'paste': {
+                    \      '+': 'win32yank.exe -o --lf',
+                    \      '*': 'win32yank.exe -o --lf',
+                    \   },
+                    \   'cache_enabled': 0,
+                    \ }
+            else
 
-            let s:clip = 'clip.exe' " change this path according to your mount point
-            if executable(s:clip)
-                augroup WSLYank
-                    autocmd!
-                    autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-                augroup END
+                let s:clip = 'clip.exe' " change this path according to your mount point
+                if executable(s:clip)
+                    augroup WSLYank
+                        autocmd!
+                        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+                    augroup END
+                endif
+
             endif
-
         endif
-    endif
+    catch
+    endtry
 endif
 
 " =============================================================================
