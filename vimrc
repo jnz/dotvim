@@ -502,8 +502,9 @@ endif
 
 let g:loaded_vimballPlugin = 1 " Tell vimball to get lost.
 let g:loaded_rrhelper = 1 " disable weird plugin
-
-" Matchit:
+let g:loaded_netrwPlugin = 1 " disable netrw
+let g:loaded_logiPat = 1 " disable logiPat.vim plugin
+let g:loaded_getscriptPlugin = 1
 let g:loaded_matchparen = 1 " matchit is slow, disable it
 runtime macros/matchit.vim
 
