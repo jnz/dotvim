@@ -5,9 +5,6 @@
 [submodule "bundle/nerdcommenter"]
 	path = pack/plugins/start/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
-[submodule "bundle/nerdtree"]
-	path = pack/plugins/start/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
 [submodule "bundle/ctrlp.vim"]
 	path = pack/plugins/start/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
@@ -23,3 +20,6 @@
 [submodule "bundle/fugitive"]
 	path = pack/plugins/opt/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "pack/plugins/opt/nerdtree"]
+	path = pack/plugins/opt/nerdtree
+	url = https://github.com/preservim/nerdtree.git
