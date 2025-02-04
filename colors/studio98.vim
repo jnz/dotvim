@@ -1,8 +1,20 @@
 " Studio98 color scheme
 " by Jan Zwiener, mail: jan@zwiener.org
 "
-" 2025/01/30: Version 1.0 Initial release
+" 2025/02/04: Version 1.0 Initial release
 " :help group-name to test
+"
+"    #c43d21   Red
+"    #f3b63c   Orange
+"    #fff3a8   Yellow
+"    #478C23   Green (Comment)
+"    #0048ff   Blue
+"    #000082   Dark Blue
+"    #357ec7   Cornflower Blue
+"    #545454   Very dark Gray
+"    #b3b3b3   Gray
+"    #dfdfdf   Light Gray
+"    #f6f6f6   Very light Gray
 
 set background=light
 
@@ -13,82 +25,108 @@ endif
 
 let colors_name = "studio98"
 
+hi! link Terminal Normal
+hi! link LineNrAbove LineNr
+hi! link LineNrBelow LineNr
+hi! link CursorLineFold CursorLine
+hi! link CursorLineSign CursorLine
+hi! link StatuslineTerm Statusline
+hi! link StatuslineTermNC StatuslineNC
+hi! link MessageWindow Pmenu
+hi! link PopupNotification Todo
+
+hi EndOfBuffer guifg=#b3b3b3 guibg=#f6f6f6 gui=bold cterm=bold
+hi ToolbarLine guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi ToolbarButton guifg=NONE guibg=#bcbcbc gui=bold cterm=bold
+hi SignColumn guifg=#00008b guibg=NONE gui=NONE cterm=NONE
+hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+hi Directory guifg=#357ec7 guibg=NONE gui=bold cterm=bold
+hi Conceal guifg=#b3b3b3 guibg=NONE gui=NONE cterm=NONE
+
 " Taglist colors
-hi MyTagListFileName guifg=black guibg=#c0d0e0 ctermfg=0 ctermbg=251
-hi MyTagListTagName guifg=white guibg=#000082 ctermfg=0 ctermbg=214
+hi MyTagListFileName guifg=black guibg=#357ec7
+hi MyTagListTagName guifg=white guibg=#000082
 
 if version >= 700
-  hi CursorLine guifg=white guibg=#545454 ctermfg=255 ctermbg=27
-  hi CursorColumn guibg=#f6f6f6 ctermbg=255
-  hi MatchParen guifg=black guibg=#dfdfdf ctermfg=0 ctermbg=252
+  hi CursorLine guifg=white guibg=#000082
+  hi CursorLineNr guifg=#c43d21 guibg=NONE gui=bold cterm=bold
+  hi CursorColumn guibg=#f6f6f6
+  hi MatchParen guifg=black guibg=#dfdfdf
 
-  hi TabLine guifg=black guibg=#c0c0c0 ctermfg=0 ctermbg=252
-  hi TabLineFill guifg=#b3b3b3 ctermfg=246
-  hi TabLineSel guifg=black guibg=#f0f0f0 gui=bold ctermfg=0 ctermbg=255 cterm=bold
+  hi TabLine guifg=black guibg=#b3b3b3
+  hi TabLineFill guifg=#b3b3b3
+  hi TabLineSel guifg=black guibg=#f6f6f6 gui=bold
 
-  hi Pmenu guifg=white guibg=#808080 ctermfg=15 ctermbg=8
-  hi PmenuSel guifg=white guibg=#000082 ctermfg=0 ctermbg=214
+  hi Pmenu guifg=black guibg=#f6f6f6
+  hi PmenuSel guifg=white guibg=#000082
+  hi PmenuSbar guifg=NONE guibg=#dfdfdf gui=NONE
+  hi PmenuThumb guifg=NONE guibg=black gui=NONE
+  hi PmenuMatchSel guifg=#b3b3b3 guibg=#000082 gui=NONE
+  hi PmenuMatch guifg=#545454 guibg=#f6f6f6 gui=NONE
 endif
 
-hi Title guifg=#202020 ctermfg=233
-hi Underlined guifg=#202020 gui=underline ctermfg=233 cterm=underline
+hi Title guifg=black
+hi Underlined guifg=black gui=underline
 
-hi Normal guifg=black guibg=white ctermfg=0 ctermbg=15
-hi ModeMsg guifg=black guibg=white ctermfg=0 ctermbg=15
-hi Cursor guibg=#545454 ctermbg=234
-hi LineNr guifg=#b3b3b3 guibg=#ededed ctermfg=15 ctermbg=251
-hi Visual guifg=white guibg=#5381bc ctermfg=15 ctermbg=25
-hi WildMenu guifg=white guibg=#000082 ctermfg=0 ctermbg=27
-hi IncSearch guibg=white guifg=#000082 ctermfg=0 ctermbg=27
-hi Question guifg=white guibg=#000082 ctermfg=0 ctermbg=27
+hi Normal guifg=black guibg=white
+hi ModeMsg guifg=black guibg=white
+hi Cursor guibg=#545454
+hi lCursor guifg=#dfdfdf guibg=#c43d21 gui=NONE cterm=NONE
+hi LineNr guifg=#b3b3b3 guibg=#f6f6f6
+hi Visual guifg=white guibg=#000082
+hi VisualNOS guifg=NONE guibg=#545454 gui=NONE cterm=NONE
+hi WildMenu guifg=white guibg=#000082
+hi IncSearch guibg=white guifg=#000082
+hi Question guifg=white guibg=#000082
 
-hi StatusLine guifg=white guibg=#000082 gui=bold ctermfg=15 ctermbg=27 cterm=bold
-hi StatusLineNC guifg=#c0c0c0 guibg=white ctermfg=245 ctermbg=252
-hi VertSplit guifg=#c2c2c2 guibg=#c2c2c2 ctermfg=251 ctermbg=251
+hi StatusLine guifg=white guibg=#357ec7 gui=bold
+hi StatusLineNC guifg=#dfdfdf guibg=white
+hi VertSplit guifg=#b3b3b3 guibg=#b3b3b3
+hi QuickFixLine guifg=white guibg=#000082 gui=NONE
 
-hi NonText guifg=#bebebe guibg=#f2f2f2 ctermfg=250 ctermbg=255
-hi Comment guifg=#478C23 ctermfg=22
-hi Folded guifg=#708090 guibg=#c0d0e0 ctermfg=245 ctermbg=251
-hi FoldColumn guifg=#708090 guibg=#c0d0e0 ctermfg=245 ctermbg=251
+hi NonText guifg=#b3b3b3 guibg=#f6f6f6
+hi Comment guifg=#478C23
+hi Folded guifg=#708090 guibg=#357ec7
+hi FoldColumn guifg=#708090 guibg=#357ec7
 
-hi Constant guifg=black ctermfg=0
-hi Number guifg=black ctermfg=0
-hi Float guifg=black ctermfg=0
-hi Boolean guifg=#4070a0 ctermfg=27
-hi String guifg=#4070a0 ctermfg=32
+hi Constant guifg=#000082
+hi Number guifg=black
+hi Float guifg=black
+hi Boolean guifg=#000082
+hi String guifg=#000082
 
-hi Statement guifg=#0048ff ctermfg=27
-hi Type guifg=#0048ff ctermfg=27
-hi Structure guifg=#0048ff ctermfg=27
-hi Identifier guifg=black ctermfg=27
-hi Function guifg=#0048ff ctermfg=27
-hi Repeat guifg=#0048ff gui=bold ctermfg=27 cterm=bold
-hi Conditional guifg=#0048ff gui=bold ctermfg=27 cterm=bold
-hi Operator guifg=#0048ff ctermfg=0
+hi Statement guifg=#0048ff
+hi Type guifg=#0048ff
+hi Structure guifg=#0048ff
+hi Identifier guifg=#0048ff
+hi Function guifg=#0048ff
+hi Repeat guifg=#0048ff gui=bold
+hi Conditional guifg=#0048ff gui=bold
+hi Operator guifg=#0048ff
 
-hi PreProc guifg=#0048ff ctermfg=27
-hi Define guifg=#0048ff ctermfg=27
-hi Include guifg=#0048ff ctermfg=27
+hi PreProc guifg=#0048ff
+hi Define guifg=#0048ff
+hi Include guifg=#0048ff
 
-hi Error guifg=#d00000 guibg=white gui=bold,underline ctermfg=196 ctermbg=15 cterm=bold,underline
-hi Todo guifg=white guibg=#000082 gui=bold ctermfg=15 ctermbg=27 cterm=bold
-hi SpecialKey guifg=#000082 guibg=#f0f0f0 ctermfg=32 ctermbg=255
-hi Special guifg=black guibg=white ctermfg=0 ctermbg=15
+hi Error guifg=#c43d21 guibg=white gui=bold,underline
+hi Todo guifg=white guibg=#000082 gui=bold
+hi SpecialKey guifg=#000082 guibg=#f6f6f6
+hi Special guifg=black guibg=white
 
 " Diff
-hi DiffChange guibg=#e0e0e0 gui=bold ctermbg=254 cterm=bold
-hi DiffText guibg=#f0c8c8 gui=bold ctermbg=217 cterm=bold
-hi DiffAdd guibg=#c0e0d0 gui=bold ctermbg=151 cterm=bold
-hi DiffDelete guibg=#f0e0b0 gui=bold ctermbg=221 cterm=bold
+hi DiffChange guibg=#f3b63c gui=bold
+hi DiffText guibg=#f0c8c8 gui=bold
+hi DiffAdd guibg=#c0e0d0 gui=bold
+hi DiffDelete guibg=#f0e0b0 gui=bold
 
 " Other
-hi ColorColumn guifg=black guibg=#f2f2f2 ctermfg=0 ctermbg=255
-hi ErrorMsg guifg=#d00000 guibg=white ctermfg=196 ctermbg=15
-hi MoreMsg guifg=#0048ff ctermfg=27
-hi Search guibg=#ffcc00 guifg=black ctermbg=220 ctermfg=0
-hi SpellBad guifg=#d00000 gui=underline ctermfg=196 cterm=underline
-hi SpellCap guifg=#0048ff gui=underline ctermfg=27 cterm=underline
-hi SpellLocal guifg=#478C23 gui=underline ctermfg=28 cterm=underline
-hi SpellRare guifg=#800080 gui=underline ctermfg=90 cterm=underline
-hi WarningMsg guifg=#d00000 ctermfg=196
-
+hi ColorColumn guifg=black guibg=#f6f6f6
+hi ErrorMsg guifg=#c43d21 guibg=white
+hi MoreMsg guifg=#0048ff
+hi Search guibg=#fff3a8 guifg=black
+hi CurSearch guibg=#f3b63c guifg=black
+hi SpellBad guifg=#c43d21 gui=underline
+hi SpellCap guifg=#0048ff gui=underline
+hi SpellLocal guifg=#478C23 gui=underline
+hi SpellRare guifg=#800080 gui=underline
+hi WarningMsg guifg=#c43d21
