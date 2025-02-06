@@ -48,8 +48,8 @@ hi MyTagListFileName guifg=black guibg=#357ec7
 hi MyTagListTagName guifg=white guibg=#000082
 
 if version >= 700
-  hi CursorLine guifg=white guibg=#000082
-  hi CursorLineNr guifg=#c43d21 guibg=NONE gui=bold cterm=bold
+  hi CursorLine guifg=NONE guibg=#dfdfdf
+  hi CursorLineNr guifg=black guibg=#f6f6f6 gui=bold cterm=bold
   hi CursorColumn guibg=#f6f6f6
   hi MatchParen guifg=black guibg=#dfdfdf
 
@@ -70,7 +70,7 @@ hi Underlined guifg=black gui=underline
 
 hi Normal guifg=black guibg=white
 hi ModeMsg guifg=black guibg=white
-hi Cursor guibg=#545454
+hi Cursor guibg=black
 hi lCursor guifg=#dfdfdf guibg=#c43d21 gui=NONE cterm=NONE
 hi LineNr guifg=#b3b3b3 guibg=#f6f6f6
 hi Visual guifg=white guibg=#000082
