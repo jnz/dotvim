@@ -40,12 +40,8 @@ hi ToolbarLine guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NO
 hi ToolbarButton guifg=NONE guibg=#bcbcbc gui=bold cterm=bold
 hi SignColumn guifg=#00008b guibg=NONE gui=NONE cterm=NONE
 hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Directory guifg=#357ec7 guibg=NONE gui=bold cterm=bold
+hi Directory guifg=#000082 guibg=NONE gui=bold cterm=bold
 hi Conceal guifg=#b3b3b3 guibg=NONE gui=NONE cterm=NONE
-
-" Taglist colors
-hi MyTagListFileName guifg=black guibg=#357ec7
-hi MyTagListTagName guifg=white guibg=#000082
 
 if version >= 700
   hi CursorLine guifg=NONE guibg=#dfdfdf
@@ -74,7 +70,7 @@ hi Cursor guibg=black
 hi lCursor guifg=#dfdfdf guibg=#c43d21 gui=NONE cterm=NONE
 hi LineNr guifg=#b3b3b3 guibg=#f6f6f6
 hi Visual guifg=white guibg=#000082
-hi VisualNOS guifg=NONE guibg=#545454 gui=NONE cterm=NONE
+hi VisualNOS guifg=#dfdfdf guibg=#545454 gui=NONE cterm=NONE
 hi WildMenu guifg=white guibg=#000082
 hi IncSearch guibg=white guifg=#000082
 hi Question guifg=white guibg=#000082
@@ -86,8 +82,8 @@ hi QuickFixLine guifg=white guibg=#000082 gui=NONE
 
 hi NonText guifg=#b3b3b3 guibg=#f6f6f6
 hi Comment guifg=#478C23
-hi Folded guifg=#708090 guibg=#357ec7
-hi FoldColumn guifg=#708090 guibg=#357ec7
+hi Folded guifg=#545454 guibg=#b3b3b3
+hi FoldColumn guifg=#545454 guibg=#dfdfdf
 
 hi Constant guifg=#000082
 hi Number guifg=black
