@@ -376,7 +376,7 @@ inoremap <C-x><C-t> <C-X><C-]>
 " =============================================================================
 
 " Empty fillchar (looks nicer for split windows):
-" set fillchars+=vert:\ 
+set fillchars+=vert:\ 
 set synmaxcol=256 " maximum line length for syntax coloring
 set noerrorbells  " don't ring the bell (beep or screen flash) for error messages
 set novisualbell  " disable visual bell
