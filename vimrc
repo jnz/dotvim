@@ -603,6 +603,7 @@ function! SyncTexForward() abort
         " Expression %:p       - Current file (.tex)
         " Expression line(".") - Function returns current line
         " Yeah, the Sumatra PDF path is hard coded here.
+        " Set this command in SumatraPDF: "C:\Program Files\Vim\vim91\gvim.exe" --remote +%l "%f"
         let execstr='!start /B "c:\\Program Files\\SumatraPDF\\SumatraPDF.exe" %:p:r.pdf -reuse-instance -forward-search %:p '.line(".").''
         exec execstr
         " redraw, otherwise the terminal window is messed up:
