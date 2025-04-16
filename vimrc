@@ -570,7 +570,7 @@ let NERDMenuMode                = 0
 
 " AsyncRun:
 " Add the :Make command for async. make calls
-command! -bang -nargs=* -complete=file Make AsyncRun -save=2 -program=make @ <args>
+command! -bang -nargs=* -complete=file Make AsyncRun -save=2 -program=make @ -j4 <args>
 " Use F9 to toggle quickfix window rapidly:
 noremap <silent> <F9> :call asyncrun#quickfix_toggle(7)<cr>
 " automate opening quickfix window when AsyncRun starts:
