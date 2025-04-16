@@ -23,3 +23,6 @@
 [submodule "pack/plugins/opt/nerdtree"]
 	path = pack/plugins/opt/nerdtree
 	url = https://github.com/preservim/nerdtree.git
+[submodule "pack/plugins/opt/copilot.vim"]
+	path = pack/plugins/opt/copilot.vim
+	url = https://github.com/github/copilot.vim.git
