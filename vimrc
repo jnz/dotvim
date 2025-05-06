@@ -647,11 +647,16 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 " If there are any machine-specific tweaks for Vim, load them from the following file.
 "
 " e.g.:
-"   if g:is_gui
-"       colorscheme blueshift
-"   else
-"       colorscheme wombat256
+"   if has("unix")
+"       let ac_path = glob("/sys/class/power_supply/AC*/online")
+"       let power_status = system("cat " . ac_path)
+"       if power_status =~ '^1'
+"           colorscheme studio98
+"       else
+"           colorscheme gruvbit
+"       endif
 "   endif
+"   :packadd copilot.vim
 "
 " For vim-clang-format
 " let g:clang_format#auto_format=1
