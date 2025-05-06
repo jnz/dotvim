@@ -55,6 +55,7 @@
 "
 " Searching with grep/find:
 "    * grep -rin text .
+"    * find . -iname '*.txt' -print0 | xargs -0 grep -in pattern
 "    * find . -iname '*jan*'
 " On Windows:
 "    * dir /s /b *filename*
