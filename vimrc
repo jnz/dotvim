@@ -448,7 +448,10 @@ set display+=lastline  " As much as possible of the last line in a window will b
 " %w Preview window flag [Preview]
 " Based on default status line, but adds the file format, the file encoding,
 " and the file type.
-set statusline=%<%F\ %h%m%r%=buf=%n\ 0x%02.2B\ %y\ %{&fenc}\ [%{&ff}]\ %-14.(%l,%c%V%)\ %P
+function! GitBranch()
+  return exists('*FugitiveHead') && len(FugitiveHead()) ? FugitiveHead() : ''
+endfunction
+set statusline=%<%f\ %h%m%r%=%{GitBranch()}\ ASCII=0x%02.2B\ %y\ [%{&fileencoding}/%{&fileformat}]\ %l:%c\ %P
 set laststatus=2     " Always display a statusline
 
 " Color hack for Git Bash for Windows.
