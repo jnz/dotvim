@@ -1,0 +1,20 @@
+inoremap jj <Esc>
+" Set <leader> to ,
+let mapleader=','
+let g:mapleader=','
+" Easy half-page scrolling with <space>:
+nnoremap <Space> <C-d>
+nnoremap <S-Space> <C-u>
+" Support this in visual-mode:
+vnoremap <Space> <C-d>
+vnoremap <S-Space> <C-u>
+
+" Simple navigation between windows:
+noremap <C-j> <C-W><C-J>
+noremap <C-k> <C-W><C-K>
+noremap <C-l> <C-W><C-L>
+noremap <C-h> <C-W><C-H>
+
+set clipboard=unnamed
+
+noremap <CR> :noh<CR>
