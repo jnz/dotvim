@@ -1,3 +1,13 @@
+" Setup:
+" Preferences -> General -> Keys:
+" Search for:
+" Ctrl+o  -  Unbind
+" Ctrl+i  -  Unbind
+" Ctrl+h  -  Unbind
+" Ctrl+j  -  Unbind
+" Ctrl+k  -  Unbind
+" Ctrl+l  -  Unbind
+
 inoremap jj <Esc>
 " Set <leader> to ,
 let mapleader=','
@@ -15,6 +25,9 @@ noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
 
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 
-noremap <CR> :noh<CR>
+nnoremap <CR> :noh<CR>
+
+noremap ,t <C-]>
+noremap <F12> <C-]>
