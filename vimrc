@@ -337,9 +337,9 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " Use ripgrep if available
 if executable('rg')
-    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
+    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case -g "*" ""<left>
 else
-    nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin '' .<left><left><left>
+    nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin --include="*" '' .<left><left><left>
 end
 
 " Press F2 to open the vimrc config:
