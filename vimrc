@@ -564,7 +564,7 @@ let g:bufExplorerFindActive     = 0
 
 " Lazy loading of NERDTree Plugin:
 function! RebindNerdTree()
-    nnoremap <silent> <Leader>f :NERDTreeToggle<CR>
+    nnoremap <silent> <Leader>f :NERDTree<CR>
 endfunction
 nnoremap <silent> <Leader>f :packadd nerdtree <bar> :NERDTree <bar> :call RebindNerdTree()<CR>
 au Filetype nerdtree setlocal nolist
