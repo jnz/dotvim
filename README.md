@@ -421,19 +421,21 @@ Installation on Windows
 
 Update all submodules
 
-    git submodule foreach git checkout master
-    git submodule foreach git pull
+    git submodule update --remote --merge
+    git commit -am "Update submodules"
 
 Add a new submodule
 
-    git submodule add URL pack/plugins/start/NAME
+    git submodule add -b BRANCH URL pack/plugins/opt/NAME
     git submodule update --init --recursive
+    git commit -am "Add NAME submodule"
 
 Remove a submodule
 
-    edit .gitmodules and remove the module
-    edit .git/config and remove the module
-    git rm --cached pack/plugins/start/submodulepath
-    rm -rf pack/plugins/start/submodulepath
+    # 1. Edit .gitmodules and remove the submodule entry
+    # 2. Edit .git/config and remove its section
+    git rm --cached pack/plugins/opt/NAME
+    rm -rf pack/plugins/opt/NAME
+    git commit -am "Remove NAME submodule"
 
 
