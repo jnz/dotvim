@@ -419,7 +419,12 @@ Installation on Windows
     cd ~/vimfiles
     git submodule update --init --recursive
 
-Update all submodules
+To sync the main repository and restore the referenced submodule versions:
+
+    git pull
+    git submodule update --init --recursive
+
+To update all submodules to the latest commit from their remote branches:
 
     git submodule update --remote --merge
     git commit -am "Update submodules"
