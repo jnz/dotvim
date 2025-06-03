@@ -568,6 +568,7 @@ function! RebindNerdTree()
 endfunction
 nnoremap <silent> <Leader>f :packadd nerdtree <bar> :NERDTree <bar> :call RebindNerdTree()<CR>
 au Filetype nerdtree setlocal nolist
+autocmd FileType nerdtree nnoremap <buffer> <F5> :NERDTreeRefreshRoot<CR>
 
 " NERD Commenter:
 let NERDMenuMode                = 0
