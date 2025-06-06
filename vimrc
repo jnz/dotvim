@@ -35,7 +35,6 @@
 " <leader>cc       Comment out the current line or text selected in visual mode
 "
 " Use :tag, :ts, :tn, :tp for navigation.
-" :CtrlPTag (similar to fzf.vim's :Tags)
 "
 " Limitations of the terminal:
 "
@@ -337,7 +336,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " Use ripgrep if available
 if executable('rg')
-    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case -g "*" ""<left>
+    nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
 else
     nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin '' .<left><left><left>
 end
@@ -512,7 +511,7 @@ let g:loaded_getscriptPlugin = 1
 let g:loaded_matchparen = 1 " matchit is slow, disable it
 runtime macros/matchit.vim
 
-" Ctrlp (use <c-e> to toggle to exact mode):
+" Ctrlp (use <c-d> to switch to filename-only, <c-r> for RegEx)
 nnoremap <silent> <Leader>p :CtrlP<CR>
 nnoremap <silent> <Leader>m :CtrlPMRUFiles<CR>
 " 'tag'       - :CtrlPTag    - Search for a tag within a generated central tags file
