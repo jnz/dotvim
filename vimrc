@@ -426,15 +426,12 @@ else
     " colorscheme wombat256
 
     " Cursor in Windows Terminal (https://vim.fandom.com/wiki/Configuring_the_cursor)
-    " Source: https://github.com/microsoft/terminal/issues/4335
-    " 1 or 0 -> blinking block
-    " 6 -> solid vertical bar
-    if &term =~ '^xterm'
-        " normal mode
-        let &t_EI .= "\<Esc>[0 q"
-        " insert mode
-        let &t_SI .= "\<Esc>[6 q"
+    if has('termguicolors') || &term =~ 'xterm'
+      let &t_SI = "\e[5 q"
+      let &t_EI = "\e[1 q"
     endif
+    " Visual cue that we are in a terminal:
+    let &statusline = '⌁ ' . &statusline
 endif
 
 " Display tabs, trailing white spaces, nbsp, etc.
@@ -660,11 +657,6 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 "       endif
 "   endif
 "   :packadd copilot.vim
-"
-"   if has('termguicolors') || &term =~ 'xterm'
-"     let &t_SI = "\e[5 q"
-"     let &t_EI = "\e[1 q"
-"   endif
 "
 " For vim-clang-format
 " let g:clang_format#auto_format=1
