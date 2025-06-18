@@ -663,7 +663,7 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 "
 "   if has('termguicolors') || &term =~ 'xterm'
 "     let &t_SI = "\e[5 q"
-"     let &t_EI = "\e[2 q"
+"     let &t_EI = "\e[1 q"
 "   endif
 "
 " For vim-clang-format
