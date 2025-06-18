@@ -447,10 +447,6 @@ function! GitBranch()
 endfunction
 set statusline=%<%f\ %h%m%r%=%{GitBranch()}\ %y\ [%{&fileencoding}/%{&fileformat}]\ %3l:%-2c\ %P
 set laststatus=2     " Always display a statusline
-if !g:is_gui
-    " Visual cue that we are in a terminal:
-    let &statusline = '⌁ ' . &statusline
-endif
 
 " Color hack for Git Bash for Windows.
 " Set t_Co for msys or msysgit:
@@ -664,3 +660,11 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 " let g:clang_format#auto_format=1
 
 silent! source ~/.vimrc.local
+
+" Visual cue that we are in the terminal (overwrite settings from colorscheme in
+" vimrc.local)
+if !g:is_gui
+    highlight StatusLine guifg=#ffffff guibg=#005f00 ctermfg=15 ctermbg=2
+    " let &statusline = '⌁ ' . &statusline
+end
+
