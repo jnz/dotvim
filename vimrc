@@ -655,6 +655,10 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 "       endif
 "   endif
 "   :packadd copilot.vim
+"   :packadd fugitive
+"    if argc() == 0
+"        cd ~/desired/startup/folder
+"    endif
 "
 " For vim-clang-format
 " let g:clang_format#auto_format=1
