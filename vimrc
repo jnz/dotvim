@@ -430,8 +430,6 @@ else
       let &t_SI = "\e[5 q"
       let &t_EI = "\e[1 q"
     endif
-    " Visual cue that we are in a terminal:
-    let &statusline = '⌁ ' . &statusline
 endif
 
 " Display tabs, trailing white spaces, nbsp, etc.
@@ -447,8 +445,12 @@ set display+=lastline  " As much as possible of the last line in a window will b
 function! GitBranch()
   return exists('*FugitiveHead') && len(FugitiveHead()) ? FugitiveHead() : ''
 endfunction
-set statusline=%<%f\ %h%m%r%=%{GitBranch()}\ ASCII=0x%02.2B\ %y\ [%{&fileencoding}/%{&fileformat}]\ %l:%c\ %P
+set statusline=%<%f\ %h%m%r%=%{GitBranch()}\ %y\ [%{&fileencoding}/%{&fileformat}]\ %3l:%-2c\ %P
 set laststatus=2     " Always display a statusline
+if !g:is_gui
+    " Visual cue that we are in a terminal:
+    let &statusline = '⌁ ' . &statusline
+endif
 
 " Color hack for Git Bash for Windows.
 " Set t_Co for msys or msysgit:
