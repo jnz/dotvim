@@ -661,6 +661,11 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 "   endif
 "   :packadd copilot.vim
 "
+"   if has('termguicolors') || &term =~ 'xterm'
+"     let &t_SI = "\e[5 q"
+"     let &t_EI = "\e[2 q"
+"   endif
+"
 " For vim-clang-format
 " let g:clang_format#auto_format=1
 
