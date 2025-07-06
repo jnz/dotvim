@@ -145,6 +145,7 @@ vnoremap <S-Space> <C-u>
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':nohlsearch<CR>'
+set path+=**   " search files in subdirectories with :find and :e
 
 " =============================================================================
 " Settings
