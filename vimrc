@@ -76,6 +76,12 @@
 
 " set guioptions+=M  " for GVIM: disable loading of menu.vim (must be set before 'syntax on')
 
+" Post-It-like background colors:
+" set termguicolors
+" Yellow    highlight Normal guibg=#ffffcc
+" Mintgrün  highlight Normal guibg=#eaffea
+" Zartrosa  highlight Normal guibg=#ffeaea
+
 syntax on
 filetype plugin indent on
 
