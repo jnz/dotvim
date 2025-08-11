@@ -431,7 +431,7 @@ To update all submodules to the latest commit from their remote branches:
 
 Add a new submodule
 
-    git submodule add -b BRANCH URL pack/plugins/opt/NAME
+    git submodule add URL pack/plugins/opt/NAME
     git submodule update --init --recursive
     git commit -am "Add NAME submodule"
 
