@@ -604,8 +604,10 @@ endfunction
 "   :let b:copilot_enabled = v:true
 let g:copilot_filetypes = {
       \ '*': v:false,
-      \ 'python': v:true, \ 'c': v:true,
-      \ 'cpp': v:true, \ 'matlab': v:true,
+      \ 'python': v:true,
+      \ 'c': v:true,
+      \ 'cpp': v:true,
+      \ 'matlab': v:true,
       \ }
 augroup CopilotFiletypes
   autocmd!
