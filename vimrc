@@ -403,7 +403,6 @@ if g:is_gui
         set fuopt+=maxhorz
     elseif has('gui_gtk3') || has('gui_gtk2')
         " for linux
-        " set guifont=DejaVu\ Sans\ Mono\ 12
         set guifont=Monospace\ 12
     elseif g:is_windows
         " Consolas Font for Windows
@@ -430,9 +429,6 @@ else
     if has('balloon_eval_term')
         set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
     endif
-    " Console settings (don't make it a default):
-    " colorscheme wombat256
-
     " Cursor in Windows Terminal (https://vim.fandom.com/wiki/Configuring_the_cursor)
     if has('termguicolors') || &term =~ 'xterm'
       let &t_SI = "\e[5 q"
@@ -602,6 +598,19 @@ function! CopilotStatus() abort
   endif
   return 'Copilot:OFF '
 endfunction
+
+" Only enable Copilot for certain file types.
+" Force enable Copilot in a buffer:
+"   :let b:copilot_enabled = v:true
+let g:copilot_filetypes = {
+      \ '*': v:false,
+      \ 'python': v:true, \ 'c': v:true,
+      \ 'cpp': v:true, \ 'matlab': v:true,
+      \ }
+augroup CopilotFiletypes
+  autocmd!
+  autocmd FileType c,cpp,python,matlab packadd copilot.vim
+augroup END
 
 " =============================================================================
 " File specific settings
