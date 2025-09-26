@@ -592,6 +592,12 @@ let g:rooter_change_directory_for_non_project_files = ''  " Don't change directo
 let g:rooter_manual_only = 1    " stop vim-rooter changing directory automatically
 
 " Co-Pilot
+" GitHub Copilot requires nodes.js:
+" Linux
+"   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+"   sudo apt-get install -y nodejs
+" Windows
+"   winget install OpenJS.NodeJS.LTS
 function! CopilotStatus() abort
   if exists('*copilot#Enabled') && copilot#Enabled()
     return 'Copilot:ON 🤖 '
