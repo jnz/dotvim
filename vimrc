@@ -453,7 +453,7 @@ set display+=lastline  " As much as possible of the last line in a window will b
 function! GitBranch()
   return exists('*FugitiveHead') && len(FugitiveHead()) ? FugitiveHead() : ''
 endfunction
-set statusline=%<%f\ %h%m%r%=%{GitBranch()}\ %y\ [%{&fileencoding}/%{&fileformat}]\ %3l:%-2c\ %P
+set statusline=%<%f\ %h%m%r%=%{CopilotStatus()}%{GitBranch()}\ %y\ [%{&fileencoding}/%{&fileformat}]\ %3l:%-2c\ %P
 set laststatus=2     " Always display a statusline
 
 " Color hack for Git Bash for Windows.
@@ -594,6 +594,14 @@ let g:asyncrun_stdin = 0
 let g:rooter_silent_chdir = 1   " stop vim-rooter echoing the project directory
 let g:rooter_change_directory_for_non_project_files = ''  " Don't change directory
 let g:rooter_manual_only = 1    " stop vim-rooter changing directory automatically
+
+" Co-Pilot
+function! CopilotStatus() abort
+  if exists('*copilot#Enabled') && copilot#Enabled()
+    return 'Copilot:ON 🤖 '
+  endif
+  return 'Copilot:OFF '
+endfunction
 
 " =============================================================================
 " File specific settings
