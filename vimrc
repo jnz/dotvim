@@ -407,6 +407,7 @@ if g:is_gui
     elseif g:is_windows
         " Consolas Font for Windows
         set guifont=Consolas:h12
+        " set guifont=Monaspace_Neon:h11
         if has("directx")
             set renderoptions=type:directx
         endif
@@ -591,34 +592,40 @@ let g:rooter_silent_chdir = 1   " stop vim-rooter echoing the project directory
 let g:rooter_change_directory_for_non_project_files = ''  " Don't change directory
 let g:rooter_manual_only = 1    " stop vim-rooter changing directory automatically
 
-" Co-Pilot
-" GitHub Copilot requires nodes.js:
-" Linux
-"   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-"   sudo apt-get install -y nodejs
-" Windows
-"   winget install OpenJS.NodeJS.LTS
+" GitHub Co-Pilot Plugin
 function! CopilotStatus() abort
   if exists('*copilot#Enabled') && copilot#Enabled()
     return 'Copilot:ON 🤖 '
   endif
   return 'Copilot:OFF '
 endfunction
-
-" Only enable Copilot for certain file types.
-" Force enable Copilot in a buffer:
-"   :let b:copilot_enabled = v:true
-let g:copilot_filetypes = {
-      \ '*': v:false,
-      \ 'python': v:true,
-      \ 'c': v:true,
-      \ 'cpp': v:true,
-      \ 'matlab': v:true,
-      \ }
-augroup CopilotFiletypes
-  autocmd!
-  autocmd FileType c,cpp,python,matlab packadd copilot.vim
-augroup END
+if version >= 900 || has('nvim')
+  if !executable('node') " node.js available? (required by co-pilot plugin)
+    echohl WarningMsg
+    echom 'GitHub Copilot Plugin: node.js not found in PATH!'
+    echom 'Install up-to-date node.js:'
+    echom '  Linux:   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs'
+    echom '  Windows: winget install OpenJS.NodeJS.LTS'
+    echohl None
+  else
+    let g:copilot_lsp_settings = {
+    \   'telemetry': {
+    \     'telemetryLevel': 'off',
+    \   },
+    \ }
+    let g:copilot_filetypes = {
+          \ '*': v:false,
+          \ 'python': v:true,
+          \ 'c': v:true,
+          \ 'cpp': v:true,
+          \ 'matlab': v:true,
+          \ }
+    augroup CopilotFiletypes
+      autocmd!
+      autocmd FileType c,cpp,python,matlab packadd copilot.vim
+    augroup END
+  endif
+endif
 
 " =============================================================================
 " File specific settings
