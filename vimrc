@@ -346,7 +346,8 @@ if executable('rg')
     nnoremap <Leader>g :AsyncRun rg --vimgrep --smart-case ""<left>
     nnoremap <Leader>h :AsyncRun rg --vimgrep --smart-case --glob "*.txt" ""<left>
 else
-    nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin '' .<left><left><left>
+    nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin "" .<left><left><left>
+    nnoremap <Leader>h :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin --include="*.txt" "" .<left><left><left>
 end
 
 " Press F2 to open the vimrc config:
@@ -613,13 +614,6 @@ if version >= 900 || has('nvim')
     \     'telemetryLevel': 'off',
     \   },
     \ }
-    let g:copilot_filetypes = {
-          \ '*': v:false,
-          \ 'python': v:true,
-          \ 'c': v:true,
-          \ 'cpp': v:true,
-          \ 'matlab': v:true,
-          \ }
     augroup CopilotFiletypes
       autocmd!
       autocmd FileType c,cpp,python,matlab packadd copilot.vim
