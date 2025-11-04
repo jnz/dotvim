@@ -230,9 +230,14 @@ set noswapfile       " Disable swap files. If Vim or your computer crashes, swap
 set nowrap           " When on, lines longer than the width of the window will wrap and displaying continues on the next line
 set textwidth=0      " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
 set spelllang=de,en_us " When the 'spell' option is on spellchecking will be done for these languages
-set encoding=utf-8   " utf-8 everywhere
-set termencoding=utf-8 " utf-8 everywhere
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+if has('nvim')
+    set encoding=utf-8
+else
+    set termencoding=utf-8
+    set encoding=utf-8
+    set fileencoding=utf-8
+endif
 " set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
 
 " cindent:
