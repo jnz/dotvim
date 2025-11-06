@@ -366,10 +366,10 @@ endif
 " ctags
 " =============================================================================
 
-" Search for tags file path:
-set tags=./tags,tags,./../tags,./../../tags
+" Search for tags file path (go up until a tags file is found):
+set tags=./tags;,tags;
 " Shortcut to generate tags file with F4:
-nnoremap <F4> :AsyncRun ctags -R --fields=+iaS --c-kinds=+p .<CR>
+nnoremap <F4> :AsyncRun ctags -R .<CR>
 " F3 goto tag (Eclipse like), use <C-o> to jump back:
 noremap <F3> <C-]>
 " F12 goto tag (Visual Studio like), use <C-o> to jump back:
