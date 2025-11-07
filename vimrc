@@ -564,9 +564,11 @@ endif
 let g:ctrlp_max_depth             = 7
 " if ripgrep (rg) is available, use it for searching files
 
-if executable('rg')
-    let g:ctrlp_user_command = 'rg %s --max-depth=12 --files --color=never --glob ""'
-    " let g:ctrlp_use_caching = 0 " disable per-session caching
+if !(has('nvim') && (g:is_msysgit || g:is_msys))
+    if executable('rg')
+        let g:ctrlp_user_command = 'rg %s --max-depth=12 --files --color=never --hidden'
+        " let g:ctrlp_use_caching = 0 " disable per-session caching
+    end
 end
 
 " Buffer Explorer:
