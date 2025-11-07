@@ -1,28 +1,42 @@
 @echo off
-REM Create the necessary Neovim config directory structure
+setlocal
+
+rem ---------------------------------------------------------------------------
+rem Create Neovim configuration that sources the existing vimrc
+rem ---------------------------------------------------------------------------
+
 set "CONFIG_DIR=%LOCALAPPDATA%\nvim"
-if not exist "%CONFIG_DIR%" (
-    mkdir "%CONFIG_DIR%"
-)
+set "SCRIPT_DIR=%~dp0"
+set "SRC_INIT=%SCRIPT_DIR%init.lua"
+set "DST_INIT=%CONFIG_DIR%\init.lua"
+
+if not exist "%CONFIG_DIR%" mkdir "%CONFIG_DIR%"
 
 echo Overwriting init.lua...
 pause
 
-REM Paths
-set "SCRIPT_DIR=%~dp0"
-set "INIT_LUA_SRC=%SCRIPT_DIR%init.lua"
-set "INIT_LUA_DST=%CONFIG_DIR%\init.lua"
+rem ---------------------------------------------------------------------------
+rem Write header line (source vimrc) literally
+rem Use double %% to prevent environment variable expansion
+rem ---------------------------------------------------------------------------
+> "%DST_INIT%" echo local _vimrc = vim.fn.expand('$USERPROFILE/vimfiles/vimrc')
+>> "%DST_INIT%" echo if vim.fn.filereadable(_vimrc) == 1 then
+>> "%DST_INIT%" echo   vim.cmd('source ' .. vim.fn.fnameescape(_vimrc))
+>> "%DST_INIT%" echo end
 
-REM Create/overwrite destination file with the vimrc source line
-(
-    echo vim.cmd('source %%HOMEDRIVE%%%%HOMEPATH%%\\vimfiles\\vimrc')
-) > "%INIT_LUA_DST%"
 
-REM Append the local init.lua contents
-type "%INIT_LUA_SRC%" >> "%INIT_LUA_DST%"
+rem ---------------------------------------------------------------------------
+rem Append local init.lua content
+rem ---------------------------------------------------------------------------
+if exist "%SRC_INIT%" (
+    type "%SRC_INIT%" >> "%DST_INIT%"
+) else (
+    echo Warning: local init.lua not found at "%SRC_INIT%"
+)
 
 echo.
-echo Successfully wrote %INIT_LUA_DST%
+echo Successfully wrote %DST_INIT%
 echo Run :NeovideRegisterRightClick within Neovide
 pause
+endlocal
 
