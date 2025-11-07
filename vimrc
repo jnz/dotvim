@@ -110,13 +110,20 @@ if has('nvim')
     " unzip -p /tmp/win32yank.zip win32yank.exe > /tmp/win32yank.exe
     " chmod +x /tmp/win32yank.exe
     " sudo mv /tmp/win32yank.exe /usr/local/bin/
+
+    " Neovide Settings
     if exists("g:neovide")
-        " let g:neovide_transparency = 0.95
-        " let g:transparency = 0.95
-        let g:neovide_floating_shadow = v:true
-        let g:neovide_floating_z_height = 10
-        let g:neovide_light_angle_degrees = 45
-        let g:neovide_light_radius = 5
+        nnoremap <F11> :let g:neovide_fullscreen = !g:neovide_fullscreen<CR>
+        let g:neovide_opacity = 0.98
+        let g:neovide_normal_opacity = 1.0
+        let g:neovide_cursor_trail_size = 0.1
+        let g:neovide_scroll_animation_length = 0.12
+        let g:neovide_cursor_animation_length = 0.032
+        let g:neovide_position_animation_length = 0.032
+        let g:neovide_remember_window_size = v:true
+        let g:neovide_cursor_vfx_mode = "" " railgun
+        let g:neovide_cursor_vfx_opacity = 100.0
+        " let g:neovide_title_background_color = "green"
     endif
 else
 " =============================================================================
@@ -430,8 +437,9 @@ if g:is_gui
     if has('ballooneval')
         set ballooneval " This feature allows a debugger, or other external tool, to display dynamic information based on where the mouse is pointing
     endif
-    set lines=40 columns=120 " default window size is a bit small. only use for GUI vims
-
+    if !exists("g:neovide")
+        set lines=40 columns=120 " default window size is a bit small. only use for GUI vims
+    endif
 else
     if has('balloon_eval_term')
         set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
