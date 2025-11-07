@@ -99,10 +99,11 @@ if has('nvim')
 " =============================================================================
     if g:is_windows
         set runtimepath^=$HOME/vimfiles/
+        set packpath^=$HOME/vimfiles
     else
         set runtimepath^=~/.vim
+        set packpath^=~/.vim
     endif
-    let &packpath=&runtimepath
 
     " For WSL clipboard (from Neovim FAQ):
     " ------------------------------------
