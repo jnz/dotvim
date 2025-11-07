@@ -389,10 +389,20 @@ GitHub Copilot.vim Plugin
 
 Requires nodes.js. For node.js Windows installation:
 
-1.  Go to: https://nodejs.org/en/download
-2.  Download the Windows Binary (.zip) version (LTS recommended)
-3.  Unzip it somewhere (e.g., C:\tools\nodejs)
-4.  Add that folder to your PATH (no reg keys, no global hooks, no installer junk)
+Version a)
+
+    winget install OpenJS.NodeJS.LTS
+
+Version b)
+
+ 1.  Go to: https://nodejs.org/en/download
+ 2.  Download the Windows Binary (.zip) version (LTS recommended)
+ 3.  Unzip it somewhere (e.g., C:\tools\nodejs)
+ 4.  Add that folder to your PATH (no reg keys, no global hooks, no installer junk)
+
+Debian/Ubuntu/Mint:
+
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs
 
 First time setup:
 
