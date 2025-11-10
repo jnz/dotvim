@@ -104,6 +104,7 @@ if has('nvim')
         set runtimepath^=~/.vim
         set packpath^=~/.vim
     endif
+    set pumblend=20 " popup menu transparency
 
     " For WSL clipboard (from Neovim FAQ):
     " ------------------------------------
@@ -630,10 +631,11 @@ if version >= 900 || has('nvim')
     \     'telemetryLevel': 'off',
     \   },
     \ }
-    augroup CopilotFiletypes
-      autocmd!
-      autocmd FileType c,cpp,python,matlab packadd copilot.vim
-    augroup END
+    " Auto-Load Copilot
+    " augroup CopilotFiletypes
+    "   autocmd!
+    "   autocmd FileType c,cpp,python,matlab packadd copilot.vim
+    " augroup END
   endif
 endif
 
