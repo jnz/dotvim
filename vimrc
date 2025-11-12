@@ -115,7 +115,7 @@ if has('nvim')
     " Neovide Settings
     if exists("g:neovide")
         nnoremap <F11> :let g:neovide_fullscreen = !g:neovide_fullscreen<CR>
-        let g:neovide_opacity = 0.98
+        let g:neovide_opacity = 0.985
         let g:neovide_normal_opacity = 1.0
         let g:neovide_cursor_trail_size = 0.1
         let g:neovide_scroll_animation_length = 0.12
