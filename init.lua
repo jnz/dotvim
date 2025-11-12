@@ -6,6 +6,8 @@ pcall(function()
   end
 end)
 
+vim.opt.title = true
+
 -- Plugins
 vim.cmd('packadd nvim-treesitter')
 vim.cmd('packadd nvim-lspconfig')
