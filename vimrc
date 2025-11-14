@@ -117,7 +117,6 @@ if has('nvim')
     if exists("g:neovide")
         nnoremap <F11> :let g:neovide_fullscreen = !g:neovide_fullscreen<CR>
         let g:neovide_opacity = 0.985
-        let g:neovide_normal_opacity = 1.0
         let g:neovide_cursor_trail_size = 0.1
         let g:neovide_scroll_animation_length = 0.12
         let g:neovide_cursor_animation_length = 0.032
@@ -326,9 +325,10 @@ inoremap <C-V> <C-R>+
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
-" Don't use Ex mode:
+" Don't use Ex mode and the command window:
 noremap Q :echo 'Ex mode disabled'<CR>
 noremap gQ :echo 'Ex mode disabled'<CR>
+nnoremap q: :echo 'q: disabled, use q/'<CR>
 " Yank to the end of the line (consistent with C and D command)
 nnoremap Y y$
 " Sane navigation between wrapped lines:
