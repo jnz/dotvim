@@ -81,6 +81,11 @@
 " Yellow    highlight Normal guibg=#ffffcc
 " Mintgrün  highlight Normal guibg=#eaffea
 " Zartrosa  highlight Normal guibg=#ffeaea
+"
+" Enter Non-Breaking Space (NBSP) (U+00A0)
+" Ctrl+Q u00a0
+" Check with:
+" ga with cursor on character:  
 
 syntax on
 filetype plugin indent on
