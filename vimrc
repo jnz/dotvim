@@ -520,6 +520,9 @@ if has("unix")
     endtry
 endif
 
+" Use this instance as a read-only 'sticky note'
+command! StickytNote highlight Normal guibg=#ffffcc | setlocal nomodifiable
+
 " =============================================================================
 " Plugin settings
 " =============================================================================
