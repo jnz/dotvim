@@ -81,6 +81,11 @@
 " Yellow    highlight Normal guibg=#ffffcc
 " Mintgrün  highlight Normal guibg=#eaffea
 " Zartrosa  highlight Normal guibg=#ffeaea
+"
+" Enter Non-Breaking Space (NBSP) (U+00A0)
+" Ctrl+Q u00a0
+" Check with:
+" ga with cursor on character:  
 
 syntax on
 filetype plugin indent on
@@ -117,7 +122,6 @@ if has('nvim')
     if exists("g:neovide")
         nnoremap <F11> :let g:neovide_fullscreen = !g:neovide_fullscreen<CR>
         let g:neovide_opacity = 0.985
-        let g:neovide_normal_opacity = 1.0
         let g:neovide_cursor_trail_size = 0.1
         let g:neovide_scroll_animation_length = 0.12
         let g:neovide_cursor_animation_length = 0.032
@@ -326,9 +330,10 @@ inoremap <C-V> <C-R>+
 noremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " :Make shortcut (run make with <leader>n):
 noremap <leader>n :Make<CR>
-" Don't use Ex mode:
+" Don't use Ex mode and the command window:
 noremap Q :echo 'Ex mode disabled'<CR>
 noremap gQ :echo 'Ex mode disabled'<CR>
+nnoremap q: :echo 'q: disabled, use q/'<CR>
 " Yank to the end of the line (consistent with C and D command)
 nnoremap Y y$
 " Sane navigation between wrapped lines:
@@ -622,7 +627,7 @@ if version >= 900 || has('nvim')
     echohl WarningMsg
     echom 'GitHub Copilot Plugin: node.js not found in PATH!'
     echom 'Install up-to-date node.js:'
-    echom '  Linux:   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs'
+    echom '  Linux:   curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs'
     echom '  Windows: winget install OpenJS.NodeJS.LTS'
     echohl None
   else
