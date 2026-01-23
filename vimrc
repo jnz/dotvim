@@ -630,7 +630,7 @@ if version >= 900 || has('nvim')
     echohl WarningMsg
     echom 'GitHub Copilot Plugin: node.js not found in PATH!'
     echom 'Install up-to-date node.js:'
-    echom '  Linux:   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs'
+    echom '  Linux:   curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs'
     echom '  Windows: winget install OpenJS.NodeJS.LTS'
     echohl None
   else
