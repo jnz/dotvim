@@ -9,6 +9,9 @@ ripgrep for Windows and Linux:
 
     https://github.com/BurntSushi/ripgrep/releases
 
+        For Windows: ripgrep-15.1.0-x86_64-pc-windows-msvc.zip
+        For Linux: ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz (musl = static linking)
+
 Universal-ctags win32 builds:
 
     https://github.com/universal-ctags/ctags-win32/releases
