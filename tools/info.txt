@@ -20,3 +20,6 @@ Universal-ctags nightly builds:
 
     https://github.com/universal-ctags/ctags-nightly-build/releases/
 
+    This a bit tricky to pick a reasonable version.
+    Last version was this:
+    https://github.com/universal-ctags/ctags-nightly-build/releases/download/2025.10.28%2B5a28e008174e7793914cfd6b6501e434e6693449/uctags-2025.10.28-linux-x86_64.release.tar.gz
