@@ -429,7 +429,7 @@ if g:is_gui
         set guifont=Consolas:h12
         " set guifont=Monaspace_Neon:h11
         if has("directx")
-            set renderoptions=type:directx
+            " set renderoptions=type:directx
         endif
         " autocmd GUIEnter * simalt ~x  " always maximize initial GUI window
     endif
