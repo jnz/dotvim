@@ -208,6 +208,7 @@ set hlsearch         " When there is a previous search pattern, highlight all it
 set nolangremap      " Disable a legacy behavior that can break plugin maps
 set history=250      " Recall command-lines with up and down cursor keys
 set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches
+set nomodeline       " Security risk
 set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode. Press 'wildchar' (usually <Tab>) to invoke completion
 set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'
 set wildmode=full    " Completion mode: complete longest common string, then each full match
