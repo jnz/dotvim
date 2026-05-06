@@ -504,7 +504,7 @@ endif
 " Use this instance as a read-only 'sticky note'
 " Mintgrün  #eaffea
 " Zartrosa  #ffeaea
-command! StickytNote highlight Normal guibg=#ffffcc | setlocal nomodifiable
+command! StickyNote highlight Normal guibg=#ffffcc | setlocal nomodifiable
 
 " =============================================================================
 " Plugin settings
