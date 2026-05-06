@@ -196,7 +196,7 @@ try
     set wildoptions+=fuzzy
 catch
 endtry
-set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
+"set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
 set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
@@ -347,7 +347,7 @@ if executable('rg')
 else
     nnoremap <Leader>g :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin "" .<left><left><left>
     nnoremap <Leader>h :AsyncRun grep --exclude-dir=".git" --exclude=tags -rin --include="*.txt" "" .<left><left><left>
-end
+endif
 
 " Press F2 to open the vimrc config:
 if g:is_windows
@@ -561,8 +561,8 @@ if !(has('nvim') && (g:is_msysgit || g:is_msys))
     if executable('rg')
         let g:ctrlp_user_command = 'rg %s --max-depth=12 --files --color=never --hidden'
         " let g:ctrlp_use_caching = 0 " disable per-session caching
-    end
-end
+    endif
+endif
 
 " Buffer Explorer:
 nnoremap <silent> <Leader>e :BufExplorer<CR>
@@ -677,9 +677,6 @@ augroup MakefileGroup
     autocmd FileType make setlocal noexpandtab
 augroup END
 let g:tex_comment_nospell = 1  " don't spell check in comments
-
-" Python pylint
-autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | setlocal autowrite
 
 " =============================================================================
 " Machine specific settings
