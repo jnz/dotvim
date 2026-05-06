@@ -550,8 +550,8 @@ let g:ctrlp_working_path_mode   = '0'
 let g:ctrlp_mruf_max            = 500
 " Number of files to scan initially:
 let g:ctrlp_max_files           = 8000
-" Only update when typing has stopped after 100 ms:
-let g:ctrlp_lazy_update         = 0
+" Only update when typing has stopped after 50 ms:
+let g:ctrlp_lazy_update         = 50
 " For more files than this, no sorting will be performed to improve
 " performance, but quality of fuzzy finding results is reduced
 " let g:ctrlp_compare_lim         = 500
