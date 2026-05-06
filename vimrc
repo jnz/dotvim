@@ -4,18 +4,8 @@
 " Information
 " =============================================================================
 "
-" vimrc sections:
-"  - Neovim/Vim                 Neovim/Vim specific settings
-"  - Settings                   General settings
-"  - Keymaps                    Key bindings
-"  - ctags                      ctags specific settings
-"  - Visual settings            Change the look and feel
-"  - Plugin settings            Settings for different plugins
-"  - File specific settings     Settings for file types (e.g. for .tex files)
-"
 " Tag based code navigation
 " -------------------------
-"
 " F4 to generate tags in current directory (should be in source root).
 " F3/F12/<leader>t to goto tag under cursor.
 " Ctrl-o / Ctrl-i navigate backward/forward.
@@ -40,31 +30,28 @@
 "
 " If <C-s> is freezing your terminal, press <C-q> to unfreeze it.
 " Add a new line with 'stty -ixon' to your .bashrc
-" <S-Space> won't work.
-" <C-BS> won't work.
+" <S-Space> won't work, <C-BS> won't work.
 "
 " Profile Vim:
 "   * Execute :profile start profile_result.txt | profile func *
-"   * Do some stuff (moving cursor around or splitting windows)
-"   * Quit Vim.
-"   * Open result file and go to the last part of the log, see what's causing
-"     your editor heavy.
-"
+"      * Do some stuff (moving cursor around or splitting windows)
+"      * Quit Vim.
+"      * Open result file and go to the last part of the log.
 "   * vim --startuptime vim.log
 "
 " Searching with grep/find:
 "    * grep -rin text .
 "    * find . -iname '*.txt' -print0 | xargs -0 grep -in pattern
 "    * find . -iname '*jan*'
-" On Windows:
+" Searching on Windows:
 "    * dir /s /b *filename*
 "    * findstr /spin "jan" *.txt
 "
-" Using findstr.exe on Windows: findstr /spin /c:"searchString" *.*
-" /S = include sub-directories
-" /P = ignore files with non-printable characters
-" /I = case-insensitive
-" /N = print line number
+"    Using findstr.exe on Windows: findstr /spin /c:"searchString" *.*
+"    /S = include sub-directories
+"    /P = ignore files with non-printable characters
+"    /I = case-insensitive
+"    /N = print line number
 "
 " prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
 " set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
@@ -74,14 +61,6 @@
 " i = ignore case
 " r = include sub-directories
 
-" set guioptions+=M  " for GVIM: disable loading of menu.vim (must be set before 'syntax on')
-
-" Post-It-like background colors:
-" set termguicolors
-" Yellow    highlight Normal guibg=#ffffcc
-" Mintgrün  highlight Normal guibg=#eaffea
-" Zartrosa  highlight Normal guibg=#ffeaea
-"
 " Enter Non-Breaking Space (NBSP) (U+00A0)
 " Ctrl+Q u00a0
 " Check with:
@@ -373,6 +352,7 @@ end
 " Press F2 to open the vimrc config:
 if g:is_windows
     nnoremap <silent> <F2> :edit ~/vimfiles/vimrc<cr>
+
 else
     nnoremap <silent> <F2> :edit ~/.vim/vimrc<cr>
 endif
@@ -522,6 +502,8 @@ if has("unix")
 endif
 
 " Use this instance as a read-only 'sticky note'
+" Mintgrün  #eaffea
+" Zartrosa  #ffeaea
 command! StickytNote highlight Normal guibg=#ffffcc | setlocal nomodifiable
 
 " =============================================================================
@@ -706,21 +688,10 @@ autocmd FileType python setlocal makeprg=pylint\ --output-format=parseable\ % | 
 " If there are any machine-specific tweaks for Vim, load them from the following file.
 "
 " e.g.:
-"   if has("unix")
-"       let ac_path = glob("/sys/class/power_supply/AC*/online")
-"       let power_status = system("cat " . ac_path)
-"       if power_status =~ '^1'
-"           colorscheme studio98
-"       else
-"           colorscheme gruvbit
-"       endif
-"   endif
 "   :packadd copilot.vim
 "   :packadd fugitive
 "   command! Homego cd ~/some/folder/
-"
-" For vim-clang-format
-" let g:clang_format#auto_format=1
+"   let g:clang_format#auto_format=1
 
 silent! source ~/.vimrc.local
 
@@ -728,6 +699,5 @@ silent! source ~/.vimrc.local
 " vimrc.local)
 if !g:is_gui
     highlight StatusLine guifg=#ffffff guibg=#005f00 ctermfg=15 ctermbg=2
-    " let &statusline = '⌁ ' . &statusline
 end
 
