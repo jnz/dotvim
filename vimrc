@@ -744,13 +744,18 @@ function! s:LspSetup() abort
     call LspAddServer([{'name': 'clangd', 'filetype': ['c', 'cpp'],
                 \ 'path': 'clangd', 'args': ['--background-index']}])
 endfunction
-" Use LSP completion first in buffers attached to a language server:
+" In buffers attached to a language server:
+" - use LSP completion first
+" - use LSP for all tag commands (<C-]>, F3, F12, <leader>t, K, :tag, :ts,
+"   :tn, :tp, <C-t>), so no ctags file is needed. If the server finds
+"   nothing, Vim falls back to the tags file.
 function! s:LspAttached() abort
     let l:bnr = g:LspAttachedContext.bufnr
     let l:cpt = getbufvar(l:bnr, '&complete')
     if l:cpt !~# '\v(^|,)o(,|$)'
         call setbufvar(l:bnr, '&complete', 'o,' . l:cpt)
     endif
+    call setbufvar(l:bnr, '&tagfunc', 'lsp#lsp#TagFunc')
 endfunction
 function! s:LspLazyLoad() abort
     autocmd! LspLazyLoad
