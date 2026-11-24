@@ -247,6 +247,36 @@ set textwidth=0      " Maximum width of text that is being inserted.  A longer l
 set spelllang=de,en_us " When the 'spell' option is on spellchecking will be done for these languages
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
+" Completion comfort for newer Vims (all guarded, old Vims ignore this):
+" ---------------------------------------------------------------------
+" Insert mode: show the completion menu automatically while typing (same
+" sources as <C-n>, see 'complete'). Nothing is inserted while typing:
+" 'autocomplete' implies "noselect", and "longest" is removed, because it
+" would pre-insert the longest common prefix. Select with <C-n>/<C-p>, accept
+" with <C-y>, dismiss with <C-e>.
+" :AutoCompleteToggle switches back to the classic behavior (incl. "longest").
+if exists('+autocomplete')
+    set autocomplete
+    set autocompletedelay=100 " ms pause after typing before the menu appears
+    set completeopt-=longest
+    function! s:AutoCompleteToggle() abort
+        if &autocomplete
+            set noautocomplete completeopt+=longest
+        else
+            set autocomplete completeopt-=longest
+        endif
+        set autocomplete?
+    endfunction
+    command! AutoCompleteToggle call s:AutoCompleteToggle()
+endif
+" Extra info (e.g. function signatures) in a popup instead of the preview window:
+if has('patch-8.1.1880')
+    set completeopt+=popup
+endif
+if exists('+pummaxwidth')
+    set pummaxwidth=60 " no screen-wide completion menus
+endif
+
 " cindent:
 " help: :h cinoptions-values
 " Align cindent function arguments with 'cino'
@@ -678,6 +708,25 @@ endfunction
 augroup CopilotNodeCheck
   autocmd!
   autocmd VimEnter * call s:CheckCopilotNode()
+augroup END
+
+" LSP (yegappan/lsp, Vim 9+, in pack/plugins/opt/lsp):
+" Only active after ':packadd lsp' (e.g. in ~/.vimrc.local). No default key
+" mappings, tags/F3/F12/K stay as they are. Use :LspGotoDefinition,
+" :LspHover, :LspDiag show, :LspRename etc. if needed.
+" The plugin's own auto completion is disabled, instead the LSP results are
+" fed via 'omnifunc' into Vim's 'autocomplete' (see 'complete' flag "o").
+function! s:LspSetup() abort
+    call LspOptionsSet({'autoComplete': v:false, 'omniComplete': v:true})
+    if executable('clangd')
+        call LspAddServer([{'name': 'clangd', 'filetype': ['c', 'cpp'],
+                    \ 'path': 'clangd', 'args': ['--background-index']}])
+    endif
+endfunction
+augroup LspGroup
+    autocmd!
+    autocmd User LspSetup call s:LspSetup()
+    autocmd User LspAttached setlocal complete^=o
 augroup END
 
 " =============================================================================
