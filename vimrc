@@ -176,6 +176,16 @@ if has('unnamedplus') " Vim 7.3.074+
 else
     set clipboard^=unnamed
 endif
+" In SSH sessions: copy to the local clipboard via the terminal (OSC 52).
+" Uses the osc52 package shipped with Vim 9.1+ (no extra plugin), only loaded
+" over SSH, so no startup cost otherwise. Paste via OSC 52 is disabled: many
+" terminals don't support it and Vim would block on every p (because of
+" 'clipboard' unnamed/unnamedplus). Paste with the terminal instead.
+if !empty($SSH_TTY) && exists('+clipmethod') && has('timers')
+    let g:osc52_disable_paste = 1
+    silent! packadd osc52
+    set clipmethod+=osc52
+endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
 set complete-=i      " Don't scan include files (use a tags file)
@@ -202,6 +212,7 @@ set showmode         " If in Insert, Replace or Visual mode put a message on the
 set autoread         " If the file has changed outside, but was not modified in vim: reload
 set autowrite        " Automatically save before commands like :next and :make
 set hlsearch         " When there is a previous search pattern, highlight all its matches
+set shortmess-=S     " Show search count, e.g. [3/17], for /, n, * etc. (Vim 8.1.1270+, ignored before)
 if exists('+langremap')
     set nolangremap  " Disable a legacy behavior that can break plugin maps
 endif
@@ -276,6 +287,18 @@ endif
 if exists('+pummaxwidth')
     set pummaxwidth=60 " no screen-wide completion menus
 endif
+
+" Better diffs (vimdiff, fugitive): histogram algorithm handles moved code
+" better, linematch aligns changed lines within a hunk. Each setting is tried
+" separately, old Vims ignore what they don't support.
+try
+    set diffopt+=algorithm:histogram
+catch
+endtry
+try
+    set diffopt+=linematch:60
+catch
+endtry
 
 " cindent:
 " help: :h cinoptions-values
@@ -710,23 +733,39 @@ augroup CopilotNodeCheck
   autocmd VimEnter * call s:CheckCopilotNode()
 augroup END
 
-" LSP (yegappan/lsp, Vim 9+, in pack/plugins/opt/lsp):
-" Only active after ':packadd lsp' (e.g. in ~/.vimrc.local). No default key
-" mappings, tags/F3/F12/K stay as they are. Use :LspGotoDefinition,
-" :LspHover, :LspDiag show, :LspRename etc. if needed.
-" The plugin's own auto completion is disabled, instead the LSP results are
-" fed via 'omnifunc' into Vim's 'autocomplete' (see 'complete' flag "o").
+" LSP (yegappan/lsp, Vim 9+, optional plugin in pack/plugins/opt/lsp):
+" Lazy loaded on the first C/C++ buffer, and only if clangd is installed, so
+" no startup cost otherwise. No default key mappings, tags/F3/F12/K stay as
+" they are. Use :LspGotoDefinition, :LspHover, :LspDiag show, :LspRename etc.
+" if needed. The plugin's own auto completion is disabled, instead the LSP
+" results are fed via 'omnifunc' into Vim's 'autocomplete' ('complete' flag "o").
 function! s:LspSetup() abort
     call LspOptionsSet({'autoComplete': v:false, 'omniComplete': v:true})
-    if executable('clangd')
-        call LspAddServer([{'name': 'clangd', 'filetype': ['c', 'cpp'],
-                    \ 'path': 'clangd', 'args': ['--background-index']}])
+    call LspAddServer([{'name': 'clangd', 'filetype': ['c', 'cpp'],
+                \ 'path': 'clangd', 'args': ['--background-index']}])
+endfunction
+" Use LSP completion first in buffers attached to a language server:
+function! s:LspAttached() abort
+    let l:bnr = g:LspAttachedContext.bufnr
+    let l:cpt = getbufvar(l:bnr, '&complete')
+    if l:cpt !~# '\v(^|,)o(,|$)'
+        call setbufvar(l:bnr, '&complete', 'o,' . l:cpt)
     endif
+endfunction
+function! s:LspLazyLoad() abort
+    autocmd! LspLazyLoad
+    silent! packadd lsp
 endfunction
 augroup LspGroup
     autocmd!
     autocmd User LspSetup call s:LspSetup()
-    autocmd User LspAttached setlocal complete^=o
+    autocmd User LspAttached call s:LspAttached()
+augroup END
+augroup LspLazyLoad
+    autocmd!
+    if v:version >= 900 && executable('clangd')
+        autocmd FileType c,cpp call s:LspLazyLoad()
+    endif
 augroup END
 
 " =============================================================================

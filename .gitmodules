@@ -26,3 +26,6 @@
 [submodule "pack/plugins/opt/copilot.vim"]
 	path = pack/plugins/opt/copilot.vim
 	url = https://github.com/github/copilot.vim.git
+[submodule "pack/plugins/opt/lsp"]
+	path = pack/plugins/opt/lsp
+	url = https://github.com/yegappan/lsp.git
