@@ -53,8 +53,8 @@
 "    /I = case-insensitive
 "    /N = print line number
 "
-" prepare the grep options (for :vimgrep and :grep, not for the AsyncRun stuff below)
-" set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
+" 'grepprg' (used by :grep, not by :vimgrep or the AsyncRun mappings) is set
+" below: ripgrep if available, grep as fallback.
 " grep parameters:
 " n = print line number
 " H = print file name
@@ -65,6 +65,18 @@
 " Ctrl+Q u00a0
 " Check with:
 " ga with cursor on character:  
+
+" Set the encoding first, so that the rest of this file (which contains
+" non-ASCII characters) is interpreted correctly, also on old systems with a
+" non-UTF-8 locale.
+if has('nvim')
+    set encoding=utf-8
+else
+    set termencoding=utf-8
+    set encoding=utf-8
+    set fileencoding=utf-8
+endif
+scriptencoding utf-8
 
 syntax on
 filetype plugin indent on
@@ -114,7 +126,9 @@ else
 " =============================================================================
 " Vim
 " =============================================================================
-    set cryptmethod=blowfish2
+    if has('crypt-blowfish2') " Vim 7.4.401+
+        set cryptmethod=blowfish2
+    endif
     " remember up to 250 files
     set viminfo='250,<0,/0,s0,:0,h
     if g:is_windows
@@ -153,15 +167,19 @@ set path+=**   " search files in subdirectories with :find and :e
 set mousemodel=popup           " Right mouse button pops up a menu
 set selectmode=mouse,key       " Select text with the mouse or with shift+cursor keys
 set mouse=a                    " Enable the mouse
-set guioptions-=aA             " Vim won't become the owner of the windowing system's global selection
+set guioptions-=a guioptions-=A " Vim won't become the owner of the windowing system's global selection
 set backspace=indent,eol,start " Backspace wrap to previous/next line
 set whichwrap+=<,>,[,]         " Cursor left/right to move to the previous/next line
 " Clipboard: (use :checkhealth on neovim), ^= operator to prepend string
-set clipboard^=unnamed,unnamedplus
+if has('unnamedplus') " Vim 7.3.074+
+    set clipboard^=unnamed,unnamedplus
+else
+    set clipboard^=unnamed
+endif
 " Complete options (disable preview window):
 set completeopt=menu,menuone,longest
 set complete-=i      " Don't scan include files (use a tags file)
-set complete+=spell  " Auto complete words from dictionary (if spell checking is enabled with :set spell)
+set complete+=kspell " Auto complete words from dictionary (if spell checking is enabled with :set spell)
 " Limit the number of items to 15 in the completion popup menu:
 set pumheight=15
 " Select empty areas with visual block mode:
@@ -184,13 +202,15 @@ set showmode         " If in Insert, Replace or Visual mode put a message on the
 set autoread         " If the file has changed outside, but was not modified in vim: reload
 set autowrite        " Automatically save before commands like :next and :make
 set hlsearch         " When there is a previous search pattern, highlight all its matches
-set nolangremap      " Disable a legacy behavior that can break plugin maps
+if exists('+langremap')
+    set nolangremap  " Disable a legacy behavior that can break plugin maps
+endif
 set history=250      " Recall command-lines with up and down cursor keys
 set incsearch        " While typing a search command, show where the pattern, as it was typed so far, matches
 set nomodeline       " Security risk
 set wildmenu         " When 'wildmenu' is on, command-line completion operates in an enhanced mode. Press 'wildchar' (usually <Tab>) to invoke completion
 set wildchar=<Tab>   " Character you have to type to start wildcard expansion in the command-line, as specified with 'wildmode'
-set wildmode=full    " Completion mode: complete longest common string, then each full match
+set wildmode=full    " Completion mode: complete the next full match (cycle through matches with <Tab>)
 try
     set wildoptions+=pum " Vim9 pop-up menu
     set wildoptions+=fuzzy
@@ -198,19 +218,21 @@ catch
 endtry
 "set gdefault         " Make g the default: :%s/foo/bar/ instead of :%s/foo/bar/g
 set ttyfast          " Indicates a fast terminal connection.  More characters will be sent to the screen for redrawing
-set noshowmatch      " When a bracket is inserted, briefly jump to the matching one
+set noshowmatch      " Don't briefly jump to the matching bracket when a bracket is inserted
 set expandtab        " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set nrformats-=octal " Ignore octal numbers for CTRL-A and CTRL-X
-set ttimeout         " Time out on :mappings and key codes
-set ttimeoutlen=100  " The time in milliseconds that is waited for a key sequence to complete
+set ttimeout         " Time out on key codes (e.g. <Esc> sequences sent by the terminal)
+set ttimeoutlen=100  " The time in milliseconds that is waited for a key code sequence to complete
 set lazyredraw       " The screen will not be redrawn while executing macros
-set noshowcmd        " Show partial command in last line of the screen (set this option off if your terminal is slow.)
-set showtabline=1    " 2=Always display tabs
+set noshowcmd        " Don't show partial command in last line of the screen (can be slow on slow terminals)
+set showtabline=1    " Only show the tab line if there are at least two tabs (2=always)
 set formatoptions+=n " When formatting text, recognize numbered lists
 if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j " Where it makes sense, remove a comment leader when joining lines
 endif
-set wildignorecase   " When set case is ignored when completing file names and directories
+if exists('+wildignorecase') " Vim 7.3.072+
+    set wildignorecase " When set case is ignored when completing file names and directories
+endif
 set wildignore+=*.o,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.swp,*.bak,*.pyc,*.class,.git,*.asv
 set wildignore+=*.aux,*.out,*.toc " latex
@@ -218,20 +240,12 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
 set wildignore+=*.zip,*.7z " compressed files
 set nobackup         " turn off backup
-set nowb             " Make a backup before overwriting a file
+set nowb             " Don't make a backup before overwriting a file
 set noswapfile       " Disable swap files. If Vim or your computer crashes, swapfiles allow you to recover those changes
-set nowrap           " When on, lines longer than the width of the window will wrap and displaying continues on the next line
+set nowrap           " Don't wrap lines longer than the width of the window
 set textwidth=0      " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
 set spelllang=de,en_us " When the 'spell' option is on spellchecking will be done for these languages
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-if has('nvim')
-    set encoding=utf-8
-else
-    set termencoding=utf-8
-    set encoding=utf-8
-    set fileencoding=utf-8
-endif
-" set grepprg=grep\ --exclude-dir=\".git\"\ --exclude=tags\ -n\ $\*\ /dev/null
 
 " cindent:
 " help: :h cinoptions-values
@@ -286,10 +300,13 @@ augroup END
 
 " jump to the last position when reopening a file
 " from :help last-position-jump
-au BufReadPost *
-   \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-   \ |   exe "normal! g`\""
-   \ | endif
+augroup LastPositionJump
+    autocmd!
+    autocmd BufReadPost *
+       \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+       \ |   exe "normal! g`\""
+       \ | endif
+augroup END
 
 " =============================================================================
 " Keymaps
@@ -326,19 +343,37 @@ noremap <C-j> <C-W><C-J>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 noremap <C-h> <C-W><C-H>
-" jj to leave terminal insert mode
-tnoremap jj <C-\><C-n>
-" might break e.g. FZF in the terminal:
-" tnoremap <Esc> <C-\><C-n>
+" Terminal mode (Vim 8.1+ / Neovim):
+if exists(':tnoremap')
+    " jj to leave terminal insert mode
+    tnoremap jj <C-\><C-n>
+    " might break e.g. FZF in the terminal:
+    " tnoremap <Esc> <C-\><C-n>
 
-" Navigation in terminal mode
-tnoremap <C-j> <C-\><C-n><C-W>j
-tnoremap <C-k> <C-\><C-n><C-W>k
-tnoremap <C-l> <C-\><C-n><C-W>l
-tnoremap <C-h> <C-\><C-n><C-W>h
+    " Navigation in terminal mode
+    tnoremap <C-j> <C-\><C-n><C-W>j
+    tnoremap <C-k> <C-\><C-n><C-W>k
+    tnoremap <C-l> <C-\><C-n><C-W>l
+    tnoremap <C-h> <C-\><C-n><C-W>h
+endif
 
-" Strips the trailing whitespace from a file:
-nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+" Strips the trailing whitespace from a file (keeps the cursor/window
+" position; the last search pattern is restored automatically when the
+" function returns, see :h function-search-undo):
+function! s:StripTrailingWhitespace() abort
+    let l:view = winsaveview()
+    silent! %s/\s\+$//e
+    call winrestview(l:view)
+endfunction
+nnoremap <silent> <leader>w :call <SID>StripTrailingWhitespace()<CR>
+
+" :grep uses ripgrep if available, grep otherwise:
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --smart-case
+    set grepformat=%f:%l:%c:%m
+elseif executable('grep')
+    set grepprg=grep\ -n\ --exclude-dir=.git\ --exclude=tags\ $*\ /dev/null
+endif
 
 " Use ripgrep if available
 if executable('rg')
@@ -384,13 +419,16 @@ inoremap <C-x><C-t> <C-X><C-]>
 " Visual settings
 " =============================================================================
 
-" Empty fillchar (looks nicer for split windows):
-set fillchars+=vert:\ 
+" Empty fillchar (looks nicer for split windows). Uses :execute, so that the
+" line does not end with a space (which <leader>w would strip):
+execute 'set fillchars+=vert:\ '
 set synmaxcol=256 " maximum line length for syntax coloring
 set noerrorbells  " don't ring the bell (beep or screen flash) for error messages
 set novisualbell  " disable visual bell
 set t_vb=         " disable visual bell
-set belloff=all   " just be quiet
+if exists('+belloff') " Vim 7.4.793+
+    set belloff=all   " just be quiet
+endif
 set nofoldenable  " When off, all folds are open
 " set cursorline  " this is slooooooooow, don't use it
 " set termguicolors " use 24-bit color
@@ -462,43 +500,41 @@ if g:is_msys || g:is_msysgit
 endif
 
 " Windows Terminal specific settings
-" Detect Windows Terminal (Stack Overflow: 57014805)
-if has("unix")
-    try
-        let lines = readfile("/proc/version")
-        if lines[0] =~ "Microsoft"
-            " Disable mouse selection inside of Vim, so we can use Windows
-            " Terminal selection and Ctrl+Shift+C to copy text
-            set mouse=""
-            " WSL yank support (Stack Overflow: 1291425)
-            if has('nvim')
-
-                let g:clipboard = {
-                    \   'name': 'win32yank-wsl',
-                    \   'copy': {
-                    \      '+': 'win32yank.exe -i --crlf',
-                    \      '*': 'win32yank.exe -i --crlf',
-                    \    },
-                    \   'paste': {
-                    \      '+': 'win32yank.exe -o --lf',
-                    \      '*': 'win32yank.exe -o --lf',
-                    \   },
-                    \   'cache_enabled': 0,
-                    \ }
-            else
-
-                let s:clip = 'clip.exe' " change this path according to your mount point
-                if executable(s:clip)
-                    augroup WSLYank
-                        autocmd!
-                        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-                    augroup END
-                endif
-
-            endif
+" Detect WSL: has('wsl') exists since Vim 8.2.0045 / Neovim, older versions
+" check /proc/version (WSL1: "Microsoft", WSL2: "microsoft", so use =~? to
+" match case-insensitive independent of 'ignorecase'; Stack Overflow: 57014805)
+let s:is_wsl = has('wsl')
+if !s:is_wsl && has('unix') && filereadable('/proc/version')
+    let s:is_wsl = get(readfile('/proc/version', '', 1), 0, '') =~? 'microsoft'
+endif
+if s:is_wsl
+    " Disable mouse selection inside of Vim, so we can use Windows
+    " Terminal selection and Ctrl+Shift+C to copy text
+    set mouse=
+    " WSL yank support (Stack Overflow: 1291425)
+    if has('nvim')
+        let g:clipboard = {
+            \   'name': 'win32yank-wsl',
+            \   'copy': {
+            \      '+': 'win32yank.exe -i --crlf',
+            \      '*': 'win32yank.exe -i --crlf',
+            \    },
+            \   'paste': {
+            \      '+': 'win32yank.exe -o --lf',
+            \      '*': 'win32yank.exe -o --lf',
+            \   },
+            \   'cache_enabled': 0,
+            \ }
+    else
+        let s:clip = 'clip.exe' " change this path according to your mount point
+        " TextYankPost requires Vim 8.0.1394+
+        if executable(s:clip) && exists('##TextYankPost')
+            augroup WSLYank
+                autocmd!
+                autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+            augroup END
         endif
-    catch
-    endtry
+    endif
 endif
 
 " Use this instance as a read-only 'sticky note'
@@ -515,7 +551,7 @@ let g:loaded_rrhelper = 1 " disable weird plugin
 let g:loaded_netrwPlugin = 1 " disable netrw
 let g:loaded_logiPat = 1 " disable logiPat.vim plugin
 let g:loaded_getscriptPlugin = 1
-let g:loaded_matchparen = 1 " matchit is slow, disable it
+let g:loaded_matchparen = 1 " matchparen (highlighting of matching parens) is slow, disable it
 runtime macros/matchit.vim
 
 " Ctrlp (use <c-d> to switch to filename-only, <c-r> for RegEx)
@@ -527,6 +563,7 @@ let g:ctrlp_extensions          = [ 'tag' ]
 " r - the nearest ancestor of the current file that contains one of these
 "      directories or files: .git .hg .svn .bzr _darcs
 " a - the directory of the current file, unless it is a subdirectory of the cwd
+" 0 - disabled: CtrlP uses Vim's current working directory (see :Rooter above)
 let g:ctrlp_working_path_mode   = '0'
 " Specify the number of recently opened files you want CtrlP to remember:
 let g:ctrlp_mruf_max            = 500
@@ -559,7 +596,7 @@ let g:ctrlp_max_depth             = 7
 
 if !(has('nvim') && (g:is_msysgit || g:is_msys))
     if executable('rg')
-        let g:ctrlp_user_command = 'rg %s --max-depth=12 --files --color=never --hidden'
+        let g:ctrlp_user_command = 'rg %s --max-depth=12 --files --color=never --hidden --glob "!.git"'
         " let g:ctrlp_use_caching = 0 " disable per-session caching
     endif
 endif
@@ -575,8 +612,11 @@ function! RebindNerdTree()
     nnoremap <silent> <Leader>f :NERDTree<CR>
 endfunction
 nnoremap <silent> <Leader>f :packadd nerdtree <bar> :NERDTree <bar> :call RebindNerdTree()<CR>
-au Filetype nerdtree setlocal nolist
-autocmd FileType nerdtree nnoremap <buffer> <F5> :NERDTreeRefreshRoot<CR>
+augroup NerdTreeGroup
+    autocmd!
+    autocmd FileType nerdtree setlocal nolist
+    autocmd FileType nerdtree nnoremap <buffer> <F5> :NERDTreeRefreshRoot<CR>
+augroup END
 
 " NERD Commenter:
 let NERDMenuMode                = 0
@@ -603,32 +643,42 @@ let g:rooter_manual_only = 1    " stop vim-rooter changing directory automatical
 
 " GitHub Co-Pilot Plugin
 function! CopilotStatus() abort
+  if !exists('g:loaded_copilot')
+    return ''
+  endif
   if exists('*copilot#Enabled') && copilot#Enabled()
     return 'Copilot:ON 🤖 '
   endif
   return 'Copilot:OFF '
 endfunction
-if version >= 900 || has('nvim')
-  if !executable('node') " node.js available? (required by co-pilot plugin)
+let g:copilot_lsp_settings = {
+\   'telemetry': {
+\     'telemetryLevel': 'off',
+\   },
+\ }
+" Auto-Load Copilot
+" augroup CopilotFiletypes
+"   autocmd!
+"   autocmd FileType c,cpp,python,matlab packadd copilot.vim
+" augroup END
+
+" Only warn about a missing node.js (required by the Copilot plugin) if the
+" plugin was actually loaded (e.g. via :packadd copilot.vim in ~/.vimrc.local).
+" Checked on VimEnter, because ~/.vimrc.local is sourced at the end of this file.
+function! s:CheckCopilotNode() abort
+  if exists('g:loaded_copilot') && !executable('node')
     echohl WarningMsg
     echom 'GitHub Copilot Plugin: node.js not found in PATH!'
     echom 'Install up-to-date node.js:'
     echom '  Linux:   curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs'
     echom '  Windows: winget install OpenJS.NodeJS.LTS'
     echohl None
-  else
-    let g:copilot_lsp_settings = {
-    \   'telemetry': {
-    \     'telemetryLevel': 'off',
-    \   },
-    \ }
-    " Auto-Load Copilot
-    " augroup CopilotFiletypes
-    "   autocmd!
-    "   autocmd FileType c,cpp,python,matlab packadd copilot.vim
-    " augroup END
   endif
-endif
+endfunction
+augroup CopilotNodeCheck
+  autocmd!
+  autocmd VimEnter * call s:CheckCopilotNode()
+augroup END
 
 " =============================================================================
 " File specific settings
@@ -658,17 +708,18 @@ function! SyncTexForward() abort
         " In browse mode (hand visible) press Shift+Left click to jump to gvim
         "
         " The following command is for FORWARD search from vi to okular
-        let execstr = "silent !okular --unique " .. expand("%:p:r") .. ".pdf\\#src:" .. line(".") .. expand("%:p") .. " &"
+        " (use '.' for string concatenation, '..' requires Vim 8.1.1114+)
+        let execstr = "silent !okular --unique " . expand("%:p:r") . ".pdf\\#src:" . line(".") . expand("%:p") . " &"
         execute execstr
     endif
 endfunction
 augroup LatexGroup
     autocmd!
-    autocmd BufEnter *.tex    compiler tex
-    autocmd BufEnter *.tex    setlocal makeprg=make
-    autocmd BufEnter *.tex    setlocal errorformat=%f:%l:\ %m
-    autocmd BufEnter *.tex    nnoremap <Leader>v :call SyncTexForward()<CR>
-    " autocmd BufEnter *.tex    setlocal wrap
+    autocmd FileType tex    compiler tex
+    autocmd FileType tex    setlocal makeprg=make
+    autocmd FileType tex    setlocal errorformat=%f:%l:\ %m
+    autocmd FileType tex    nnoremap <buffer> <Leader>v :call SyncTexForward()<CR>
+    " autocmd FileType tex    setlocal wrap
 augroup END
 
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs:
