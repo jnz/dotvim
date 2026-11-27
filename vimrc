@@ -153,7 +153,7 @@ vnoremap <S-Space> <C-u>
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : ':nohlsearch<CR>'
-set path+=**   " search files in subdirectories with :find and :e
+set path+=**   " search files in subdirectories with :find and gf (not in / and ~, see s:UpdateSearchScope())
 
 " =============================================================================
 " Settings
@@ -339,6 +339,9 @@ function! s:change_dir_once() abort
         if exists('g:loaded_rooter')
             :Rooter
         endif
+        " A :cd inside an autocommand doesn't trigger DirChanged (autocommands
+        " don't nest), so update the search scope explicitly:
+        call s:UpdateSearchScope()
         let s:change_dir_once_latch=1
     endif
 endfunction
@@ -660,9 +663,41 @@ let g:ctrlp_max_depth             = 7
 
 if !(has('nvim') && (g:is_msysgit || g:is_msys))
     if executable('rg')
-        let g:ctrlp_user_command = 'rg %s --max-depth=12 --files --color=never --hidden --glob "!.git"'
+        " %d is the max. depth, set by s:UpdateSearchScope() below:
+        let s:ctrlp_rg = 'rg %%s --max-depth=%d --files --color=never --hidden --glob "!.git"'
+        let g:ctrlp_user_command = printf(s:ctrlp_rg, 12)
         " let g:ctrlp_use_caching = 0 " disable per-session caching
     endif
+endif
+
+" Limit the search scope if the working directory is / or ~ (or a drive root
+" on Windows), otherwise the whole tree would be scanned (e.g. 400000+ files
+" in ~): no '**' in 'path' (used by :find and gf) and a max. depth of 4 for
+" CtrlP with rg (g:ctrlp_max_files doesn't apply to g:ctrlp_user_command).
+" Updated on every change of the working directory (e.g. by :Rooter).
+function! s:UpdateSearchScope() abort
+    let l:cwd = fnamemodify(getcwd(), ':p')
+    let l:home = fnamemodify(expand('~'), ':p')
+    if g:is_windows
+        let l:huge = l:cwd ==? l:home || l:cwd =~# '^\a:[\\/]$'
+    else
+        let l:huge = l:cwd ==# l:home || l:cwd ==# '/'
+    endif
+    if l:huge
+        set path-=**
+    elseif index(split(&path, ','), '**') < 0
+        set path+=**
+    endif
+    if exists('s:ctrlp_rg')
+        let g:ctrlp_user_command = printf(s:ctrlp_rg, l:huge ? 4 : 12)
+    endif
+endfunction
+call s:UpdateSearchScope()
+if exists('##DirChanged') " Vim 8.0.1459+
+    augroup UpdateSearchScopeGroup
+        autocmd!
+        autocmd DirChanged * call s:UpdateSearchScope()
+    augroup END
 endif
 
 " Buffer Explorer:
