@@ -132,6 +132,7 @@ hi TabLineSel guifg=#000000 guibg=#f6f6f6 gui=NONE cterm=NONE
 hi Title guifg=#000000 guibg=#ffffff gui=NONE cterm=NONE
 hi VertSplit guifg=#dfdfdf guibg=#b3b3b3 gui=NONE cterm=NONE
 hi Visual guifg=#ffffff guibg=#000080 gui=NONE cterm=NONE
+hi VisualCursor guifg=#ffffff guibg=#357ec7 gui=NONE cterm=NONE
 hi VisualNOS guifg=#dfdfdf guibg=#545454 gui=NONE cterm=NONE
 hi WarningMsg guifg=#800000 guibg=#ffffff gui=NONE cterm=NONE
 hi WildMenu guifg=#ffffff guibg=#000080 gui=NONE cterm=NONE
@@ -205,6 +206,7 @@ if s:t_Co >= 256
   hi Title ctermfg=16 ctermbg=231 cterm=NONE
   hi VertSplit ctermfg=254 ctermbg=249 cterm=NONE
   hi Visual ctermfg=231 ctermbg=18 cterm=NONE
+  hi VisualCursor ctermfg=231 ctermbg=32 cterm=NONE
   hi VisualNOS ctermfg=254 ctermbg=240 cterm=NONE
   hi WarningMsg ctermfg=88 ctermbg=231 cterm=NONE
   hi WildMenu ctermfg=231 ctermbg=18 cterm=NONE
@@ -281,6 +283,7 @@ if s:t_Co >= 8
   hi Title ctermfg=Black ctermbg=White cterm=NONE
   hi VertSplit ctermfg=LightGrey ctermbg=DarkGrey cterm=NONE
   hi Visual ctermfg=White ctermbg=DarkBlue cterm=NONE
+  hi VisualCursor ctermfg=White ctermbg=LightBlue cterm=NONE
   hi VisualNOS ctermfg=LightGrey ctermbg=DarkGrey cterm=NONE
   hi WarningMsg ctermfg=DarkRed ctermbg=White cterm=NONE
   hi WildMenu ctermfg=White ctermbg=DarkBlue cterm=NONE
@@ -402,6 +405,7 @@ endif
 " Color: darkgrey      #545454                   ~         DarkGrey
 " Color: grey          #b3b3b3                   ~         DarkGrey
 " Color: lightgrey     #dfdfdf                   ~         LightGrey
+" Color: cursorgrey    #f0f0f0                   ~         LightGrey
 " Color: verylightgrey #f6f6f6                   ~         LightGrey
 " Color: white         #ffffff                   ~         White
 " Color: brightcyan    rgb(100, 255, 255)        ~         LightCyan

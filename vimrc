@@ -529,6 +529,9 @@ if g:is_gui
     if !exists("g:neovide")
         set lines=40 columns=120 " default window size is a bit small. only use for GUI vims
     endif
+    " Own cursor color in Visual mode (if the colorscheme defines VisualCursor,
+    " e.g. studio98), the black cursor is hard to see in the selection:
+    set guicursor+=v:block-VisualCursor
 else
     if has('balloon_eval_term')
         set balloonevalterm  " Switch on the |balloon-eval| functionality for the terminal.
