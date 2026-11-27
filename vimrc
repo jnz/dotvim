@@ -126,9 +126,6 @@ else
 " =============================================================================
 " Vim
 " =============================================================================
-    if has('crypt-blowfish2') " Vim 7.4.401+
-        set cryptmethod=blowfish2
-    endif
     " remember up to 250 files
     set viminfo='250,<0,/0,s0,:0,h
     if g:is_windows
@@ -144,7 +141,6 @@ endif
 inoremap jj <Esc>
 " Set <leader> to ,
 let mapleader=','
-let g:mapleader=','
 " Easy half-page scrolling with <space>:
 nnoremap <Space> <C-d>
 " won't work in a terminal:
@@ -500,9 +496,8 @@ if g:is_gui
         " Consolas Font for Windows
         set guifont=Consolas:h12
         " set guifont=Monaspace_Neon:h11
-        if has("directx")
-            " set renderoptions=type:directx
-        endif
+        " DirectX rendering (requires has('directx')):
+        " set renderoptions=type:directx
         " autocmd GUIEnter * simalt ~x  " always maximize initial GUI window
     endif
 
