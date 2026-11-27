@@ -275,6 +275,12 @@ if exists('+autocomplete')
         set autocomplete?
     endfunction
     command! AutoCompleteToggle call s:AutoCompleteToggle()
+    " <Tab> accepts the completion (like VS Code): the selected item, or the
+    " first one if nothing is selected yet. Without a menu: a normal <Tab>
+    " (use <C-e> to dismiss the menu first if you want a real <Tab>).
+    inoremap <expr> <Tab> pumvisible()
+                \ ? (complete_info(['selected']).selected == -1 ? "\<C-n>\<C-y>" : "\<C-y>")
+                \ : "\<Tab>"
 endif
 " Extra info (e.g. function signatures) in a popup instead of the preview window:
 if has('patch-8.1.1880')
