@@ -482,7 +482,13 @@ if exists('+belloff') " Vim 7.4.793+
     set belloff=all   " just be quiet
 endif
 set nofoldenable  " When off, all folds are open
-" set cursorline  " this is slooooooooow, don't use it
+" Highlight the current line: costs < 1 ms per cursor move with Vim 9.2
+" (benchmarked 11/2026), but can be slow on old Vims/machines or over slow
+" SSH connections, so only enable it for Vim 9+ and Neovim (Neovim reports
+" an old v:version):
+if has('nvim') || v:version >= 900
+    set cursorline
+endif
 " set termguicolors " use 24-bit color
 
 if g:is_gui
@@ -620,6 +626,8 @@ let g:loaded_logiPat = 1 " disable logiPat.vim plugin
 let g:loaded_getscriptPlugin = 1
 let g:loaded_matchparen = 1 " matchparen (highlighting of matching parens) is slow, disable it
 runtime macros/matchit.vim
+let g:hlyank_duration = 60 " ms (default 300)
+silent! packadd hlyank " highlight yanked text briefly (Vim 9.1+, ignored on older Vims)
 
 " Ctrlp (use <c-d> to switch to filename-only, <c-r> for RegEx)
 nnoremap <silent> <Leader>p :CtrlP<CR>
