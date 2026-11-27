@@ -230,6 +230,7 @@ set expandtab        " In Insert mode: Use the appropriate number of spaces to i
 set nrformats-=octal " Ignore octal numbers for CTRL-A and CTRL-X
 set ttimeout         " Time out on key codes (e.g. <Esc> sequences sent by the terminal)
 set ttimeoutlen=100  " The time in milliseconds that is waited for a key code sequence to complete
+set timeoutlen=500   " Time in ms to wait for a mapped sequence (e.g. jj, <leader>x) to complete (default 1000)
 set lazyredraw       " The screen will not be redrawn while executing macros
 set noshowcmd        " Don't show partial command in last line of the screen (can be slow on slow terminals)
 set showtabline=1    " Only show the tab line if there are at least two tabs (2=always)
@@ -247,7 +248,6 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg " images
 set wildignore+=*.DS_Store " OSX stuff
 set wildignore+=*.zip,*.7z " compressed files
 set nobackup         " turn off backup
-set nowb             " Don't make a backup before overwriting a file
 set noswapfile       " Disable swap files. If Vim or your computer crashes, swapfiles allow you to recover those changes
 set nowrap           " Don't wrap lines longer than the width of the window
 set textwidth=0      " Maximum width of text that is being inserted.  A longer line will be broken after white space to get this width
@@ -522,6 +522,7 @@ else
     if has('termguicolors') || &term =~ 'xterm'
       let &t_SI = "\e[5 q"
       let &t_EI = "\e[1 q"
+      let &t_SR = "\e[3 q" " underline cursor in Replace mode
     endif
 endif
 
@@ -575,11 +576,26 @@ if s:is_wsl
             \ }
     else
         let s:clip = 'clip.exe' " change this path according to your mount point
+        " Copy asynchronously with a job (Vim 8.0+), so big yanks don't block
+        " Vim. Falls back to a blocking system() call on older Vims or if the
+        " job can't be started.
+        function! s:WslYank(text) abort
+            if exists('*job_start')
+                let l:job = job_start([s:clip], {'out_io': 'null', 'err_io': 'null'})
+                if job_status(l:job) !=# 'fail'
+                    let l:ch = job_getchannel(l:job)
+                    call ch_sendraw(l:ch, a:text)
+                    call ch_close_in(l:ch)
+                    return
+                endif
+            endif
+            call system(s:clip, a:text)
+        endfunction
         " TextYankPost requires Vim 8.0.1394+
         if executable(s:clip) && exists('##TextYankPost')
             augroup WSLYank
                 autocmd!
-                autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+                autocmd TextYankPost * if v:event.operator ==# 'y' | call s:WslYank(@0) | endif
             augroup END
         endif
     endif
